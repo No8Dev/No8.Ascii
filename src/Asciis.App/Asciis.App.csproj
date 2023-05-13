@@ -1,0 +1,85 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <Authors>Brian Donovan-Smith</Authors>
+    <Product>Asciis App</Product>
+    <Copyright>Copyright © 2022 Brian Donovan-Smith</Copyright>
+    <Description>Ascii Application user interface</Description>
+    <Summary>Asciis App</Summary>
+    <Title>Asciis.App is a framework for creating ascii, console, terminal, console, text user interfaces</Title>
+
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageTags>ascii, console, terminal, tui, asciis</PackageTags>
+
+    <RootNamespace>Asciis.App</RootNamespace>
+    <AssemblyName>Asciis.App</AssemblyName>
+    <PackageId>BrainOffline.Asciis.App</PackageId>
+
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="**\*.Generic.cs">
+      <DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.Generic', '.cs'))</DependentUpon>
+    </Compile>
+    <Compile Update="**\*.Windows.cs">
+      <DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.Windows', '.cs'))</DependentUpon>
+    </Compile>
+    <Compile Update="**\*.Fake.cs">
+      <DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.Fake', '.cs'))</DependentUpon>
+    </Compile>
+    <Compile Update="**\*.Curses.cs">
+      <DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.Curses', '.cs'))</DependentUpon>
+    </Compile>
+    <Compile Update="**\*.Unix.cs">
+      <DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.Unix', '.cs'))</DependentUpon>
+    </Compile>
+    <Compile Update="**\*.MacOS.cs">
+      <DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.MacOS', '.cs'))</DependentUpon>
+    </Compile>
+    <Compile Update="Platforms\Curses.Unix.cs">
+      <DependentUpon>Curses.Unix.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    
+    <InternalsVisibleTo Include="Asciis.App.Tests" />
+  </ItemGroup>
+   
+  <ItemGroup>
+    <ProjectReference Include="..\Asciis\No8.Ascii.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="System" />
+    <Using Include="System.Linq" />
+    <Using Include="System.Drawing" />
+    <Using Include="System.Text" />
+    <Using Include="System.Collections.Generic" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Platforms\MacOS\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+  </ItemGroup>
+
+</Project>

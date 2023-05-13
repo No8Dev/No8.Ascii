@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>10.0</LangVersion>
+
+		<Authors>Brian Donovan-Smith</Authors>
+		<Product>Asciis library</Product>
+		<Copyright>Copyright © 2021 Brian Donovan-Smith</Copyright>
+		<Description>Flexible Layout</Description>
+		<PackageId>BrainOffline.Asciis</PackageId>
+
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
+	</ItemGroup>
+
+</Project>

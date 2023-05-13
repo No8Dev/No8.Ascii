@@ -1,0 +1,132 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31808.319
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Stuff", "Stuff", "{17F1B02C-3BE7-4FDD-91D6-3573DF67C3EE}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Inspiration.txt = Inspiration.txt
+		Inspiration.Unicode.txt = Inspiration.Unicode.txt
+		LICENSE = LICENSE
+		Playing.txt = Playing.txt
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "No8.Ascii", "src\Asciis\No8.Ascii.csproj", "{2F91D120-2AE4-4031-BFB0-1EA1A7276307}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "No8.Ascii.Tests", "tests\Asciis.Tests\No8.Ascii.Tests.csproj", "{E5945AA8-3578-4EAE-9191-AF533AEC7DD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E52B2BE8-5FF3-4283-85B0-E74B26000C6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{EF987E38-72A6-48C0-BD89-013C280A6041}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{8423D9F1-3019-4944-B396-96AF11DC22B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSample", "examples\SimpleSample\SimpleSample.csproj", "{85D7EED4-890C-44A9-A13E-A86F9D2D91C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MakeItRain", "examples\MakeItRain\MakeItRain.csproj", "{6E59157D-7E86-43A6-A7E9-21F422FE913F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Play", "examples\Play\Play.csproj", "{C15837D1-C501-47EC-821E-0FF23F556D07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{2CA11432-DAFA-4CB4-A925-457B67F7DFB1}"
+	ProjectSection(SolutionItems) = preProject
+		Docs\Helpers.readme.md = Docs\Helpers.readme.md
+		Docs\How To Layouts.md = Docs\How To Layouts.md
+		Docs\How to write Events.md = Docs\How to write Events.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F91D120-2AE4-4031-BFB0-1EA1A7276307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F91D120-2AE4-4031-BFB0-1EA1A7276307}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F91D120-2AE4-4031-BFB0-1EA1A7276307}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2F91D120-2AE4-4031-BFB0-1EA1A7276307}.Debug|x86.Build.0 = Debug|Any CPU
+		{2F91D120-2AE4-4031-BFB0-1EA1A7276307}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F91D120-2AE4-4031-BFB0-1EA1A7276307}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F91D120-2AE4-4031-BFB0-1EA1A7276307}.Release|x86.ActiveCfg = Release|Any CPU
+		{2F91D120-2AE4-4031-BFB0-1EA1A7276307}.Release|x86.Build.0 = Release|Any CPU
+		{E5945AA8-3578-4EAE-9191-AF533AEC7DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5945AA8-3578-4EAE-9191-AF533AEC7DD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5945AA8-3578-4EAE-9191-AF533AEC7DD1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E5945AA8-3578-4EAE-9191-AF533AEC7DD1}.Debug|x86.Build.0 = Debug|Any CPU
+		{E5945AA8-3578-4EAE-9191-AF533AEC7DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5945AA8-3578-4EAE-9191-AF533AEC7DD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5945AA8-3578-4EAE-9191-AF533AEC7DD1}.Release|x86.ActiveCfg = Release|Any CPU
+		{E5945AA8-3578-4EAE-9191-AF533AEC7DD1}.Release|x86.Build.0 = Release|Any CPU
+		{85D7EED4-890C-44A9-A13E-A86F9D2D91C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85D7EED4-890C-44A9-A13E-A86F9D2D91C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85D7EED4-890C-44A9-A13E-A86F9D2D91C7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{85D7EED4-890C-44A9-A13E-A86F9D2D91C7}.Debug|x86.Build.0 = Debug|Any CPU
+		{85D7EED4-890C-44A9-A13E-A86F9D2D91C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85D7EED4-890C-44A9-A13E-A86F9D2D91C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85D7EED4-890C-44A9-A13E-A86F9D2D91C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{85D7EED4-890C-44A9-A13E-A86F9D2D91C7}.Release|x86.Build.0 = Release|Any CPU
+		{6E59157D-7E86-43A6-A7E9-21F422FE913F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E59157D-7E86-43A6-A7E9-21F422FE913F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E59157D-7E86-43A6-A7E9-21F422FE913F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6E59157D-7E86-43A6-A7E9-21F422FE913F}.Debug|x86.Build.0 = Debug|Any CPU
+		{6E59157D-7E86-43A6-A7E9-21F422FE913F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E59157D-7E86-43A6-A7E9-21F422FE913F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E59157D-7E86-43A6-A7E9-21F422FE913F}.Release|x86.ActiveCfg = Release|Any CPU
+		{6E59157D-7E86-43A6-A7E9-21F422FE913F}.Release|x86.Build.0 = Release|Any CPU
+		{C15837D1-C501-47EC-821E-0FF23F556D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C15837D1-C501-47EC-821E-0FF23F556D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C15837D1-C501-47EC-821E-0FF23F556D07}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C15837D1-C501-47EC-821E-0FF23F556D07}.Debug|x86.Build.0 = Debug|Any CPU
+		{C15837D1-C501-47EC-821E-0FF23F556D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C15837D1-C501-47EC-821E-0FF23F556D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C15837D1-C501-47EC-821E-0FF23F556D07}.Release|x86.ActiveCfg = Release|Any CPU
+		{C15837D1-C501-47EC-821E-0FF23F556D07}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2F91D120-2AE4-4031-BFB0-1EA1A7276307} = {EF987E38-72A6-48C0-BD89-013C280A6041}
+		{E5945AA8-3578-4EAE-9191-AF533AEC7DD1} = {E52B2BE8-5FF3-4283-85B0-E74B26000C6B}
+		{85D7EED4-890C-44A9-A13E-A86F9D2D91C7} = {8423D9F1-3019-4944-B396-96AF11DC22B7}
+		{6E59157D-7E86-43A6-A7E9-21F422FE913F} = {8423D9F1-3019-4944-B396-96AF11DC22B7}
+		{C15837D1-C501-47EC-821E-0FF23F556D07} = {8423D9F1-3019-4944-B396-96AF11DC22B7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F8F8A4D-7B8D-4C2A-AC5E-CD7117F74C03}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.FileWidth = 80
+		$1.scope = text/x-csharp
+		$1.TabWidth = 8
+		$1.IndentWidth = 8
+		$0.CSharpFormattingPolicy = $2
+		$2.scope = text/x-csharp
+		$2.IndentSwitchSection = False
+		$2.NewLinesForBracesInTypes = False
+		$2.NewLinesForBracesInProperties = False
+		$2.NewLinesForBracesInAccessors = False
+		$2.NewLinesForBracesInAnonymousMethods = False
+		$2.NewLinesForBracesInControlBlocks = False
+		$2.NewLinesForBracesInAnonymousTypes = False
+		$2.NewLinesForBracesInObjectCollectionArrayInitializers = False
+		$2.NewLinesForBracesInLambdaExpressionBody = False
+		$2.NewLineForElse = False
+		$2.NewLineForCatch = False
+		$2.NewLineForFinally = False
+		$2.NewLineForMembersInObjectInit = False
+		$2.NewLineForMembersInAnonymousTypes = False
+		$2.NewLineForClausesInQuery = False
+		$2.SpacingAfterMethodDeclarationName = True
+		$2.SpaceAfterMethodCallName = True
+		$2.SpaceBeforeOpenSquareBracket = True
+		$0.DotNetNamingPolicy = $3
+		$0.StandardHeader = $4
+	EndGlobalSection
+EndGlobal

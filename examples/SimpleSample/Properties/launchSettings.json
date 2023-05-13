@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "SimpleSample": {
+      "commandName": "Project",
+      "hotReloadEnabled": false
+    },
+    "Old Cmd": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Windows\\System32\\cmd.exe",
+      "commandLineArgs": "/c \"$(RunCommand)\""
+    }
+  }
+}
