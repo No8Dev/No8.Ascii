@@ -3,16 +3,14 @@ using No8.Ascii.Controls;
 
 namespace No8.Ascii;
 
-using static Pixel;
-
 public class Canvas
 {
     private static readonly Rune DefaultChar = new(' '); // space
     private static readonly Rune Zero        = new(0);
 
     /// The current canvas state
-    //public Array2D<Glyph> Glyphs { get; private set; }
     public Glyph[] Glyphs { get; private set; }
+    public VecF[] Offsets { get; private set; }
 
     public int Width { get; private set; }
     public int Height { get; private set; }
@@ -35,6 +33,7 @@ public class Canvas
         Size = new Vec(width, height);
 
         Glyphs = new Glyph[width * height];
+        Offsets = new VecF[width * height];
         var len = Glyphs.Length;
         for (int i = 0; i < len; i++)
             Glyphs[i] = new Glyph(DefaultChar, Foreground, Background);
@@ -68,11 +67,12 @@ public class Canvas
         return false;
     }
 
-    public void SetGlyph(float x, float y, Glyph glyph) => SetGlyph((int)x, (int)y, glyph);
+    public void SetGlyph(float x, float y, Glyph glyph, float offsetX = 0f, float offsetY = 0f) => 
+        SetGlyph((int)x, (int)y, glyph, offsetX, offsetY);
 
-    public void SetGlyph(int x, int y, Glyph glyph)
+    public void SetGlyph(int x, int y, Glyph glyph, float offsetX = 0f, float offsetY = 0f)
     {
-        SetGlyph(x, y, glyph.Chr, glyph.Fore, glyph.Back, glyph.OffsetX, glyph.OffsetY);
+        SetGlyph(x, y, glyph.Chr, glyph.Fore, glyph.Back, offsetX, offsetY);
     }
 
     public void SetGlyph(int x, int y, Rune chr, Color? foreground = null, Color? background = null, float offsetX = 0f, float offsetY = 0f)
@@ -81,9 +81,7 @@ public class Canvas
             return;
 
         var glyph = this[y, x];
-
-        glyph.OffsetX = offsetX;
-        glyph.OffsetY = offsetY;
+        Offsets[y * Width + x] = new VecF(offsetX, offsetY);
 
         if (chr != Zero)
             glyph.Chr = chr;
@@ -124,19 +122,31 @@ public class Canvas
     public void Resize(int wide, int high)
     {
         var newGlyphs = new Glyph[wide * high];
+        var newOffsets = new VecF[wide * high];
 
-        for (int x = 0; x < Math.Min(Width, wide); x++)
+        for (int x = 0; x < wide; x++)
         {
-            for (int y = 0; y < Math.Min(Height, high); y++)
-                newGlyphs[y * wide + x] = this[y, x];
+            for (int y = 0; y < high; y++)
+            {
+                var index = y * wide + x;
+                if (x < Width && y < Height)
+                {
+                    newGlyphs[index] = this[y, x];
+                    newOffsets[index] = Offsets[index];
+                }
+                else
+                {
+                    newGlyphs[index] = new Glyph(DefaultChar, Background, Foreground);
+                    newOffsets[index] = VecF.Zero;
+                }
+            }
         }
-        for (int i = 0; i < newGlyphs.Length; i++)
-            newGlyphs[i] ??= new Glyph(DefaultChar, Background, Foreground);
 
         Width = wide;
         Height = high;
         Size = new Vec(Width, Height);
         Glyphs = newGlyphs;
+        Offsets = newOffsets;
     }
 
     public override string ToString()
@@ -180,27 +190,27 @@ public class Canvas
 
     private bool IsLine(Rune rune)
     {
-        return DoubleLine.Contains(rune) ||
-               SingleLine.Contains(rune) ||
-               RoundLine.Contains(rune) ||
-               DoubleHorz.Contains(rune) ||
-               SingleHorz.Contains(rune);
+        return LineDrawSet.DoubleLine.Contains(rune) ||
+               LineDrawSet.SingleLine.Contains(rune) ||
+               LineDrawSet.RoundLine.Contains(rune) ||
+               LineDrawSet.DoubleHorz.Contains(rune) ||
+               LineDrawSet.SingleHorz.Contains(rune);
     }
 
     private LineDrawSet? GetLineDrawSet(LineSet lineSet)
     {
         return lineSet switch
         {
-            LineSet.Single => SingleLine,
-            LineSet.Double => DoubleLine,
-            LineSet.Rounded => RoundLine,
-            LineSet.SingleHorz => SingleHorz,
-            LineSet.DoubleHorz => DoubleHorz,
-            LineSet.DoubleOver => SingleLine,
-            LineSet.DoubleUnder => SingleLine,
-            LineSet.DoubleRaised => SingleLine,
-            LineSet.DoublePressed => SingleLine,
-            LineSet.None => NoLine,
+            LineSet.Single => LineDrawSet.SingleLine,
+            LineSet.Double => LineDrawSet.DoubleLine,
+            LineSet.Rounded => LineDrawSet.RoundLine,
+            LineSet.SingleHorz => LineDrawSet.SingleHorz,
+            LineSet.DoubleHorz => LineDrawSet.DoubleHorz,
+            LineSet.DoubleOver => LineDrawSet.SingleLine,
+            LineSet.DoubleUnder => LineDrawSet.SingleLine,
+            LineSet.DoubleRaised => LineDrawSet.SingleLine,
+            LineSet.DoublePressed => LineDrawSet.SingleLine,
+            LineSet.None => LineDrawSet.NoLine,
             _ => null
         };
     }
@@ -594,14 +604,14 @@ public class Canvas
 
         if (IsLine(oldCh))
         {
-            if (lineSet == LineSet.Single && SingleLine.Contains(oldCh))
-                return SingleLine.Combine(oldCh, ch);
+            if (lineSet == LineSet.Single && LineDrawSet.SingleLine.Contains(oldCh))
+                return LineDrawSet.SingleLine.Combine(oldCh, ch);
 
-            if (lineSet == LineSet.Rounded && RoundLine.Contains(oldCh))
-                return RoundLine.Combine(oldCh, ch);
+            if (lineSet == LineSet.Rounded && LineDrawSet.RoundLine.Contains(oldCh))
+                return LineDrawSet.RoundLine.Combine(oldCh, ch);
 
-            if (lineSet == LineSet.Double && DoubleLine.Contains(oldCh))
-                return DoubleLine.Combine(oldCh, ch);
+            if (lineSet == LineSet.Double && LineDrawSet.DoubleLine.Contains(oldCh))
+                return LineDrawSet.DoubleLine.Combine(oldCh, ch);
 
             return TryCombine(oldCh, ch);
         }
@@ -613,38 +623,38 @@ public class Canvas
     {
         int underIndex = -1;
         int overIndex = -1;
-        if (DoubleLine.Contains(oldCh))
+        if (LineDrawSet.DoubleLine.Contains(oldCh))
         {
-            underIndex = DoubleLine.IndexOf(oldCh);
-            overIndex = SingleLine.IndexOf(ch);
+            underIndex = LineDrawSet.DoubleLine.IndexOf(oldCh);
+            overIndex = LineDrawSet.SingleLine.IndexOf(ch);
         }
-        else if (SingleLine.Contains(oldCh))
+        else if (LineDrawSet.SingleLine.Contains(oldCh))
         {
-            underIndex = SingleLine.IndexOf(oldCh);
-            overIndex = DoubleLine.IndexOf(ch);
+            underIndex = LineDrawSet.SingleLine.IndexOf(oldCh);
+            overIndex = LineDrawSet.DoubleLine.IndexOf(ch);
         }
-        else if (RoundLine.Contains(oldCh))
+        else if (LineDrawSet.RoundLine.Contains(oldCh))
         {
-            underIndex = RoundLine.IndexOf(oldCh);
-            overIndex = DoubleLine.IndexOf(ch);
+            underIndex = LineDrawSet.RoundLine.IndexOf(oldCh);
+            overIndex = LineDrawSet.DoubleLine.IndexOf(ch);
         }
 
         if (underIndex >= 0 && overIndex >= 0)
         {
-            if (ch == SingleLine.Horz ||
-                 ch == SingleLine.HorzStart ||
-                 ch == SingleLine.HorzEnd ||
-                 ch == DoubleLine.Vert ||
-                 ch == DoubleLine.VertStart ||
-                 ch == DoubleLine.VertEnd)
-                return SingleHorz[underIndex | overIndex];
-            if (ch == DoubleLine.Horz ||
-                 ch == DoubleLine.HorzStart ||
-                 ch == DoubleLine.HorzEnd ||
-                 ch == SingleLine.Vert ||
-                 ch == SingleLine.VertStart ||
-                 ch == SingleLine.VertEnd)
-                return DoubleHorz[underIndex | overIndex];
+            if (ch == LineDrawSet.SingleLine.Horz ||
+                 ch == LineDrawSet.SingleLine.HorzStart ||
+                 ch == LineDrawSet.SingleLine.HorzEnd ||
+                 ch == LineDrawSet.DoubleLine.Vert ||
+                 ch == LineDrawSet.DoubleLine.VertStart ||
+                 ch == LineDrawSet.DoubleLine.VertEnd)
+                return LineDrawSet.SingleHorz[underIndex | overIndex];
+            if (ch == LineDrawSet.DoubleLine.Horz ||
+                 ch == LineDrawSet.DoubleLine.HorzStart ||
+                 ch == LineDrawSet.DoubleLine.HorzEnd ||
+                 ch == LineDrawSet.SingleLine.Vert ||
+                 ch == LineDrawSet.SingleLine.VertStart ||
+                 ch == LineDrawSet.SingleLine.VertEnd)
+                return LineDrawSet.DoubleHorz[underIndex | overIndex];
         }
 
         return ch;

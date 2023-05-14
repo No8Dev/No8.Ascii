@@ -1,5 +1,7 @@
 ﻿namespace No8.Ascii;
 
+
+
 public static class Pixel
 {
     public static class Block
@@ -143,201 +145,61 @@ public static class Pixel
         public static readonly Rune Six   = (Rune)'⚅';
     }
 
-    public static readonly Dictionary<ExChar, char> UnicodeChar =
-        new Dictionary<ExChar, char>
-        {
-            [ExChar.BoxDoubleUpLeft]         = '╔',
-            [ExChar.BoxDoubleUpRight]        = '╗',
-            [ExChar.BoxDoubleDownLeft]       = '╚',
-            [ExChar.BoxDoubleDownRight]      = '╝',
-            [ExChar.BoxDoubleHorz]           = '═',
-            [ExChar.BoxDoubleVert]           = '║',
-            [ExChar.BoxDoubleCross]          = '╬',
-            [ExChar.BoxDoubleLeftTee]        = '╠',
-            [ExChar.BoxDoubleRightTee]       = '╣',
-            [ExChar.BoxDoubleTopTee]         = '╦',
-            [ExChar.BoxDoubleBottomTee]      = '╩',
-            [ExChar.LineDoubleLeft]          = '╸',
-            [ExChar.LineDoubleTop]           = '╹',
-            [ExChar.LineDoubleRight]         = '╺',
-            [ExChar.LineDoubleDown]          = '╻',
-            [ExChar.BoxSingleUpLeft]         = '┌',
-            [ExChar.BoxSingleUpRight]        = '┐',
-            [ExChar.BoxSingleDownLeft]       = '└',
-            [ExChar.BoxSingleDownRight]      = '┘',
-            [ExChar.BoxSingleHorz]           = '─',
-            [ExChar.BoxSingleVert]           = '│',
-            [ExChar.BoxSingleCross]          = '┼',
-            [ExChar.BoxSingleLeftTee]        = '├',
-            [ExChar.BoxSingleRightTee]       = '┤',
-            [ExChar.BoxSingleTopTee]         = '┬',
-            [ExChar.BoxSingleBottomTee]      = '┴',
-            [ExChar.LineSingleLeft]          = '╴',
-            [ExChar.LineSingleTop]           = '╵',
-            [ExChar.LineSingleRight]         = '╶',
-            [ExChar.LineSingleDown]          = '╷',
-            [ExChar.BoxDoubleHorzUpLeft]     = '╒',
-            [ExChar.BoxDoubleHorzUpRight]    = '╕',
-            [ExChar.BoxDoubleHorzDownLeft]   = '╘',
-            [ExChar.BoxDoubleHorzDownRight]  = '╛',
-            [ExChar.BoxDoubleHorzHorz]       = '═',
-            [ExChar.BoxDoubleHorzVert]       = '│',
-            [ExChar.BoxDoubleHorzCross]      = '╪',
-            [ExChar.BoxDoubleHorzLeftTee]    = '╞',
-            [ExChar.BoxDoubleHorzRightTee]   = '╡',
-            [ExChar.BoxDoubleHorzTopTee]     = '╤',
-            [ExChar.BoxDoubleHorzBottomTee]  = '╧',
-            [ExChar.BoxSingleHorzUpLeft]     = '╓',
-            [ExChar.BoxSingleHorzUpRight]    = '╖',
-            [ExChar.BoxSingleHorzDownLeft]   = '╙',
-            [ExChar.BoxSingleHorzDownRight]  = '╜',
-            [ExChar.BoxSingleHorzHorz]       = '─',
-            [ExChar.BoxSingleHorzVert]       = '║',
-            [ExChar.BoxSingleHorzCross]      = '╫',
-            [ExChar.BoxSingleHorzLeftTee]    = '╟',
-            [ExChar.BoxSingleHorzRightTee]   = '╢',
-            [ExChar.BoxSingleHorzTopTee]     = '╥',
-            [ExChar.BoxSingleHorzBottomTee]  = '╨',
-            [ExChar.AcuteAccent]             = '´',
-            [ExChar.BlockDown]               = '▄',
-            [ExChar.BlockFull]               = '█',
-            [ExChar.BlockHigh]               = '▓',
-            [ExChar.BlockLow]                = '░',
-            [ExChar.BlockMed]                = '▒',
-            [ExChar.BlockUp]                 = '▀',
-            [ExChar.BlockLeft]               = '▌',
-            [ExChar.BlockRight]              = '▐',
-            [ExChar.Square]                  = '■',
-            [ExChar.Cedilla]                 = '¸',
-            [ExChar.Cent]                    = '¢',
-            [ExChar.Congruence]              = '≡',
-            [ExChar.Copyright]               = '©',
-            [ExChar.Degree]                  = '°',
-            [ExChar.Diaresis]                = '¨',
-            [ExChar.DiphthongLower]          = 'æ',
-            [ExChar.DiphthongUpper]          = 'Æ',
-            [ExChar.Division]                = '÷',
-            [ExChar.ExclamationMarkInverted] = '¡',
-            [ExChar.Function]                = 'ƒ',
-            [ExChar.GenericCurrency]         = '¤',
-            [ExChar.LogicalNotation]         = '¬',
-            [ExChar.Macron]                  = '¯',
-            [ExChar.Multiplication]          = '×',
-            [ExChar.OneHalf]                 = '½',
-            [ExChar.OneQuarter]              = '¼',
-            [ExChar.Paragraph]               = '¶',
-            [ExChar.PlusMinus]               = '±',
-            [ExChar.Pound]                   = '£',
-            [ExChar.QuestionMarkInverted]    = '¿',
-            [ExChar.QuoteMarkLeft]           = '«',
-            [ExChar.QuoteMarkRight]          = '»',
-            [ExChar.RegisteredTrademark]     = '®',
-            [ExChar.Selection]               = '§',
-            [ExChar.SlashZeroLower]          = 'ø',
-            [ExChar.SlashZeroUpper]          = 'Ø',
-            [ExChar.SpaceDot]                = '·',
-            [ExChar.SubscriptOne]            = '¹',
-            [ExChar.SubscriptThree]          = '³',
-            [ExChar.SubScriptTwo]            = '²',
-            [ExChar.ThreeQuarters]           = '¾',
-            [ExChar.Underline]               = '‗',
-            [ExChar.VertBroken]              = '¦',
-            [ExChar.Yen]                     = '¥',
-        };
-
-    public static readonly Dictionary<ExChar, char> AsciiChar =
-        new Dictionary<ExChar, char>
-        {
-            [ExChar.BoxDoubleUpLeft]         = (char)201,
-            [ExChar.BoxDoubleUpRight]        = (char)187,
-            [ExChar.BoxDoubleDownLeft]       = (char)200,
-            [ExChar.BoxDoubleDownRight]      = (char)188,
-            [ExChar.BoxDoubleHorz]           = (char)205,
-            [ExChar.BoxDoubleVert]           = (char)186,
-            [ExChar.BoxDoubleCross]          = (char)206,
-            [ExChar.BoxDoubleLeftTee]        = (char)204,
-            [ExChar.BoxDoubleRightTee]       = (char)185,
-            [ExChar.BoxDoubleTopTee]         = (char)203,
-            [ExChar.BoxDoubleBottomTee]      = (char)202,
-            [ExChar.BoxSingleUpLeft]         = (char)218,
-            [ExChar.BoxSingleUpRight]        = (char)191,
-            [ExChar.BoxSingleDownLeft]       = (char)192,
-            [ExChar.BoxSingleDownRight]      = (char)217,
-            [ExChar.BoxSingleHorz]           = (char)196,
-            [ExChar.BoxSingleVert]           = (char)179,
-            [ExChar.BoxSingleCross]          = (char)197,
-            [ExChar.BoxSingleLeftTee]        = (char)195,
-            [ExChar.BoxSingleRightTee]       = (char)180,
-            [ExChar.BoxSingleTopTee]         = (char)194,
-            [ExChar.BoxSingleBottomTee]      = (char)193,
-            [ExChar.BoxDoubleHorzUpLeft]     = (char)213,
-            [ExChar.BoxDoubleHorzUpRight]    = (char)184,
-            [ExChar.BoxDoubleHorzDownLeft]   = (char)212,
-            [ExChar.BoxDoubleHorzDownRight]  = (char)190,
-            [ExChar.BoxDoubleHorzHorz]       = (char)196,
-            [ExChar.BoxDoubleHorzVert]       = (char)179,
-            [ExChar.BoxDoubleHorzCross]      = (char)216,
-            [ExChar.BoxDoubleHorzLeftTee]    = (char)198,
-            [ExChar.BoxDoubleHorzRightTee]   = (char)181,
-            [ExChar.BoxDoubleHorzTopTee]     = (char)209,
-            [ExChar.BoxDoubleHorzBottomTee]  = (char)207,
-            [ExChar.BoxSingleHorzUpLeft]     = (char)214,
-            [ExChar.BoxSingleHorzUpRight]    = (char)183,
-            [ExChar.BoxSingleHorzDownLeft]   = (char)211,
-            [ExChar.BoxSingleHorzDownRight]  = (char)189,
-            [ExChar.BoxSingleHorzHorz]       = (char)196,
-            [ExChar.BoxSingleHorzVert]       = (char)179,
-            [ExChar.BoxSingleHorzCross]      = (char)215,
-            [ExChar.BoxSingleHorzLeftTee]    = (char)199,
-            [ExChar.BoxSingleHorzRightTee]   = (char)182,
-            [ExChar.BoxSingleHorzTopTee]     = (char)210,
-            [ExChar.BoxSingleHorzBottomTee]  = (char)208,
-            [ExChar.AcuteAccent]             = (char)239,
-            [ExChar.BlockDown]               = (char)220,
-            [ExChar.BlockFull]               = (char)219,
-            [ExChar.BlockHigh]               = (char)178,
-            [ExChar.BlockLow]                = (char)177,
-            [ExChar.BlockMed]                = (char)176,
-            [ExChar.BlockUp]                 = (char)223,
-            [ExChar.BlockLeft]               = (char)221,
-            [ExChar.BlockRight]              = (char)222,
-            [ExChar.Square]                  = (char)254,
-            [ExChar.Cedilla]                 = (char)247,
-            [ExChar.Cent]                    = (char)155,
-            [ExChar.Congruence]              = (char)240,
-            [ExChar.Copyright]               = (char)184,
-            [ExChar.Degree]                  = (char)167,
-            [ExChar.Diaresis]                = (char)249,
-            [ExChar.DiphthongLower]          = (char)145,
-            [ExChar.DiphthongUpper]          = (char)146,
-            [ExChar.Division]                = (char)246,
-            [ExChar.ExclamationMarkInverted] = (char)173,
-            [ExChar.Function]                = (char)159,
-            [ExChar.GenericCurrency]         = (char)207,
-            [ExChar.LogicalNotation]         = (char)170,
-            [ExChar.Macron]                  = (char)238,
-            [ExChar.Multiplication]          = (char)158,
-            [ExChar.OneHalf]                 = (char)171,
-            [ExChar.OneQuarter]              = (char)172,
-            [ExChar.Paragraph]               = (char)244,
-            [ExChar.PlusMinus]               = (char)241,
-            [ExChar.Pound]                   = (char)156,
-            [ExChar.QuestionMarkInverted]    = (char)168,
-            [ExChar.QuoteMarkLeft]           = (char)174,
-            [ExChar.QuoteMarkRight]          = (char)175,
-            [ExChar.RegisteredTrademark]     = (char)169,
-            [ExChar.Selection]               = (char)245,
-            [ExChar.SlashZeroLower]          = (char)155,
-            [ExChar.SlashZeroUpper]          = (char)157,
-            [ExChar.SpaceDot]                = (char)250,
-            [ExChar.SubscriptOne]            = (char)251,
-            [ExChar.SubscriptThree]          = (char)252,
-            [ExChar.SubScriptTwo]            = (char)253,
-            [ExChar.ThreeQuarters]           = (char)243,
-            [ExChar.Underline]               = (char)242,
-            [ExChar.VertBroken]              = (char)221,
-            [ExChar.Yen]                     = (char)157,
-        };
+    public static class Box
+    {
+        public static readonly Rune BoxDoubleUpLeft         = (Rune)'╔';
+        public static readonly Rune BoxDoubleUpRight        = (Rune)'╗';
+        public static readonly Rune BoxDoubleDownLeft       = (Rune)'╚';
+        public static readonly Rune BoxDoubleDownRight      = (Rune)'╝';
+        public static readonly Rune BoxDoubleHorz           = (Rune)'═';
+        public static readonly Rune BoxDoubleVert           = (Rune)'║';
+        public static readonly Rune BoxDoubleCross          = (Rune)'╬';
+        public static readonly Rune BoxDoubleLeftTee        = (Rune)'╠';
+        public static readonly Rune BoxDoubleRightTee       = (Rune)'╣';
+        public static readonly Rune BoxDoubleTopTee         = (Rune)'╦';
+        public static readonly Rune BoxDoubleBottomTee      = (Rune)'╩';
+        public static readonly Rune LineDoubleLeft          = (Rune)'╸';
+        public static readonly Rune LineDoubleTop           = (Rune)'╹';
+        public static readonly Rune LineDoubleRight         = (Rune)'╺';
+        public static readonly Rune LineDoubleDown          = (Rune)'╻';
+        public static readonly Rune BoxSingleUpLeft         = (Rune)'┌';
+        public static readonly Rune BoxSingleUpRight        = (Rune)'┐';
+        public static readonly Rune BoxSingleDownLeft       = (Rune)'└';
+        public static readonly Rune BoxSingleDownRight      = (Rune)'┘';
+        public static readonly Rune BoxSingleHorz           = (Rune)'─';
+        public static readonly Rune BoxSingleVert           = (Rune)'│';
+        public static readonly Rune BoxSingleCross          = (Rune)'┼';
+        public static readonly Rune BoxSingleLeftTee        = (Rune)'├';
+        public static readonly Rune BoxSingleRightTee       = (Rune)'┤';
+        public static readonly Rune BoxSingleTopTee         = (Rune)'┬';
+        public static readonly Rune BoxSingleBottomTee      = (Rune)'┴';
+        public static readonly Rune LineSingleLeft          = (Rune)'╴';
+        public static readonly Rune LineSingleTop           = (Rune)'╵';
+        public static readonly Rune LineSingleRight         = (Rune)'╶';
+        public static readonly Rune LineSingleDown          = (Rune)'╷';
+        public static readonly Rune BoxDoubleHorzUpLeft     = (Rune)'╒';
+        public static readonly Rune BoxDoubleHorzUpRight    = (Rune)'╕';
+        public static readonly Rune BoxDoubleHorzDownLeft   = (Rune)'╘';
+        public static readonly Rune BoxDoubleHorzDownRight  = (Rune)'╛';
+        public static readonly Rune BoxDoubleHorzHorz       = (Rune)'═';
+        public static readonly Rune BoxDoubleHorzVert       = (Rune)'│';
+        public static readonly Rune BoxDoubleHorzCross      = (Rune)'╪';
+        public static readonly Rune BoxDoubleHorzLeftTee    = (Rune)'╞';
+        public static readonly Rune BoxDoubleHorzRightTee   = (Rune)'╡';
+        public static readonly Rune BoxDoubleHorzTopTee     = (Rune)'╤';
+        public static readonly Rune BoxDoubleHorzBottomTee  = (Rune)'╧';
+        public static readonly Rune BoxSingleHorzUpLeft     = (Rune)'╓';
+        public static readonly Rune BoxSingleHorzUpRight    = (Rune)'╖';
+        public static readonly Rune BoxSingleHorzDownLeft   = (Rune)'╙';
+        public static readonly Rune BoxSingleHorzDownRight  = (Rune)'╜';
+        public static readonly Rune BoxSingleHorzHorz       = (Rune)'─';
+        public static readonly Rune BoxSingleHorzVert       = (Rune)'║';
+        public static readonly Rune BoxSingleHorzCross      = (Rune)'╫';
+        public static readonly Rune BoxSingleHorzLeftTee    = (Rune)'╟';
+        public static readonly Rune BoxSingleHorzRightTee   = (Rune)'╢';
+        public static readonly Rune BoxSingleHorzTopTee     = (Rune)'╥';
+        public static readonly Rune BoxSingleHorzBottomTee  = (Rune)'╨';
+    }
 
     //**************************************************
     //             '╔' '╗' '╚' '╝' '═' '║' '╬' '╠' '╣' '╦' '╩'
@@ -353,12 +215,4 @@ public static class Pixel
     // SingleHorz: 214 183 211 189 196 179 215 199 182 210 208
     //**************************************************
 
-    internal static readonly LineDrawSet DoubleLine = new(" ╥╺╔╨║╚╠╸╗═╦╝╣╩╬");
-    internal static readonly LineDrawSet SingleLine = new(" ╷╶┌╵│└├╴┐─┬┘┤┴┼");
-    internal static readonly LineDrawSet RoundLine  = new(" ╷╶╭╵│╰├╴╮─┬╯┤┴┼");
-    internal static readonly LineDrawSet DoubleHorz = new(" ╻╺╒╵│╘╞╸╕═╤╛╡╧╪");
-    internal static readonly LineDrawSet SingleHorz = new(" ╷╶╓╹║╙╟╴╖─╥╜╢╨╫");
-    internal static readonly LineDrawSet NoLine     = new("                ");
-
-    //**************************************************
 }

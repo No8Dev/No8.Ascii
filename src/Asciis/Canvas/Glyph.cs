@@ -22,9 +22,6 @@ public class Glyph : ICloneable
     public  Color? Fore { get; set; }
     public  Color? Back { get; set; }
 
-    public float OffsetX { get; set; }
-    public float OffsetY { get; set; }
-
     public string ChrStr { get; private set; }
 
     public Glyph(Rune rune, Color? fore = null, Color? back = null)

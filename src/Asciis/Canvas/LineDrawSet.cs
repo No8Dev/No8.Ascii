@@ -2,8 +2,31 @@
 
 namespace No8.Ascii;
 
+public enum LineSet
+{
+    None,
+    Single,
+    Double,
+    Rounded,
+    SingleHorz,
+    DoubleHorz,
+    DoubleUnder,
+    DoubleOver,
+    DoubleRaised,
+    DoublePressed
+}
+
 internal class LineDrawSet
 {
+    internal static readonly LineDrawSet DoubleLine = new(" ╥╺╔╨║╚╠╸╗═╦╝╣╩╬");
+    internal static readonly LineDrawSet SingleLine = new(" ╷╶┌╵│└├╴┐─┬┘┤┴┼");
+    internal static readonly LineDrawSet RoundLine  = new(" ╷╶╭╵│╰├╴╮─┬╯┤┴┼");
+    internal static readonly LineDrawSet DoubleHorz = new(" ╻╺╒╵│╘╞╸╕═╤╛╡╧╪");
+    internal static readonly LineDrawSet SingleHorz = new(" ╷╶╓╹║╙╟╴╖─╥╜╢╨╫");
+    internal static readonly LineDrawSet NoLine     = new("                ");
+
+    //**************************************************
+
     //    ^
     //  <- ->    <Left(8), ^Top(4), >Right(2), vBottom(1)
     //    v
