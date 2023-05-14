@@ -20,4 +20,6 @@ class ArgsCommandMeta
     }
 
     public string Name => CommandAttr.Name!;
+    
+    public InternalCommandExtrasDelegate? Handler { get; set; } 
 }

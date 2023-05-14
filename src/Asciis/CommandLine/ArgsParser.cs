@@ -1,6 +1,12 @@
 ﻿using System.Reflection;
+using System.Security.Cryptography;
 
 namespace No8.Ascii.CommandLine;
+
+public delegate void CommandDelegate<in T>(T args) where T : IArgsCommand;
+public delegate void CommandExtrasDelegate<in T>(T args, List<string>? extras) where T : IArgsCommand;
+
+internal delegate void InternalCommandExtrasDelegate(IArgsCommand args, List<string>? extras);
 
 /// <summary>
 /// Parses the metadata held in <see cref="T"/>
@@ -30,11 +36,19 @@ public class ArgsParser
     private          bool                  _includeEnvironmentVariables;
     private          StringComparison      _stringComparison = StringComparison.Ordinal;
 
-    public ArgsParser AddCommand<T>(bool isDefault = false)
+    public ArgsParser AddCommand<T>(CommandDelegate<T> handler, bool isDefault = false)
+        where T : IArgsCommand
+    {
+        return AddCommand<T>((args, _) => handler.Invoke(args), isDefault);
+    }
+    
+    public ArgsParser AddCommand<T>(CommandExtrasDelegate<T>? handler = null, bool isDefault = false)
         where T : IArgsCommand
     {
         var type = typeof(T);
         var meta = new ArgsCommandMeta(typeof(T));
+        if (handler != null)
+            meta.Handler = (a, e) => { handler.DynamicInvoke(a, e); };
         _commands.Add( meta );
         if (isDefault)
             _defaultCommand = meta;
@@ -91,8 +105,7 @@ public class ArgsParser
 
         return new HelpCommand( Help() );
     }
-
-
+    
     private IArgsCommand Parse(IEnumerable<string> args, out List<string>? extras, ArgsCommandMeta meta)
     {
         var parser = new ArgsCommandParser(meta, _includeEnvironmentVariables, _stringComparison);
@@ -102,6 +115,8 @@ public class ArgsParser
         if (parser.AskedForHelp)
             return new HelpCommand( Help(meta), meta.CommandType );
 
+        meta.Handler?.Invoke(parser.Result, parser.Extras);
+        
         return parser.Result;
     }
 
