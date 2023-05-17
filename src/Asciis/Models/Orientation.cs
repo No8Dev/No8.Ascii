@@ -1,7 +1,32 @@
 ﻿namespace No8.Ascii;
 
-public class Orientation : Vec
+public readonly struct Orientation : IVec
 {
+    public bool Equals(Orientation other)
+    {
+        return X == other.X && Y == other.Y;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Orientation other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(X, Y);
+    }
+
+    public static bool operator ==(Orientation left, Orientation right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(Orientation left, Orientation right)
+    {
+        return !left.Equals(right);
+    }
+
     public static readonly Orientation None = new(0, 0);
     public static readonly Orientation N    = new(0, -1);
     public static readonly Orientation Ne   = new(1, -1);
@@ -21,21 +46,28 @@ public class Orientation : Vec
     /// The four intermediate orientations between the main ones: northwest, northeast, southwest and southeast.
     public static readonly Orientation[] InterCardinal = { Ne, Se, Sw, Nw };
 
-    private Orientation(int x, int y) : base(x, y) { }
+    private Orientation(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public int X { get; }
+    public int Y { get; }
 
     public Orientation RotateLeft45
     {
         get
         {
-            if (ReferenceEquals(this, None)) return None;
-            if (ReferenceEquals(this, N)) return Nw;
-            if (ReferenceEquals(this, Ne)) return N;
-            if (ReferenceEquals(this, E)) return Ne;
-            if (ReferenceEquals(this, Se)) return E;
-            if (ReferenceEquals(this, S)) return Se;
-            if (ReferenceEquals(this, Sw)) return S;
-            if (ReferenceEquals(this, W)) return Sw;
-            if (ReferenceEquals(this, Nw)) return W;
+            if (Equals(this, None)) return None;
+            if (Equals(this, N)) return Nw;
+            if (Equals(this, Ne)) return N;
+            if (Equals(this, E)) return Ne;
+            if (Equals(this, Se)) return E;
+            if (Equals(this, S)) return Se;
+            if (Equals(this, Sw)) return S;
+            if (Equals(this, W)) return Sw;
+            if (Equals(this, Nw)) return W;
 
             throw new NotSupportedException();
         }
@@ -45,15 +77,15 @@ public class Orientation : Vec
     {
         get
         {
-            if (ReferenceEquals(this, None)) return None;
-            if (ReferenceEquals(this, N)) return Ne;
-            if (ReferenceEquals(this, Ne)) return E;
-            if (ReferenceEquals(this, E)) return Se;
-            if (ReferenceEquals(this, Se)) return S;
-            if (ReferenceEquals(this, S)) return Sw;
-            if (ReferenceEquals(this, Sw)) return W;
-            if (ReferenceEquals(this, W)) return Nw;
-            if (ReferenceEquals(this, Nw)) return N;
+            if (Equals(this, None)) return None;
+            if (Equals(this, N)) return Ne;
+            if (Equals(this, Ne)) return E;
+            if (Equals(this, E)) return Se;
+            if (Equals(this, Se)) return S;
+            if (Equals(this, S)) return Sw;
+            if (Equals(this, Sw)) return W;
+            if (Equals(this, W)) return Nw;
+            if (Equals(this, Nw)) return N;
 
             throw new NotSupportedException();
 
@@ -64,15 +96,15 @@ public class Orientation : Vec
     {
         get
         {
-            if (ReferenceEquals(this, None)) return None;
-            if (ReferenceEquals(this, N)) return W;
-            if (ReferenceEquals(this, Ne)) return Nw;
-            if (ReferenceEquals(this, E)) return N;
-            if (ReferenceEquals(this, Se)) return Ne;
-            if (ReferenceEquals(this, S)) return E;
-            if (ReferenceEquals(this, Sw)) return Se;
-            if (ReferenceEquals(this, W)) return S;
-            if (ReferenceEquals(this, Nw)) return Sw;
+            if (Equals(this, None)) return None;
+            if (Equals(this, N)) return W;
+            if (Equals(this, Ne)) return Nw;
+            if (Equals(this, E)) return N;
+            if (Equals(this, Se)) return Ne;
+            if (Equals(this, S)) return E;
+            if (Equals(this, Sw)) return Se;
+            if (Equals(this, W)) return S;
+            if (Equals(this, Nw)) return Sw;
 
             throw new NotSupportedException();
         }
@@ -82,15 +114,15 @@ public class Orientation : Vec
     {
         get
         {
-            if (ReferenceEquals(this, None)) return None;
-            if (ReferenceEquals(this, N)) return E;
-            if (ReferenceEquals(this, Ne)) return Se;
-            if (ReferenceEquals(this, E)) return S;
-            if (ReferenceEquals(this, Se)) return Sw;
-            if (ReferenceEquals(this, S)) return W;
-            if (ReferenceEquals(this, Sw)) return Nw;
-            if (ReferenceEquals(this, W)) return N;
-            if (ReferenceEquals(this, Nw)) return Ne;
+            if (Equals(this, None)) return None;
+            if (Equals(this, N)) return E;
+            if (Equals(this, Ne)) return Se;
+            if (Equals(this, E)) return S;
+            if (Equals(this, Se)) return Sw;
+            if (Equals(this, S)) return W;
+            if (Equals(this, Sw)) return Nw;
+            if (Equals(this, W)) return N;
+            if (Equals(this, Nw)) return Ne;
 
             throw new NotSupportedException();
         }
@@ -100,15 +132,15 @@ public class Orientation : Vec
     {
         get
         {
-            if (ReferenceEquals(this, None)) return None;
-            if (ReferenceEquals(this, N)) return S;
-            if (ReferenceEquals(this, Ne)) return Sw;
-            if (ReferenceEquals(this, E)) return W;
-            if (ReferenceEquals(this, Se)) return Nw;
-            if (ReferenceEquals(this, S)) return N;
-            if (ReferenceEquals(this, Sw)) return Ne;
-            if (ReferenceEquals(this, W)) return E;
-            if (ReferenceEquals(this, Nw)) return Se;
+            if (Equals(this, None)) return None;
+            if (Equals(this, N)) return S;
+            if (Equals(this, Ne)) return Sw;
+            if (Equals(this, E)) return W;
+            if (Equals(this, Se)) return Nw;
+            if (Equals(this, S)) return N;
+            if (Equals(this, Sw)) return Ne;
+            if (Equals(this, W)) return E;
+            if (Equals(this, Nw)) return Se;
 
             throw new NotSupportedException();
         }
@@ -116,16 +148,16 @@ public class Orientation : Vec
 
     public override string ToString()
     {
-        if (ReferenceEquals(this, None)) return "none";
-        if (ReferenceEquals(this, N)) return "n";
-        if (ReferenceEquals(this, Ne)) return "ne";
-        if (ReferenceEquals(this, E)) return "e";
-        if (ReferenceEquals(this, Se)) return "se";
-        if (ReferenceEquals(this, S)) return "s";
-        if (ReferenceEquals(this, Sw)) return "sw";
-        if (ReferenceEquals(this, W)) return "w";
-        if (ReferenceEquals(this, Nw)) return "nw";
+        if (Equals(this, None)) return "none";
+        if (Equals(this, N)) return "n";
+        if (Equals(this, Ne)) return "ne";
+        if (Equals(this, E)) return "e";
+        if (Equals(this, Se)) return "se";
+        if (Equals(this, S)) return "s";
+        if (Equals(this, Sw)) return "sw";
+        if (Equals(this, W)) return "w";
+        if (Equals(this, Nw)) return "nw";
 
-        return base.ToString();
+        return $"{X}, {Y}";
     }
 }

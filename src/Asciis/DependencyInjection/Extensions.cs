@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Concurrent;
+using System.IO;
 using System.Reflection;
 
 namespace No8.Ascii.DependencyInjection;
@@ -31,7 +32,7 @@ public static class AssemblyExtensions
 
 public static class TypeExtensions
 {
-    private static readonly SafeDictionary<GenericMethodCacheKey, MethodInfo> GenericMethodCache = new();
+    private static readonly ConcurrentDictionary<GenericMethodCacheKey, MethodInfo> GenericMethodCache = new();
 
     /// <summary>
     /// Gets a generic method from a type given the method name, binding flags, generic types and parameter types

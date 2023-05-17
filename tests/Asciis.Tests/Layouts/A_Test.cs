@@ -1,5 +1,4 @@
-﻿using No8.Ascii.Console;
-using No8.Ascii.Controls;
+﻿using No8.Ascii.Controls;
 using No8.Ascii.ElementLayout;
 using Xunit;
 using Xunit.Abstractions;

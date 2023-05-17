@@ -1,4 +1,6 @@
-﻿namespace No8.Ascii;
+﻿using No8.Ascii.Platforms;
+
+namespace No8.Ascii;
 
 public static class ColorHelpers
 {
@@ -57,4 +59,58 @@ public static class ColorHelpers
             v1 + t * (v2 - v1));
     }
 
+    /// <summary>
+    ///     Adjust brightness of color by factor.
+    ///     Factor must be between -1.0 and 1.0
+    /// </summary>
+    public static Color AdjustBy(this Color color, float factor)
+    {
+        var red = (float)color.R;
+        var green = (float)color.G;
+        var blue = (float)color.B;
+
+        if (factor < 0)
+        {
+            factor = 1 + factor;
+            red *= factor;
+            green *= factor;
+            blue *= factor;
+        }
+        else
+        {
+            red = (255 - red) * factor + red;
+            green = (255 - green) * factor + green;
+            blue = (255 - blue) * factor + blue;
+        }
+
+        return Color.FromArgb(color.A, (int)red, (int)green, (int)blue);
+    }
+
+    public static ushort ToTerminalColor(this Color c)
+    {
+        ushort result = 0x00;
+
+        if (c == Color.DarkRed) return (ushort)Windows.CharacterAttributes.FgDarkRed;
+        if (c == Color.DarkGreen) return (ushort)Windows.CharacterAttributes.FgDarkGreen;
+        if (c == Color.DarkBlue) return (ushort)Windows.CharacterAttributes.FgDarkBlue;
+        if (c == Color.DarkCyan) return (ushort)Windows.CharacterAttributes.FgDarkCyan;
+        if (c == Color.DarkMagenta) return (ushort)Windows.CharacterAttributes.FgDarkMagenta;
+        if (c == Color.Gold) return (ushort)Windows.CharacterAttributes.FgDarkYellow;
+        if (c == Color.Gray) return (ushort)Windows.CharacterAttributes.FgGrey;
+        if (c == Color.Red) return (ushort)Windows.CharacterAttributes.FgRed;
+        if (c == Color.Green) return (ushort)Windows.CharacterAttributes.FgGreen;
+        if (c == Color.Blue) return (ushort)Windows.CharacterAttributes.FgBlue;
+        if (c == Color.Cyan) return (ushort)Windows.CharacterAttributes.FgCyan;
+        if (c == Color.Magenta) return (ushort)Windows.CharacterAttributes.FgMagenta;
+        if (c == Color.Yellow) return (ushort)Windows.CharacterAttributes.FgYellow;
+        if (c == Color.White) return (ushort)Windows.CharacterAttributes.FgWhite;
+
+        if (c.R >= 128) result += 0x04;
+        if (c.G >= 128) result += 0x02;
+        if (c.B >= 128) result += 0x01;
+        if (c.R >= 250 || c.G >= 250 || c.B >= 250)
+            result += 0x08; // intense
+
+        return result;
+    }
 }

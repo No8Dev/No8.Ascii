@@ -38,7 +38,7 @@ namespace No8.Ascii;
 /// coordinate (-1) from the right (3) is 4 and indeed it contains four columns
 /// of points.
 /// </summary>
-public class Rect
+public readonly struct Rect
 {
     public static readonly Rect Empty = new Rect(Vec.Zero, Vec.Zero);
 
@@ -316,27 +316,18 @@ public class Rect
         public void Dispose() { }
     }
 
-    protected bool Equals(Rect other) =>
+    bool Equals(Rect other) =>
         Equals(Pos, other.Pos)
      && Equals(Size, other.Size);
 
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj))
-            return false;
-        if (ReferenceEquals(this, obj))
-            return true;
-        if (obj.GetType() != GetType())
-            return false;
-
-        return Equals((Rect)obj);
-    }
+    public override bool Equals(object? obj) => 
+        obj is Rect rect && Equals(rect);
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            return (Pos.GetHashCode() * 397) ^ Size.GetHashCode();
-        }
+        unchecked { return (Pos.GetHashCode() * 397) ^ Size.GetHashCode(); }
     }
+
+    public static bool operator ==(Rect left, Rect right) => left.Equals(right);
+    public static bool operator !=(Rect left, Rect right) => !(left == right);
 }

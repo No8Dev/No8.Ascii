@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using No8.Ascii.Console;
 using No8.Ascii.Controls;
 using No8.Ascii.ElementLayout;
 

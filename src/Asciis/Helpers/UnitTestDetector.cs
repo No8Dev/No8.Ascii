@@ -9,9 +9,6 @@ namespace No8.Ascii;
 /// </summary>    
 internal static class UnitTestDetector
 {
-
-    private static bool _runningFromUnitTest = false;
-
     static UnitTestDetector()
     {
         var asses = AppDomain.CurrentDomain.GetAssemblies();
@@ -19,19 +16,16 @@ internal static class UnitTestDetector
         {
             if (assem.FullName?.ToLowerInvariant().StartsWith("nunit.framework") == true)
             {
-                _runningFromUnitTest = true;
+                IsRunningFromNUnit = true;
                 break;
             }
             if (assem.FullName?.ToLowerInvariant().StartsWith("xunit.") == true)
             {
-                _runningFromUnitTest = true;
+                IsRunningFromNUnit = true;
                 break;
             }
         }
     }
 
-    public static bool IsRunningFromNUnit
-    {
-        get { return _runningFromUnitTest; }
-    }
+    public static bool IsRunningFromNUnit { get; } = false;
 }

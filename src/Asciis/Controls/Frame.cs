@@ -53,7 +53,7 @@ public class Frame : Control, IHasStyle<FrameStyle>, IHasLayoutPlan<FrameLayoutP
     {
         var borderBrush = BorderBrush ?? ForegroundBrush ?? SolidColorBrush.White.Value;
         var bounds      = Layout.Bounds;
-        clip = (clip == null) ? bounds : RectF.Intersect(clip, bounds);
+        clip = (clip == null) ? bounds : RectF.Intersect(clip.Value, bounds);
         canvas.PushClip(clip);
 
         Color? foreground = (borderBrush as SolidColorBrush)?.Color;

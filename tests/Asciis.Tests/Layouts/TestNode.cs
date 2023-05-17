@@ -29,18 +29,18 @@ public class TestNode : Control
     private void DoDraw(No8.Ascii.Canvas canvas, RectF? bounds, LineSet lineSet)
     {
         if (bounds == null) return;
-        if (bounds.Area.IsZero()) return;
-        if (bounds.Height.IsZero() || bounds.Width.IsZero())
-            canvas.DrawLine(bounds, lineSet);
+        if (bounds.Value.Area.IsZero()) return;
+        if (bounds.Value.Height.IsZero() || bounds.Value.Width.IsZero())
+            canvas.DrawLine(bounds.Value, lineSet);
         else 
-            canvas.DrawRect(bounds, lineSet);
+            canvas.DrawRect(bounds.Value, lineSet);
     }
 
     public override void OnDraw(No8.Ascii.Canvas canvas, RectF? bounds)
     {
         canvas.FillRect(
             Layout.Bounds, 
-            Name?.Length > 0 ? Rune.GetRuneAt(Name, 0) : Pixel.Block.LightShade);
+            Name?.Length > 0 ? Rune.GetRuneAt(Name, 0) : Runes.Block.LightShade);
 
         DoDraw(canvas, Layout.Bounds, LineSet.Single);
         DoDraw(canvas, Layout.ContentBounds, LineSet.Double);

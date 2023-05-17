@@ -1,6 +1,14 @@
 ﻿namespace No8.Ascii;
 
-public class Vec
+public interface IVec
+{
+    int X { get; }
+    int Y { get; }
+
+    public int LengthSquared => X * X + Y * Y;
+}
+
+public readonly struct Vec : IVec
 {
     public static readonly Vec Zero = new Vec(0, 0);
     public static readonly Vec Unknown = new Vec(int.MinValue, int.MinValue);
@@ -29,6 +37,7 @@ public class Vec
     public int KingLength => Math.Max(Math.Abs(X), Math.Abs(Y));
 
     public int LengthSquared => X * X + Y * Y;
+    
 
     /// <summary>
     /// Cartesian length of the Vec
@@ -142,20 +151,20 @@ public class Vec
     public static Vec operator /(Vec left, int other) { return new Vec(left.X / other, left.Y / other); }
 
     public static Vec operator +(Vec left, int other) { return new Vec(left.X + other, left.Y + other); }
-    public static Vec operator +(Vec left, Vec other) { return new Vec(left.X + other.X, left.Y + other.Y); }
+    public static Vec operator +(Vec left, IVec other) { return new Vec(left.X + other.X, left.Y + other.Y); }
 
     public static Vec operator -(Vec left, int other) { return new Vec(left.X - other, left.Y - other); }
-    public static Vec operator -(Vec left, Vec other) { return new Vec(left.X - other.X, left.Y - other.Y); }
+    public static Vec operator -(Vec left, IVec other) { return new Vec(left.X - other.X, left.Y - other.Y); }
 
     public static bool operator >(Vec left, int other) { return left.LengthSquared > (other * other); }
-    public static bool operator >(Vec left, Vec other) { return left.LengthSquared > other.LengthSquared; }
+    public static bool operator >(Vec left, IVec other) { return left.LengthSquared > other.LengthSquared; }
     public static bool operator <(Vec left, int other) { return left.LengthSquared < (other * other); }
-    public static bool operator <(Vec left, Vec other) { return left.LengthSquared < other.LengthSquared; }
+    public static bool operator <(Vec left, IVec other) { return left.LengthSquared < other.LengthSquared; }
 
     public static bool operator >=(Vec left, int other) { return left.LengthSquared >= (other * other); }
-    public static bool operator >=(Vec left, Vec other) { return left.LengthSquared >= other.LengthSquared; }
+    public static bool operator >=(Vec left, IVec other) { return left.LengthSquared >= other.LengthSquared; }
     public static bool operator <=(Vec left, int other) { return left.LengthSquared <= (other * other); }
-    public static bool operator <=(Vec left, Vec other) { return left.LengthSquared <= other.LengthSquared; }
+    public static bool operator <=(Vec left, IVec other) { return left.LengthSquared <= other.LengthSquared; }
 
     /// <summary>
     /// Gets whether the given vector is within a rectangle from (0,0) to this vector (half-inclusive).
@@ -182,21 +191,11 @@ public class Vec
     public Vec OffsetX(int x) => new Vec(X + x, Y);
     public Vec OffsetY(int y) => new Vec(X, Y + y);
 
-    protected bool Equals(Vec other)
-    {
-        return X == other.X && Y == other.Y;
-    }
+    bool Equals(Vec other) => X == other.X && Y == other.Y;
 
-    public override bool Equals(object? obj)
-    {
-        return ReferenceEquals(this, obj) || 
-               obj is Vec other && Equals(other);
-    }
+    public override bool Equals(object? obj) => obj is Vec other && Equals(other);
 
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(X, Y);
-    }
+    public override int GetHashCode() => HashCode.Combine(X, Y);
 
     public static bool operator ==(Vec? left, Vec? right) => Equals(left, right);
     public static bool operator !=(Vec? left, Vec? right) => !Equals(left, right);

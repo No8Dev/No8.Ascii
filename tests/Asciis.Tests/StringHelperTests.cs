@@ -113,38 +113,5 @@ public class StringHelperTests
         Assert.Equal("sin", result![0]);
         Assert.Equal("gle", result[1]);
     }
-
-
-
-
-    [Fact]
-    public void ToParameters_Null()
-    {
-        OptionArgs? model = null;
-
-        var dict = new Parameters(model);
-
-        Assert.Equal(0, dict.Count);
-    }
-
-    [Fact]
-    public void ToParameters_NoReferenceTypes()
-    {
-        OptionArgs model = new();
-
-        var dict = new Parameters(model);
-
-        Assert.False(dict.ContainsKey("StringValue"));
-    }
-
-    [Fact]
-    public void ToParameters_HasValue()
-    {
-        var model = new OptionArgs { StringValue = "" };
-
-        var dict = new Parameters(model);
-
-        Assert.True(dict.ContainsKey("StringValue"));
-    }
 }
 

@@ -1,6 +1,6 @@
 ﻿namespace No8.Ascii;
 
-using No8.Ascii.Console;
+using ElementLayout;
 using static NumberExtensions;
 
 internal class CachedMeasurement

@@ -22,6 +22,16 @@
     <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <Configurations>Debug;Release;TraceConn</Configurations>
+
+    <Platforms>AnyCPU</Platforms>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'TraceConn' ">
+	  <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+	  <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
+	  <DefineConstants>TRACE,_TRACECONN</DefineConstants>
 	</PropertyGroup>
 
   <ItemGroup>

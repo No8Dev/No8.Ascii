@@ -2,8 +2,16 @@
 
 namespace No8.Ascii;
 
+public interface IVecF
+{
+    float X { get; }
+    float Y { get; }
+    
+    float LengthSquared => X * X + Y * Y;
+}
+
 [DebuggerDisplay("({X},{Y})")]
-public class VecF
+public readonly struct VecF : IVecF
 {
     public static readonly VecF Zero    = new VecF(0, 0);
     public static readonly VecF Unknown = new VecF(float.MinValue, float.MinValue);
@@ -33,14 +41,10 @@ public class VecF
 
     public float LengthSquared => X * X + Y * Y;
 
-    // The tor.
-    //
-    // 
-
 
     /// <summary>
     /// Cartesian length of the VecF
-    /// If you just need to compare the magnitude of two VecFtors, prefer using the comparison operators or [LengthSquared],
+    /// If you just need to compare the magnitude of two Vectors, prefer using the comparison operators or [LengthSquared],
     /// both of which are faster than this
     /// </summary>
     public double Length => Math.Sqrt(LengthSquared);
@@ -113,7 +117,8 @@ public class VecF
         get
         {
             var result = new List<VecF>();
-            foreach (var orientation in Orientation.All) result.Add(this + orientation);
+            foreach (var orientation in Orientation.All) 
+                result.Add(this + orientation);
             return result;
         }
     }
@@ -126,7 +131,8 @@ public class VecF
         get
         {
             var result = new List<VecF>();
-            foreach (var orientation in Orientation.Cardinal) result.Add(this + orientation);
+            foreach (var orientation in Orientation.Cardinal) 
+                result.Add(this + orientation);
             return result;
         }
     }
@@ -148,26 +154,26 @@ public class VecF
     public static VecF operator /(VecF left, float other) { return new VecF(left.X / other, left.Y / other); }
 
     public static VecF operator +(VecF left, float  other) { return new VecF(left.X + other, left.Y + other); }
-    public static VecF operator +(VecF left, Vec other) { return new VecF(left.X + other.X, left.Y + other.Y); }
-    public static VecF operator +(VecF left, VecF   other) { return new VecF(left.X + other.X, left.Y + other.Y); }
+    public static VecF operator +(VecF left, IVec other) { return new VecF(left.X + other.X, left.Y + other.Y); }
+    public static VecF operator +(VecF left, IVecF   other) { return new VecF(left.X + other.X, left.Y + other.Y); }
 
     public static VecF operator -(VecF left, float  other) { return new VecF(left.X - other, left.Y - other); }
-    public static VecF operator -(VecF left, Vec other) { return new VecF(left.X - other.X, left.Y - other.Y); }
-    public static VecF operator -(VecF left, VecF   other) { return new VecF(left.X - other.X, left.Y - other.Y); }
+    public static VecF operator -(VecF left, IVec other) { return new VecF(left.X - other.X, left.Y - other.Y); }
+    public static VecF operator -(VecF left, IVecF   other) { return new VecF(left.X - other.X, left.Y - other.Y); }
 
     public static bool operator >(VecF left, float  other) { return left.LengthSquared > (other * other); }
-    public static bool operator >(VecF left, Vec other) { return left.LengthSquared > other.LengthSquared; }
-    public static bool operator >(VecF left, VecF   other) { return left.LengthSquared > other.LengthSquared; }
+    public static bool operator >(VecF left, IVec other) { return left.LengthSquared > other.LengthSquared; }
+    public static bool operator >(VecF left, IVecF   other) { return left.LengthSquared > other.LengthSquared; }
     public static bool operator <(VecF left, float  other) { return left.LengthSquared < (other * other); }
-    public static bool operator <(VecF left, Vec other) { return left.LengthSquared < other.LengthSquared; }
-    public static bool operator <(VecF left, VecF   other) { return left.LengthSquared < other.LengthSquared; }
+    public static bool operator <(VecF left, IVec other) { return left.LengthSquared < other.LengthSquared; }
+    public static bool operator <(VecF left, IVecF   other) { return left.LengthSquared < other.LengthSquared; }
 
     public static bool operator >=(VecF left, float  other) { return left.LengthSquared >= (other * other); }
-    public static bool operator >=(VecF left, Vec other) { return left.LengthSquared >= other.LengthSquared; }
-    public static bool operator >=(VecF left, VecF   other) { return left.LengthSquared >= other.LengthSquared; }
+    public static bool operator >=(VecF left, IVec other) { return left.LengthSquared >= other.LengthSquared; }
+    public static bool operator >=(VecF left, IVecF   other) { return left.LengthSquared >= other.LengthSquared; }
     public static bool operator <=(VecF left, float  other) { return left.LengthSquared <= (other * other); }
-    public static bool operator <=(VecF left, Vec other) { return left.LengthSquared <= other.LengthSquared; }
-    public static bool operator <=(VecF left, VecF   other) { return left.LengthSquared <= other.LengthSquared; }
+    public static bool operator <=(VecF left, IVec other) { return left.LengthSquared <= other.LengthSquared; }
+    public static bool operator <=(VecF left, IVecF   other) { return left.LengthSquared <= other.LengthSquared; }
 
     /// <summary>
     /// Gets whether the given Vector is within a rectangle from (0,0) to this Vector (half-inclusive).
@@ -195,21 +201,11 @@ public class VecF
     public VecF OffsetX(float x) => new VecF(X + x, Y);
     public VecF OffsetY(float y) => new VecF(X, Y + y);
 
-    protected bool Equals(VecF other) =>
-        X.Equals(other.X)
-        && Y.Equals(other.Y);
+    private bool Equals(VecF other) =>
+        X.Equals(other.X) && Y.Equals(other.Y);
 
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj))
-            return false;
-        if (ReferenceEquals(this, obj))
-            return true;
-        if (obj.GetType() != this.GetType())
-            return false;
-
-        return Equals((VecF)obj);
-    }
+    public override bool Equals(object? obj) => 
+        obj is VecF vec && Equals(vec);
 
     public override int GetHashCode()
     {
@@ -217,4 +213,8 @@ public class VecF
     }
 
     public override string ToString() => $"{X}, {Y}";
+
+    public static bool operator ==(VecF left, VecF right) => left.Equals(right);
+
+    public static bool operator !=(VecF left, VecF right) => !(left == right);
 }

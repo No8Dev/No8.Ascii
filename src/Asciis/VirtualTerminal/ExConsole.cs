@@ -4,49 +4,111 @@ using System;
 using System.Diagnostics;
 using System.Text;
 
-public static class Conn
+/// <summary>
+///     Extended Console
+/// </summary>
+public sealed class ExConsole : IDisposable
 {
-    public static event EventHandler<ConsoleKeyInfo>? KeyAvailable;
-    public static event EventHandler<string>? SequenceAvailable;
-
-    public static bool Alive
+    public class Options
     {
-        get => _alive;
+        public bool StartFullScreen { get; set; } = true;
+        public bool StopOnControlC { get; set; } = true;
     }
 
-    public static void Stop()
+    public static ExConsole Create(Action<Options>? configure = null)
     {
-        Trace.TraceInformation("Con.Stop!");
+        Options options = new();
+        configure?.Invoke(options);
+        
+        return new ExConsole(options);
+    }
+
+    public Task Run()
+    {
+        if (Alive && RunningTask != null)
+            return RunningTask;
+        
+        if (_options.StartFullScreen)
+            FullScreen();
+
+        RunningTask = Task.Run(MonitorInput); 
+        RunningTask.ConfigureAwait(true);
+        return RunningTask;
+    }
+    
+    public bool Alive { get; private set; } = true;
+    private Task? RunningTask { get; set; }
+
+    
+    public event EventHandler<ConsoleKeyInfo>? KeyAvailable;
+    public event EventHandler<string>? SequenceAvailable;
+    
+    private readonly ManualResetEventSlim _exitEvent = new(false);
+    private readonly Options _options;
+    private bool _fullScreen;
+    private readonly bool _stopOnControlC;
+
+    private ExConsole(Options options)
+    {
+        _options = options;
+        
+        Console.CancelKeyPress += new ConsoleCancelEventHandler(ConsoleCancelEventHandler);
+        _stopOnControlC = options.StopOnControlC;
+    }
+
+    public void FullScreen()
+    {
+        if (_fullScreen)
+            return;
+        _fullScreen = true;
+        Console.Write(Terminal.Mode.ScreenAlt);
+    }
+
+    public void NormalScreen()
+    {
+        if (_fullScreen)
+            Console.Write(Terminal.Mode.ScreenNormal);
+        _fullScreen = false;
+    }
+
+    public void Stop()
+    {
+        #if _TRACECONN
+            Trace.TraceInformation("Conn.Stop!");
+        #endif
+
+        if (!Alive)
+            return;
+        
         _exitEvent.Reset();
-        _alive = false;
+        Alive = false;
 
         // Wait for Input monitor thread to exit
         _exitEvent.Wait(500);
     }
 
-    private static bool _alive;
-    private static readonly ManualResetEventSlim _exitEvent = new(false);
 
-    static Conn()
+    private void ConsoleCancelEventHandler(object? sender, ConsoleCancelEventArgs e)
     {
-        Console.OutputEncoding =  Encoding.UTF8;
-        Console.CancelKeyPress += new ConsoleCancelEventHandler(ConsoleCancelEventHandler);
-        _alive                 =  true;
-        
-        Task.Run(MonitorInput);
+        e.Cancel = false;
+        if (_stopOnControlC)
+            Stop();
     }
 
-    private static void ConsoleCancelEventHandler(object? sender, ConsoleCancelEventArgs e) =>
-        Stop();
-
-    private static void MonitorInput()
+    private void MonitorInput()
     {
-        Send("\x1b[?1006h"); // SGR mouse mode
-        Send("\x1b[?1003h"); // all mouse
-        //Send("\x1b[?1001h"); // highlight mouse
-        Send("\x1b[?1004h"); // Focus
+        var oldOutputEncoding = Console.OutputEncoding;
+        Console.OutputEncoding = Encoding.UTF8;
         
-        while (_alive)
+        if (_options.StartFullScreen)
+            FullScreen();
+
+        Console.Write(Terminal.Mode.MouseTrackingSGR); // SGR mouse mode
+        Console.Write(Terminal.Mode.MouseTrackingAll); // all mouse
+        //Console.Write(Terminal.Mode.MouseTrackingHilite); // highlight mouse
+        Console.Write(Terminal.Mode.MouseTrackingFocus); // Focus
+        
+        while (Alive)
         {
             if (Console.KeyAvailable)
             {
@@ -68,14 +130,18 @@ public static class Conn
         // Leave
         try
         {
-            Send("\x1b[?1004l"); // Focus
-            Send("\x1b[?1003l"); // all mouse
-            //Send("\x1b[?1001l"); // highlight mouse
-            Send("\x1b[?1006l"); // SGR mouse mode
+            Console.Write(Terminal.Mode.StopMouseTrackingFocus); // Focus
+            //Console.Write(Terminal.Mode.StopMouseTrackingHilite); // highlight mouse
+            Console.Write(Terminal.Mode.MouseTrackingAll); // all mouse
+            Console.Write(Terminal.Mode.StopMouseTrackingSGR); // SGR mouse mode
+            
+            // only want to restore normal screen if entered Alt screen mode
+            NormalScreen();
         }
         catch
         {
             // ignored - should work, but sometimes..
+            Console.OutputEncoding = oldOutputEncoding;
         }
 
         _exitEvent.Set();
@@ -100,15 +166,17 @@ public static class Conn
     /// Parameters are always unsigned decimal numbers, separated by ;
     /// CAN (0x18) Cancel can cancel a sequence. Indicates an error
     /// SUB (0x1a) Cancel a sequence in progress
-    private static void AddKey(ConsoleKeyInfo key)
+    private void AddKey(ConsoleKeyInfo key)
     {
-        Trace.TraceInformation($"IN: {key.Key}, {key.KeyChar}"
+        #if _TRACECONN
+            Trace.TraceInformation($"IN: {key.Key}, {key.KeyChar}"
                       + (key.Modifiers.HasFlag(ConsoleModifiers.Alt) ? ":Alt" : "")
                       + (key.Modifiers.HasFlag(ConsoleModifiers.Control) ? ":Ctrl" : "")
                       + (key.Modifiers.HasFlag(ConsoleModifiers.Shift) ? ":Shift" : ""));
+        #endif
 
         var ch = key.KeyChar;
-        if (ch == (char)ControlChar.ESC && !_escapeSequence)
+        if (ch == Terminal.SpecialKey.ESC && !_escapeSequence)
         {
             _escapeSequence = true;
             Sequence.Clear();
@@ -155,7 +223,7 @@ public static class Conn
             }
             else
             {
-                if (IsFinal(ch))
+                if (ConSeq.IsFinal(ch))
                 {
                     RaiseSequenceAvailable();
                 }
@@ -167,7 +235,7 @@ public static class Conn
         RaiseKeyAvailable(key);
     }
 
-    private static string CloseSequence()
+    private string CloseSequence()
     {
         string value = null!;
         lock (SequenceLock)
@@ -187,52 +255,51 @@ public static class Conn
     }
 
     
-    private static readonly object SequenceLock = new();
-    private static bool _escapeSequence;
+    private readonly object SequenceLock = new();
+    private bool _escapeSequence;
 #pragma warning disable CS0414
-    private static bool _applicationProgramCommand; // APC
-    private static bool _controlSequenceIntroducer; // CSI
-    private static bool _deviceControlString;       // DCS
-    private static bool _startOfString;             // SOS
-    private static bool _operatingSystemCommand;    // OSC
-    private static bool _privacyMessage;            // PM
+    private bool _applicationProgramCommand; // APC
+    private bool _controlSequenceIntroducer; // CSI
+    private bool _deviceControlString;       // DCS
+    private bool _startOfString;             // SOS
+    private bool _operatingSystemCommand;    // OSC
+    private bool _privacyMessage;            // PM
 #pragma warning restore CS0414
-    private static readonly StringBuilder Sequence = new();
+    private readonly StringBuilder Sequence = new();
 
-    internal static bool IsIntermediate(this char ch) => ch >= 0x20 && ch <= 0x2F;
-    internal static bool IsParameter(this char ch) => ch >= 0x30 && ch <= 0x3F;
-    internal static bool IsFinal(this char ch) => ch >= 0x40 && ch <= 0x7E;
-
-    private static void StringTerminator()
+    private void StringTerminator()
     {
         var value = CloseSequence();
     }
 
-    private static void RaiseKeyAvailable(ConsoleKeyInfo e) => KeyAvailable?.Invoke(null, e);
+    private void RaiseKeyAvailable(ConsoleKeyInfo e) => KeyAvailable?.Invoke(null, e);
 
-    private static void RaiseSequenceAvailable()
+    private void RaiseSequenceAvailable()
     {
         var value = CloseSequence();
         SequenceAvailable?.Invoke(null, value);
     }
 
-    public static void Send(string value)
+    public void Send(string value)
     {
-        if (!_alive)
-            return;
-        
-        #if TRACE
-        var sb = new StringBuilder("Send: ");
-        foreach (var ch in value)
-        {
-            if (ch < ' ')
-                sb.Append($"<{(ControlChar)ch}>");
-            else
-                sb.Append(ch);
-        }
-        Trace.TraceInformation(sb.ToString());
+        #if _TRACECONN
+            var sb = new StringBuilder("Send: ");
+            foreach (var ch in value)
+            {
+                if (ch < ' ')
+                    sb.Append($"<{(Terminal.ControlChar)ch}>");
+                else
+                    sb.Append(ch);
+            }
+            Trace.TraceInformation(sb.ToString());
         #endif
             
         Console.Write(value);
+    }
+
+    public void Dispose()
+    {
+        NormalScreen();
+        _exitEvent.Dispose();
     }
 }

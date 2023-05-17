@@ -1065,7 +1065,7 @@ public class Canvas
         {
             for (int j = 0; j < sprite.Height; j++)
             {
-                if (sprite.GetGlyph(i, j) != Runes.Space)
+                if (sprite.GetGlyph(i, j) != Glyph.Clear)
                     Draw(x + i, y + j, sprite.GetGlyph(i, j), sprite.GetForeColour(i, j));
             }
         }
@@ -1096,7 +1096,7 @@ public class Canvas
         {
             for (int j = 0; j < h; j++)
             {
-                if (sprite.GetGlyph(i + ox, j + oy) != Runes.Space)
+                if (sprite.GetGlyph(i + ox, j + oy) != Glyph.Clear)
                     Draw(x + i, y + j, sprite.GetGlyph(i + ox, j + oy), sprite.GetForeColour(i + ox, j + oy));
             }
         }
@@ -1112,7 +1112,7 @@ public class Canvas
         Color? background = null,
         Rune? c = null)
     {
-        c ??= Pixel.Block.Solid;
+        c ??= Runes.Block.Solid;
         int count = coordinates.Count;
         var transformedCoordinates = new (float, float)[count];
 
@@ -1156,7 +1156,7 @@ public class Canvas
     {
         if (clip == null)
             return false;
-        _clips.Push(clip);
+        _clips.Push(clip.Value);
         _clip = clip;
         return true;
     }

@@ -35,7 +35,7 @@
 /// coordinate (-1) from the right (3) is 4 and indeed it contains four columns
 /// of points.
 /// </summary>
-public class RectF
+public readonly struct RectF
 {
     public static readonly RectF Empty = new RectF(VecF.Zero, VecF.Zero);
 
@@ -297,31 +297,21 @@ public class RectF
         }
     }
 
-    protected bool Equals(RectF other) =>
+    bool Equals(RectF other) =>
         Equals(Pos, other.Pos)
         && Equals(Size, other.Size);
 
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj))
-            return false;
-        if (ReferenceEquals(this, obj))
-            return true;
-        if (obj.GetType() != this.GetType())
-            return false;
-
-        return Equals((RectF)obj);
-    }
+    public override bool Equals(object? obj) => 
+        obj is RectF rect && Equals(rect);
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            return ((Pos != null ? Pos.GetHashCode() : 0) * 397)
-                   ^ (Size != null ? Size.GetHashCode() : 0);
-        }
+        unchecked { return (Pos.GetHashCode() * 397) ^ Size.GetHashCode(); }
     }
 
     public static implicit operator Rect(RectF rectF) => new Rect((int)rectF.X, (int)rectF.Y, (int)rectF.Width, (int)rectF.Height);
     public static implicit operator RectF(Rect rect) => new RectF(rect.X, rect.Y, rect.Width, rect.Height);
+
+    public static bool operator ==(RectF left, RectF right) => left.Equals(right);
+    public static bool operator !=(RectF left, RectF right) => !(left == right);
 }

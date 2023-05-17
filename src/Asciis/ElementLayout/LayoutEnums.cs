@@ -1,4 +1,4 @@
-﻿namespace No8.Ascii.Console;
+﻿namespace No8.Ascii.ElementLayout;
 
 /// <summary>
 ///     Align elements for Layout-Direction

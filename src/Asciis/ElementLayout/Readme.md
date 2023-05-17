@@ -1,4 +1,6 @@
 ﻿
+# Arrange Elements
+
 ### step 1
 **Calculate values for remainder of algorithm**
 

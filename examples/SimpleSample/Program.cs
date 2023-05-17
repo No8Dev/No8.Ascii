@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using No8.Ascii;
-using No8.Ascii.Console;
+using No8.Ascii.ElementLayout;
 using No8.Ascii.Controls;
 using No8.Ascii.VirtualTerminal;
 

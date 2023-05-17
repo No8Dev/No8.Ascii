@@ -1,6 +1,8 @@
 namespace No8.Ascii.VirtualTerminal;
 
-
+/// <summary>
+///     Console Sequence of bytes
+/// </summary>
 public class ConSeq
 {
     public string Sequence { get; }
@@ -44,7 +46,7 @@ public class ConSeq
         foreach (var ch in value)
         {
             if (ch < ' ')
-                sb.Append($"<{(ControlChar)ch}>");
+                sb.Append($"<{(Terminal.ControlChar)ch}>");
             else
                 sb.Append(ch);
         }
@@ -90,7 +92,7 @@ public class ConSeq
             for (int i = startChars.Length; i < sequence.Length; i++)
             {
                 var ch = sequence[i];
-                if (ch.IsParameter())
+                if (IsParameter(ch))
                 {
                     if (p < 0)
                         p = 0;
@@ -113,11 +115,11 @@ public class ConSeq
                         p = -1;
                     }
 
-                    if (ch.IsIntermediate())
+                    if (IsIntermediate(ch))
                     {
                         seq.AddIntermediate(ch);
                     }
-                    else if (ch.IsFinal())
+                    else if (IsFinal(ch))
                     {
                         seq.Final = ch;
                     }
@@ -130,18 +132,10 @@ public class ConSeq
 
     private void AddParameter(int p) => _parameters.Add(p);
     private void AddIntermediate(char ch) => _intermediates.Add(ch);
+    
+    internal static bool IsIntermediate(char ch) => ch >= 0x20 && ch <= 0x2F;
+    internal static bool IsParameter(char ch) => ch >= 0x30 && ch <= 0x3F;
+    internal static bool IsFinal(char ch) => ch >= 0x40 && ch <= 0x7E;
+
 }
 
-
-
-/*
-CPR Cursor Position Report => 6
-DECXCPR Extended Cursor Position Report 
-    =X 6
-    =X 53
-DECRQUPSS Request User-Preferred
-    =X
-DA1 Device Attributes
-    => <ESC>?6c
-
-*/

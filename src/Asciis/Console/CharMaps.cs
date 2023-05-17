@@ -2,7 +2,10 @@
 
 public class CharMaps
 {
-    public static ConsoleKey[] MapKeyToConsoleKey =
+    /// <summary>
+    /// Mapping a Windows input key to ConsoleKey
+    /// </summary>
+    public static readonly ConsoleKey[] MapKeyToConsoleKey =
     {
             // 0..7
             0,                    // Key.None = 0,
@@ -325,6 +328,9 @@ public class CharMaps
             0
         };
 
+    /// <summary>
+    ///     Map a character (0..255) to a printable unicode character
+    /// </summary>
     public static char[] MapCharToUnicode =
     {
             // 1 - 15
@@ -626,6 +632,9 @@ public class CharMaps
             (char)0
         };
 
+    /// <summary>
+    ///     Map a Windows virtual key to ConsoleKey
+    /// </summary>
     public static ConsoleKey[] MapVirtualKeyToConsoleKey =
     {
             0,

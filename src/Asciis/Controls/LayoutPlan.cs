@@ -1,4 +1,4 @@
-﻿using No8.Ascii.Console;
+﻿using No8.Ascii.ElementLayout;
 using System.Diagnostics;
 
 namespace No8.Ascii.Controls;
@@ -478,9 +478,9 @@ public class LayoutPlan
     {
         switch (dim)
         {
-            case Console.Dimension.Width:
+            case ElementLayout.Dimension.Width:
                 return Width;
-            case Console.Dimension.Height:
+            case ElementLayout.Dimension.Height:
                 return Height;
             default:
                 throw new ArgumentException("Unknown dimension", nameof(dim));
@@ -494,9 +494,9 @@ public class LayoutPlan
     {
         switch (dim)
         {
-            case Console.Dimension.Width:
+            case ElementLayout.Dimension.Width:
                 return MinWidth;
-            case Console.Dimension.Height:
+            case ElementLayout.Dimension.Height:
                 return MinHeight;
             default:
                 throw new ArgumentException("Unknown dimension", nameof(dim));
@@ -510,9 +510,9 @@ public class LayoutPlan
     {
         switch (dim)
         {
-            case Console.Dimension.Width:
+            case ElementLayout.Dimension.Width:
                 return MaxWidth;
-            case Console.Dimension.Height:
+            case ElementLayout.Dimension.Height:
                 return MaxHeight;
             default:
                 throw new ArgumentException("Unknown dimension", nameof(dim));

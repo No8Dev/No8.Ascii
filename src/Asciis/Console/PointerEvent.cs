@@ -66,7 +66,7 @@ public enum PointerFlags
     Released,
     Clicked,
     DoubleClicked,
-    TrippleClicked
+    TripleClicked
 }
 
 public record PointerState(

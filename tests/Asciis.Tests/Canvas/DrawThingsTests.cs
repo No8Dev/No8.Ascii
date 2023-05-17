@@ -17,7 +17,7 @@ public class DrawThingsTests
     [Fact]
     public void DrawTriange()
     {
-        _canvas.DrawTriangle(1, 18, 10, 2, 39, 19, Pixel.Shapes.SquareSolid);
+        _canvas.DrawTriangle(1, 18, 10, 2, 39, 19, Runes.Shapes.SquareSolid);
 
         var str = _canvas.ToString();
         var box = @"
@@ -46,7 +46,7 @@ public class DrawThingsTests
     [Fact]
     public void DrawFillTriange()
     {
-        _canvas.FillTriangle(1, 18, 10, 2, 39, 19, Pixel.Block.Solid);
+        _canvas.FillTriangle(1, 18, 10, 2, 39, 19, Runes.Block.Solid);
 
         var str = _canvas.ToString();
         var box = @"
@@ -76,7 +76,7 @@ public class DrawThingsTests
     public void DrawCircle()
     {
         _canvas.CircleCompensateRatio = 1.0f;
-        _canvas.DrawCircle(19, 9, 7, Pixel.Block.DarkShade);
+        _canvas.DrawCircle(19, 9, 7, Runes.Block.DarkShade);
 
         var str = _canvas.ToString();
         var box = @"
@@ -103,9 +103,9 @@ public class DrawThingsTests
     public void DrawFillCircle()
     {
         _canvas.CircleCompensateRatio = 1.0f;
-        _canvas.FillCircle(19, 9, 7, Pixel.Block.LightShade);
-        _canvas.FillCircle(19, 9, 6, Pixel.Block.MediumShade);
-        _canvas.FillCircle(19, 9, 4, Pixel.Block.DarkShade);
+        _canvas.FillCircle(19, 9, 7, Runes.Block.LightShade);
+        _canvas.FillCircle(19, 9, 6, Runes.Block.MediumShade);
+        _canvas.FillCircle(19, 9, 4, Runes.Block.DarkShade);
 
         var str = _canvas.ToString();
         var box = @"
@@ -152,10 +152,10 @@ public class DrawThingsTests
     {
         _canvas.Fill(0, 0, 10, 10, (Rune)' ', Color.White, Color.Black);
         _canvas.DrawRect(0, 0, 9, 9, LineSet.Rounded, Color.GreenYellow);
-        _canvas.FillTriangle(1, 4, 7, 4, 4, 7, Pixel.Shapes.TriangleSolidUp, Color.OrangeRed);
+        _canvas.FillTriangle(1, 4, 7, 4, 4, 7, Runes.Shapes.TriangleSolidUp, Color.OrangeRed);
         _canvas.DrawRect(1, 1, 8, 3, LineSet.DoubleOver, Color.Purple);
-        _canvas.SetGlyph(3, 2, new Glyph(Pixel.Block.DarkShade, Color.DeepSkyBlue));
-        _canvas.SetGlyph(6, 2, new Glyph(Pixel.Block.DarkShade, Color.DeepSkyBlue));
+        _canvas.SetGlyph(3, 2, new Glyph(Runes.Block.DarkShade, Color.DeepSkyBlue));
+        _canvas.SetGlyph(6, 2, new Glyph(Runes.Block.DarkShade, Color.DeepSkyBlue));
 
         var sprite = _canvas.ExportSprite(0, 0, 10, 10);
 

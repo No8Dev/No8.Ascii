@@ -4,7 +4,7 @@ public class Particle
 {
     public VecF Location { get; set; }
     public VecF? Velocity { get; set; }
-    public VecF? Acelleration { get; set; }
+    public VecF? Acceleration { get; set; }
     public float? Lifespan { get; private set; }
     public float? RemainingLifespan { get; private set; }
 
@@ -17,13 +17,13 @@ public class Particle
     public Particle(
         VecF location, 
         VecF? velocity = null, 
-        VecF? acelleration = null, 
+        VecF? acceleration = null, 
         float? lifespan = null,
         DrawDelegate? onDraw = null)
     {
         Location = location;
         Velocity = velocity;
-        Acelleration = acelleration;
+        Acceleration = acceleration;
         RemainingLifespan = Lifespan = lifespan;
         OnDraw = onDraw;
     }
@@ -31,10 +31,11 @@ public class Particle
     public void Update(float elapsed)
     {
         RemainingLifespan -= elapsed;
-        if (Acelleration is not null && Velocity is not null)
-            Velocity += (Acelleration * elapsed);
-        if (Velocity is not null)
-            Location += (Velocity * elapsed);
+        if (Velocity == null) return;
+
+        if (Acceleration is not null)
+            Velocity = Velocity.Value + (Acceleration * elapsed);
+        Location += (Velocity.Value * elapsed);
     }
 
     public virtual void Draw(Canvas canvas) => OnDraw?.Invoke(this, canvas);

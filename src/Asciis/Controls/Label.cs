@@ -44,7 +44,7 @@ public class Label : Control, IHasStyle<LabelStyle>, IHasLayoutPlan<LabelLayoutP
     public override void OnDraw(Canvas canvas, RectF? clip)
     {
         var bounds = Layout.Bounds;
-        clip = (clip == null) ? bounds : RectF.Intersect(clip, bounds);
+        clip = (clip == null) ? bounds : RectF.Intersect(clip.Value, bounds);
         canvas.PushClip(clip);
 
         base.OnDraw(canvas, bounds);

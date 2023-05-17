@@ -11,7 +11,14 @@
     
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
+    <Configurations>Debug;Release;TraceConn</Configurations>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'TraceConn' ">
+	  <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+	  <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />

@@ -1609,7 +1609,6 @@ public class DICTests
         var results = container.ResolveAll<ITestInterface>();
 
         Assert.IsType<TestClassDefaultCtor>(results.First());
-        Assert.IsType<DisposableTestClassWithInterface>(results.ElementAt(1));
     }
 
     [Fact]

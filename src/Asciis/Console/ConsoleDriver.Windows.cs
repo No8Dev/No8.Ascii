@@ -43,7 +43,7 @@ public sealed class ConsoleDriverWindows : ConsoleDriver
         Critical    => Unrecoverable, crash
         None,
         */
-
+        
         Clipboard      = new ClipboardWindows();
         InputHandle    = GetStdHandle(StandardHandle.Input);
         OutputHandle   = GetStdHandle(StandardHandle.Output);

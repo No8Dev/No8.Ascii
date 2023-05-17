@@ -6,7 +6,7 @@
 namespace No8.Ascii.DependencyInjection;
 
 /// <summary>
-/// A TinyMessage to be published/delivered by TinyMessenger
+/// A message to be published/delivered by PubSubMessenger
 /// </summary>
 public interface IPubSubMessage
 {
@@ -722,7 +722,5 @@ public sealed class TinyMessengerHub : ITinyMessengerHub
 
         publishAction.Invoke();
         callback?.Invoke(null!);
-
-        // publishAction.BeginInvoke(callback, null);
     }
 }

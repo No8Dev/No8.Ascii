@@ -1,4 +1,4 @@
-﻿using No8.Ascii.Console;
+﻿using No8.Ascii.ElementLayout;
 using System.IO;
 
 namespace No8.Ascii;
@@ -37,7 +37,7 @@ public class Sprite
         _backColours = new Color[w * h];
         for (int i = 0; i < w * h; i++)
         {
-            _glyphs[i] = Runes.Space;
+            _glyphs[i] = Glyph.Clear;
             _foreColours[i] = DefaultForeground;
             _backColours[i] = DefaultBackground;
         }
@@ -61,7 +61,7 @@ public class Sprite
     public Rune GetGlyph(int x, int y)
     {
         if (x < 0 || x >= Width || y < 0 || y >= Height)
-            return Runes.Space;
+            return Glyph.Clear;
         return _glyphs[y * Width + x];
     }
 
@@ -83,7 +83,7 @@ public class Sprite
         int sx = x * Width;
         int sy = y * Height - 1;
         if (sx < 0 || sx >= Width || sy < 0 || sy >= Height)
-            return Runes.Space;
+            return Glyph.Clear;
         return _glyphs[sy * Width + sx];
     }
 

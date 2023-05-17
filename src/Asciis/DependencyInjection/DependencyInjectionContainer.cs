@@ -2,13 +2,14 @@
 // Based on concepts from TinyIoC
 //===============================================================================
 
+using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 
 namespace No8.Ascii.DependencyInjection;
 
-public sealed class DependencyInjectionContainer : IDisposable
+public sealed class DependencyInjectionContainer
 {
     /// <summary>
     /// Registration options for "fluent" API
@@ -2143,14 +2144,14 @@ public sealed class DependencyInjectionContainer : IDisposable
         public static bool operator !=(TypeRegistration? left, TypeRegistration? right) { return !Equals(left, right); }
     }
 
-    private readonly        SafeDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
+    private readonly        ConcurrentDictionary<TypeRegistration, ObjectFactoryBase> _registeredTypes;
     private delegate        object ObjectConstructor(params object[] parameters);
-    private static readonly SafeDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache = new();
+    private static readonly ConcurrentDictionary<ConstructorInfo, ObjectConstructor> ObjectConstructorCache = new();
         
     public DependencyInjectionContainer()
     {
         _parent          = null;
-        _registeredTypes = new SafeDictionary<TypeRegistration, ObjectFactoryBase>();
+        _registeredTypes = new ConcurrentDictionary<TypeRegistration, ObjectFactoryBase>();
 
         RegisterDefaultTypes();
     }
@@ -2163,9 +2164,8 @@ public sealed class DependencyInjectionContainer : IDisposable
         _parent = parent;
     }
         
-
-        
     private readonly object _autoRegisterLock = new();
+    
     private void AutoRegisterInternal(IEnumerable<Assembly> assemblies, DuplicateImplementationActions duplicateAction, Func<Type, bool>? registrationPredicate)
     {
         lock (_autoRegisterLock)
@@ -2278,7 +2278,7 @@ public sealed class DependencyInjectionContainer : IDisposable
     {
         Register(this);
 
-        // Only register the TinyMessenger singleton if we are the root container
+        // Only register the PubSubMessenger singleton if we are the root container
         if (_parent == null)
             Register<ITinyMessengerHub, TinyMessengerHub>();
     }
@@ -2306,7 +2306,7 @@ public sealed class DependencyInjectionContainer : IDisposable
 
     private bool RemoveRegistration(TypeRegistration typeRegistration)
     {
-        return _registeredTypes.Remove(typeRegistration);
+        return _registeredTypes.Remove(typeRegistration, out _);
     }
 
     private ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation)
@@ -2870,11 +2870,6 @@ public sealed class DependencyInjectionContainer : IDisposable
             }
         }
         return true;
-    }
-
-    public void Dispose()
-    {
-        _registeredTypes.Dispose();
     }
 }
 

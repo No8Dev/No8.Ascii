@@ -1,7 +1,7 @@
 ﻿namespace No8.Ascii;
 
 /// <summary>
-///     Event arguments for the <see cref="Asciis.AsciiApplication.Resized"/> event.
+///     Event arguments for the Resized event.
 /// </summary>
 public class ResizedEventArgs : EventArgs
 {

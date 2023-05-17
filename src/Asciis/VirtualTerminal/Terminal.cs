@@ -577,8 +577,28 @@ public class Terminal
 
     public static class Mode
     {
+        /// <summary>
+        /// Save cursor as in DECSC, xterm.
+        /// After saving the cursor, switch to the Alternate Screen Buffer, clearing it first.
+        /// This may be disabled by the titeInhibit resource.
+        /// This control combines the effects of the 1047 and 1048  modes.
+        /// Use this with terminfo-based applications rather than the 47 mode.
+        /// </summary>
         public static string ScreenAlt => "\x1b[?1049h";
-        public static string ScreenNormal => "\x1b[?1049h";
+
+        /// <summary>
+        /// Use Normal Screen Buffer and restore cursor as in DECRC, xterm.
+        /// This may be disabled by the titeInhibit resource.
+        /// This combines the effects of the 1047 and 1048 modes.  
+        /// Use this with terminfo-based applications rather than the 47 mode.
+        /// </summary>
+        public static string ScreenNormal => "\x1b[?1049l";
+        
+        /// <summary>
+        /// Save cursor as in DECSC, xterm. This may be disabled by the titeInhibit resource. 
+        /// </summary>
+        public static string SaveScreenBuffer => "\x1b[?1048l";
+
 
         public static string LocatorReportingCells => "\x1b[1;2'z";
         public static string StopLocatorReporting => "\x1b['z";
@@ -594,10 +614,12 @@ public class Terminal
         public static string StartTracking => "\x1b[?1003h\x1b[?1004h\x1b[?1006h";
         public static string StopTracking => "\x1b[?1003l\x1b[?1004l\x1b[?1006l";
 
-        public static string StopMouseXY => "\x1b[?1000h";
-        public static string StopMouseTrackingHilite => "\x1b[?1001h";
-        public static string StopMouseTrackingCell => "\x1b[?1002h";
-        public static string StopMouseTrackingAll => "\x1b[?1003h";
+        public static string StopMouseXY => "\x1b[?1000l";
+        public static string StopMouseTrackingHilite => "\x1b[?1001l";
+        public static string StopMouseTrackingCell => "\x1b[?1002l";
+        public static string StopMouseTrackingAll => "\x1b[?1003l";
+        public static string StopMouseTrackingFocus => "\x1b[?1004l";
+        public static string StopMouseTrackingSGR => "\x1b[?1006l";
     }
 
     public static class Func
@@ -610,6 +632,42 @@ public class Terminal
         public static string ReportCursorPosition => "\x1b[6n";
     }
 
+    internal enum ControlChar : byte
+    {
+        NUL = 0x00, //    Null
+        SOH = 0x01, //    Start of Header
+        STX = 0x02, //    Start of Text
+        ETX = 0x03, //    End of Text
+        EOT = 0x04, //    End of Transmission
+        ENQ = 0x05, //    Enquiry
+        ACK = 0x06, //    Acknowledge
+        BEL = 0x07, //    Bell
+        BS = 0x08,  //    Backspace
+        HT = 0x09,  //    Horizontal Tab
+        LF = 0x0A,  //    Line Feed
+        VT = 0x0B,  //    Vertical Tab
+        FF = 0x0C,  //    Form Feed
+        CR = 0x0D,  //    Carriage Return
+        SO = 0x0E,  //    Shift Out
+        SI = 0x0F,  //    Shift In
+        DLE = 0x10, //    Data Link Escape
+        DC1 = 0x11, //    Device Control 1
+        DC2 = 0x12, //    Device Control 2
+        DC3 = 0x13, //    Device Control 3
+        DC4 = 0x14, //    Device Control 4
+        NAK = 0x15, //    Negative Acknowledge
+        SYN = 0x16, //    Synchronize
+        ETB = 0x17, //    End of Transmission Block
+        CAN = 0x18, //    Cancel
+        EM = 0x19,  //    End of Medium
+        SUB = 0x1A, //    Substitute
+        ESC = 0x1B, //    Escape
+        FS = 0x1C,  //    File Separator
+        GS = 0x1D,  //    Group Separator
+        RS = 0x1E,  //    Record Separator
+        US = 0x1F,  //    Unit Separator
+    }
+    
     public static class SpecialKey
     {
         // ReSharper disable InconsistentNaming
@@ -978,11 +1036,11 @@ public class Terminal
         ///     Ps => 1044  ⇒  Reuse the most recent data copied to CLIP- BOARD, xterm.This enables the keepClipboard resource.
         ///     Ps => 1046  ⇒  Enable switching to/from Alternate Screen Buffer, xterm.This works for terminfo-based systems, updating the titeInhibit resource.
         ///     Ps => 1047  ⇒  Use Alternate Screen Buffer, xterm.This may be disabled by the titeInhibit resource.
-        ///     Ps => 1048  ⇒  Save cursor as in DECSC, xterm.This may be disabled by the titeInhibit resource.
+        ///     Ps => 1048  ⇒  Save cursor as in DECSC, xterm. This may be disabled by the titeInhibit resource.
         ///     Ps => 1049  ⇒  Save cursor as in DECSC, xterm.After saving the cursor, switch to the Alternate Screen Buffer, 
         ///                    clearing it first.This may be disabled by the titeInhibit resource.  
         ///                    This control combines the effects of the 1047 and 1048  modes.
-        ///                    Use this with terminfo-based applications rather than the 47  mode.
+        ///                    Use this with terminfo-based applications rather than the 47 mode.
         ///     Ps => 1050  ⇒  Set terminfo/termcap function-key mode, xterm.
         ///     Ps => 1051  ⇒  Set Sun function-key mode, xterm.
         ///     Ps => 1052  ⇒  Set HP function-key mode, xterm.
@@ -1052,7 +1110,7 @@ public class Terminal
         ///     Ps => 1041  ⇒  Use the PRIMARY selection, xterm.  This disables the selectToClipboard resource.
         ///     Ps => 1042  ⇒  Disable Urgency window manager hint when Control-G is received, xterm.  This disables the bellIsUrgent resource.
         ///     Ps => 1043  ⇒  Disable raising of the window when Control-G is received, xterm.  This disables the popOnBell resource.
-        ///     Ps => 1046  ⇒  Disable switching to/from Alternate Screen Buffer, xterm.  This works for terminfo-based systems, updat- ing the 
+        ///     Ps => 1046  ⇒  Disable switching to/from Alternate Screen Buffer, xterm.  This works for terminfo-based systems, updating the 
         ///                     titeInhibit resource.  If currently using the Alternate Screen Buffer, xterm switches to the Normal Screen Buffer.
         ///     Ps => 1047  ⇒  Use Normal Screen Buffer, xterm.  Clear the screen first if in the Alternate Screen Buffer.  
         ///                     This may be disabled by the titeInhibit resource.
