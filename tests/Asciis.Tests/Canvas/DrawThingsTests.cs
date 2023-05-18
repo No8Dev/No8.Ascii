@@ -17,58 +17,58 @@ public class DrawThingsTests
     [Fact]
     public void DrawTriange()
     {
-        _canvas.DrawTriangle(1, 18, 10, 2, 39, 19, Runes.Shapes.SquareSolid);
+        _canvas.DrawTriangle(1, 16, 10, 0, 39, 17, Runes.Shapes.SquareSolid);
 
         var str = _canvas.ToString();
-        var box = @"
-
-          ■
-         ■ ■■
-         ■   ■■
-        ■      ■
-        ■       ■■
-       ■          ■■
-       ■            ■■
-      ■               ■
-      ■                ■■
-     ■                   ■■
-    ■                      ■
-    ■                       ■■
-   ■                          ■■
-   ■                            ■■
-  ■                               ■
-  ■                                ■■
- ■■■■■■■■■■■■■■■■■■■                 ■■
-                    ■■■■■■■■■■■■■■■■■■■■";
+        var box = """
+                      ■
+                     ■ ■■
+                     ■   ■■
+                    ■      ■
+                    ■       ■■
+                   ■          ■■
+                   ■            ■■
+                  ■               ■
+                  ■                ■■
+                 ■                   ■■
+                ■                      ■
+                ■                       ■■
+               ■                          ■■
+               ■                            ■■
+              ■                               ■
+              ■                                ■■
+             ■■■■■■■■■■■■■■■■■■■                 ■■
+                                ■■■■■■■■■■■■■■■■■■■■
+            """;
         Assert.Equal(box, str);
     }
 
     [Fact]
     public void DrawFillTriange()
     {
-        _canvas.FillTriangle(1, 18, 10, 2, 39, 19, Runes.Block.Solid);
+        _canvas.FillTriangle(1, 16, 10, 0, 39, 17, Runes.Block.Solid);
 
         var str = _canvas.ToString();
-        var box = @"
-
-          █
-         ████
-         ██████
-        ████████
-        ██████████
-       █████████████
-       ███████████████
-      █████████████████
-     ████████████████████
-     ██████████████████████
-    ████████████████████████
-    ██████████████████████████
-   █████████████████████████████
-   ███████████████████████████████
-  █████████████████████████████████
-  ███████████████████████████████████
- ██████████████████████████████████████
-                    ████████████████████";
+        var box = """
+                      █
+                     ████
+                     ██████
+                    ████████
+                    ██████████
+                   █████████████
+                   ███████████████
+                  █████████████████
+                 ████████████████████
+                 ██████████████████████
+                ████████████████████████
+                ██████████████████████████
+               █████████████████████████████
+               ███████████████████████████████
+              █████████████████████████████████
+              ███████████████████████████████████
+             ██████████████████████████████████████
+                                ████████████████████
+            """;
         Assert.Equal(box, str);
     }
 
@@ -76,11 +76,10 @@ public class DrawThingsTests
     public void DrawCircle()
     {
         _canvas.CircleCompensateRatio = 1.0f;
-        _canvas.DrawCircle(19, 9, 7, Runes.Block.DarkShade);
+        _canvas.DrawCircle(7, 7, 7, Runes.Block.DarkShade);
 
         var str = _canvas.ToString();
-        var box = @"
-
+        var box = """
                  ▓▓▓▓▓
                ▓▓     ▓▓
               ▓         ▓
@@ -95,7 +94,8 @@ public class DrawThingsTests
              ▓           ▓
               ▓         ▓
                ▓▓     ▓▓
-                 ▓▓▓▓▓";
+                 ▓▓▓▓▓
+            """;
         Assert.Equal(box, str);
     }
 
@@ -103,13 +103,12 @@ public class DrawThingsTests
     public void DrawFillCircle()
     {
         _canvas.CircleCompensateRatio = 1.0f;
-        _canvas.FillCircle(19, 9, 7, Runes.Block.LightShade);
-        _canvas.FillCircle(19, 9, 6, Runes.Block.MediumShade);
-        _canvas.FillCircle(19, 9, 4, Runes.Block.DarkShade);
+        _canvas.FillCircle(7, 7, 7, Runes.Block.LightShade);
+        _canvas.FillCircle(7, 7, 6, Runes.Block.MediumShade);
+        _canvas.FillCircle(7, 7, 4, Runes.Block.DarkShade);
 
         var str = _canvas.ToString();
-        var box = @"
-
+        var box = """
                  ░░░░░
                ░░▒▒▒▒▒░░
               ░░▒▒▒▒▒▒▒░░
@@ -124,7 +123,8 @@ public class DrawThingsTests
              ░░▒▒▒▓▓▓▒▒▒░░
               ░░▒▒▒▒▒▒▒░░
                ░░▒▒▒▒▒░░
-                 ░░░░░";
+                 ░░░░░
+            """;
         Assert.Equal(box, str);
     }
 
@@ -134,16 +134,18 @@ public class DrawThingsTests
         _canvas.DrawSprite(0, 0, GetSprite());
 
         var str = _canvas.ToString();
-        var box = @"╭────────╮
-│╒══════╕│
-││ ▓  ▓ ││
-│└──────┘│
-│▲▲▲▲▲▲▲ │
-│ ▲▲▲▲▲  │
-│  ▲▲▲   │
-│   ▲    │
-│        │
-╰────────╯";
+        var box = """
+            ╭────────╮
+            │╒══════╕│
+            ││ ▓  ▓ ││
+            │└──────┘│
+            │▲▲▲▲▲▲▲ │
+            │ ▲▲▲▲▲  │
+            │  ▲▲▲   │
+            │   ▲    │
+            │        │
+            ╰────────╯
+            """;
         Assert.Equal(box, str);
     }
 
@@ -160,55 +162,59 @@ public class DrawThingsTests
         var sprite = _canvas.ExportSprite(0, 0, 10, 10);
 
         var str = _canvas.ToString();
-        var box = @"╭────────╮
-│╒══════╕│
-││ ▓  ▓ ││
-│└──────┘│
-│▲▲▲▲▲▲▲ │
-│ ▲▲▲▲▲  │
-│  ▲▲▲   │
-│   ▲    │
-│        │
-╰────────╯";
+        var box = """
+            ╭────────╮
+            │╒══════╕│
+            ││ ▓  ▓ ││
+            │└──────┘│
+            │▲▲▲▲▲▲▲ │
+            │ ▲▲▲▲▲  │
+            │  ▲▲▲   │
+            │   ▲    │
+            │        │
+            ╰────────╯
+            """;
         Assert.Equal(box, str);
 
         str = sprite!.ToString();
         Assert.Equal(SpriteStr, str);
     }
 
-    public static string SpriteStr = @"10
-10
-╭────────╮
-│╒══════╕│
-││ ▓  ▓ ││
-│└──────┘│
-│▲▲▲▲▲▲▲ │
-│ ▲▲▲▲▲  │
-│  ▲▲▲   │
-│   ▲    │
-│        │
-╰────────╯
-FFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2F
-FFADFF2FFF800080FF800080FF800080FF800080FF800080FF800080FF800080FF800080FFADFF2F
-FFADFF2FFF800080FF800080FF00BFFFFF800080FF800080FF00BFFFFF800080FF800080FFADFF2F
-FFADFF2FFF800080FF800080FF800080FF800080FF800080FF800080FF800080FF800080FFADFF2F
-FFADFF2FFFFF4500FFFF4500FFFF4500FFFF4500FFFF4500FFFF4500FFFF4500FFADFF2FFFADFF2F
-FFADFF2FFFADFF2FFFFF4500FFFF4500FFFF4500FFFF4500FFFF4500FFADFF2FFFADFF2FFFADFF2F
-FFADFF2FFFADFF2FFFADFF2FFFFF4500FFFF4500FFFF4500FFADFF2FFFADFF2FFFADFF2FFFADFF2F
-FFADFF2FFFADFF2FFFADFF2FFFADFF2FFFFF4500FFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2F
-FFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2F
-FFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2F
-FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
-FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
-FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
-FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
-FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
-FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
-FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
-FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
-FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
-FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
-";
+    public static string SpriteStr = """
+        10
+        10
+        ╭────────╮
+        │╒══════╕│
+        ││ ▓  ▓ ││
+        │└──────┘│
+        │▲▲▲▲▲▲▲ │
+        │ ▲▲▲▲▲  │
+        │  ▲▲▲   │
+        │   ▲    │
+        │        │
+        ╰────────╯
+        FFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2F
+        FFADFF2FFF800080FF800080FF800080FF800080FF800080FF800080FF800080FF800080FFADFF2F
+        FFADFF2FFF800080FF800080FF00BFFFFF800080FF800080FF00BFFFFF800080FF800080FFADFF2F
+        FFADFF2FFF800080FF800080FF800080FF800080FF800080FF800080FF800080FF800080FFADFF2F
+        FFADFF2FFFFF4500FFFF4500FFFF4500FFFF4500FFFF4500FFFF4500FFFF4500FFADFF2FFFADFF2F
+        FFADFF2FFFADFF2FFFFF4500FFFF4500FFFF4500FFFF4500FFFF4500FFADFF2FFFADFF2FFFADFF2F
+        FFADFF2FFFADFF2FFFADFF2FFFFF4500FFFF4500FFFF4500FFADFF2FFFADFF2FFFADFF2FFFADFF2F
+        FFADFF2FFFADFF2FFFADFF2FFFADFF2FFFFF4500FFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2F
+        FFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2F
+        FFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2FFFADFF2F
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+
+        """;
     public static Sprite GetSprite()
     {
         return new Sprite(SpriteStr);

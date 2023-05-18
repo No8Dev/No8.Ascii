@@ -30,7 +30,8 @@ public class AlignItemsTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
+"""
+╔══════════════════════════════╗
 ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
 ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
 ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
@@ -45,7 +46,8 @@ public class AlignItemsTest : BaseTests
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+╚══════════════════════════════╝
+""",
             Canvas!.ToString());
     }
 
@@ -64,7 +66,8 @@ public class AlignItemsTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═════════╔══════════╗═════════╗
+"""
+╔═════════╔══════════╗═════════╗
 ║░░░░░░░░░║AAAAAAAAAA║░░░░░░░░░║
 ║░░░░░░░░░║AAAAAAAAAA║░░░░░░░░░║
 ║░░░░░░░░░║AAAAAAAAAA║░░░░░░░░░║
@@ -79,7 +82,8 @@ public class AlignItemsTest : BaseTests
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+╚══════════════════════════════╝
+""",
             Canvas!.ToString());
     }
 
@@ -98,7 +102,8 @@ public class AlignItemsTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════╗═══════════════════╗
+"""
+╔══════════╗═══════════════════╗
 ║AAAAAAAAAA║░░░░░░░░░░░░░░░░░░░║
 ║AAAAAAAAAA║░░░░░░░░░░░░░░░░░░░║
 ║AAAAAAAAAA║░░░░░░░░░░░░░░░░░░░║
@@ -113,7 +118,8 @@ public class AlignItemsTest : BaseTests
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+╚══════════════════════════════╝
+""",
             Canvas!.ToString());
     }
 
@@ -132,7 +138,8 @@ public class AlignItemsTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═══════════════════╔══════════╗
+"""
+╔═══════════════════╔══════════╗
 ║░░░░░░░░░░░░░░░░░░░║AAAAAAAAAA║
 ║░░░░░░░░░░░░░░░░░░░║AAAAAAAAAA║
 ║░░░░░░░░░░░░░░░░░░░║AAAAAAAAAA║
@@ -147,7 +154,8 @@ public class AlignItemsTest : BaseTests
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+╚══════════════════════════════╝
+""",
             Canvas!.ToString());
     }
 
@@ -170,7 +178,8 @@ public class AlignItemsTest : BaseTests
 
         Draw(root, 12, 12);
         Assert.Equal(
-            @"╔══════════╗
+"""
+╔══════════╗
 ║BBBBBBBBBB║
 ║BBBBBBBBBB║
 ║BBBBBBBBBB║
@@ -181,7 +190,8 @@ public class AlignItemsTest : BaseTests
 ║BBBBBBBBBB║
 ║BBBBBBBBBB║
 ║BBBBBBBBBB║
-╚══════════╝",
+╚══════════╝
+""",
             Canvas!.ToString());
     }
 
@@ -204,7 +214,8 @@ public class AlignItemsTest : BaseTests
 
         Draw(root, 12, 12);
         Assert.Equal(
-            @"╔══════════╗
+"""
+╔══════════╗
 ║BBBBBBBBBB║
 ║BBBBBBBBBB║
 ║BBBBBBBBBB║
@@ -215,7 +226,8 @@ public class AlignItemsTest : BaseTests
 ║BBBBBBBBBB║
 ║BBBBBBBBBB║
 ║BBBBBBBBBB║
-╚══════════╝",
+╚══════════╝
+""",
             Canvas!.ToString());
     }
 
@@ -238,7 +250,7 @@ public class AlignItemsTest : BaseTests
 
         Draw(root, 12, 12);
         Assert.Equal(
-            @"BBBBBBBBBBBB
+"""
 BBBBBBBBBBBB
 BBBBBBBBBBBB
 BBBBBBBBBBBB
@@ -249,7 +261,9 @@ BBBBBBBBBBBB
 BBBBBBBBBBBB
 BBBBBBBBBBBB
 BBBBBBBBBBBB
-BBBBBBBBBBBB",
+BBBBBBBBBBBB
+BBBBBBBBBBBB
+""",
             Canvas!.ToString());
     }
 
@@ -272,7 +286,7 @@ BBBBBBBBBBBB",
 
         Draw(root, 12, 12);
         Assert.Equal(
-            @"BBBBBBBBBBBB
+"""
 BBBBBBBBBBBB
 BBBBBBBBBBBB
 BBBBBBBBBBBB
@@ -283,7 +297,9 @@ BBBBBBBBBBBB
 BBBBBBBBBBBB
 BBBBBBBBBBBB
 BBBBBBBBBBBB
-BBBBBBBBBBBB",
+BBBBBBBBBBBB
+BBBBBBBBBBBB
+""",
             Canvas!.ToString());
     }
 
@@ -312,7 +328,8 @@ BBBBBBBBBBBB",
 
         Draw(root);
         Assert.Equal(
-@"┌──────────────────────────────┐
+"""
+┌──────────────────────────────┐
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
 ╔═══════════╔══════╗═══════════╗
 ║░░░░░░░░░░░║CCCCCC║░░░░░░░░░░░║
@@ -327,7 +344,8 @@ BBBBBBBBBBBB",
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+╚══════════════════════════════╝
+""",
             Canvas!.ToString());
     }
 
@@ -354,7 +372,8 @@ BBBBBBBBBBBB",
 
         Draw(root);
         Assert.Equal(
-            @"┌──────────────────────────────┐
+"""
+┌──────────────────────────────┐
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
 ╔══════╗═══════════════════════╗
 ║CCCCCC║BBBBBBBBBBBBBBBBBBBBBBB║
@@ -369,7 +388,8 @@ BBBBBBBBBBBB",
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+╚══════════════════════════════╝
+""",
             Canvas!.ToString());
     }
 
@@ -396,7 +416,8 @@ BBBBBBBBBBBB",
 
         Draw(root);
         Assert.Equal(
-            @"CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+"""
+CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
@@ -411,7 +432,8 @@ BBBBBBBBBBBB",
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+╚══════════════════════════════╝
+""",
             Canvas!.ToString());
     }
 
@@ -438,7 +460,8 @@ BBBBBBBBBBBB",
 
         Draw(root);
         Assert.Equal(
-            @"CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+"""
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
@@ -453,7 +476,8 @@ BBBBBBBBBBBB",
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+╚══════════════════════════════╝
+""",
             Canvas!.ToString());
     }
 
@@ -480,7 +504,8 @@ BBBBBBBBBBBB",
 
         Draw(root);
         Assert.Equal(
-            @"CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+"""
+CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
@@ -495,7 +520,8 @@ BBBBBBBBBBBB",
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
 ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+╚══════════════════════════════╝
+""",
             Canvas!.ToString());
     }
 }

@@ -142,6 +142,9 @@ public class FrameLayoutPlan : LayoutPlan
     public FrameLayoutPlan()
     {
         Border = 1;
+        Padding = 1;
+        Width = 100.Percent();
+        Height = 100.Percent();
     }
 }
 

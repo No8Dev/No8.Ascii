@@ -28,22 +28,24 @@ public class ComplexLayoutTests
 
         Draw( root );
 
-        Assert.Equal( @"┌──────────────────────────────┐
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-└──────────────────────────────┘",
+        Assert.Equal("""
+            ┌──────────────────────────────┐
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            └──────────────────────────────┘
+            """,
             _canvas!.ToString() );
     }
 
@@ -59,58 +61,65 @@ public class ComplexLayoutTests
 
         Draw(root);
 
-        Assert.Equal(
-            @"┌──────────────┐
-│              │
-│              │
-│              │
-│              │
-│              │
-│              │
-└──────────────┘",
+        Assert.Equal("""
+            ┌──────────────┐
+            │              │
+            │              │
+            │              │
+            │              │
+            │              │
+            │              │
+            └──────────────┘
+            """,
             _canvas!.ToString());
 
         // Under some engines, the root element should always stretch to the canvas,
         // but here, we draw it as per the plan
     }
 
-    /*
     [Fact]
     public void Test3()
     {
-        var root = new TestControl
+        var root = new Frame
                    {
-                       new TestControl
+                       new FrameLayoutPlan
                        {
-                           new LayoutPlan
+                           ElementsDirection = LayoutDirection.Horz,
+                           AlignElements_LayoutDirection = AlignmentElements_LayoutDirection.Center,
+                           //AlignElements_Cross = Alignment_Cross.Center,
+                           Align_Cross = AlignmentLine_Cross.Center
+                       },
+                       new Frame
+                       {
+                           new FrameLayoutPlan
                            {
                                Width  = 16,
                                Height = 8,
-
-                               HorzPosition = LayoutPosition.Center,
-                               VertPosition = LayoutPosition.Center
                            }
                        }
                    };
 
         Draw(root);
 
-        Assert.Equal(@"┌──────────────────────────────┐
-│                              │
-│                              │
-│                              │
-│       ┌──────────────┐       │
-│       │              │       │
-│       │              │       │
-│       │              │       │
-│       │              │       │
-│       │              │       │
-│       │              │       │
-│       └──────────────┘       │
-│                              │
-│                              │
-│                              │
-└──────────────────────────────┘",
+        Assert.Equal(
+            """
+            ┌──────────────────────────────┐
+            │                              │
+            │                              │
+            │                              │
+            │       ┌──────────────┐       │
+            │       │              │       │
+            │       │              │       │
+            │       │              │       │
+            │       │              │       │
+            │       │              │       │
+            │       │              │       │
+            │       └──────────────┘       │
+            │                              │
+            │                              │
+            │                              │
+            └──────────────────────────────┘
+            """,
             _canvas.ToString());
     }
 
@@ -118,38 +127,92 @@ public class ComplexLayoutTests
     public void Test4()
     {
         var root = new Frame
-                   {
-                       new Frame
-                       {
-                           new LayoutPlan
-                           {
-                               Width  = 16,
-                               Height = 8,
-
-                               HorzPosition = LayoutPosition.End,
-                               VertPosition = LayoutPosition.End
-                           }
-                       }
-                   };
+        {
+            new FrameLayoutPlan
+            {
+                ElementsDirection = LayoutDirection.Horz,
+                AlignElements_LayoutDirection = AlignmentElements_LayoutDirection.End,
+                Align_Cross = AlignmentLine_Cross.End,
+                Padding = 1
+            },
+            new Frame
+            {
+                new LayoutPlan
+                {
+                    Width  = 16,
+                    Height = 8,
+                }
+            }
+        };
 
         Draw(root);
 
-        Assert.Equal(@"┌──────────────────────────────┐
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-│                              │
-│              ┌──────────────┐│
-│              │              ││
-│              │              ││
-│              │              ││
-│              │              ││
-│              │              ││
-│              │              ││
-│              └──────────────┘│
-└──────────────────────────────┘",
+        Assert.Equal(
+            """
+            ┌──────────────────────────────┐
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │              ┌──────────────┐│
+            │              │              ││
+            │              │              ││
+            │              │              ││
+            │              │              ││
+            │              │              ││
+            │              │              ││
+            │              └──────────────┘│
+            └──────────────────────────────┘
+            """,
+            _canvas.ToString());
+    }
+    
+    [Fact]
+    public void AlignmentEnd_Test()
+    {
+        var root = new Frame
+        {
+            new FrameLayoutPlan
+            {
+                ElementsDirection = LayoutDirection.Horz,
+                AlignElements_LayoutDirection = AlignmentElements_LayoutDirection.End,
+                Align_Cross = AlignmentLine_Cross.End,
+                Padding = Sides.Zero
+            },
+            new Frame
+            {
+                new LayoutPlan
+                {
+                    Width  = 16,
+                    Height = 8,
+                }
+            }
+        };
+
+        Draw(root);
+
+        
+        Assert.Equal(
+            """
+            ┌──────────────────────────────┐
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │                              │
+            │               ┌──────────────┤
+            │               │              │
+            │               │              │
+            │               │              │
+            │               │              │
+            │               │              │
+            │               │              │
+            └───────────────┴──────────────┘
+            """,
             _canvas.ToString());
     }
 
@@ -163,25 +226,29 @@ public class ComplexLayoutTests
 
         Draw(root);
 
-        Assert.Equal(@"┌──────────────────────────────┐
-│┌────────────────────────────┐│
-││                            ││
-││                            ││
-││                            ││
-││                            ││
-││                            ││
-││                            ││
-││                            ││
-││                            ││
-││                            ││
-││                            ││
-││                            ││
-││                            ││
-│└────────────────────────────┘│
-└──────────────────────────────┘",
+        Assert.Equal(
+            """
+            ┌──────────────────────────────┐
+            │┌────────────────────────────┐│
+            ││                            ││
+            ││                            ││
+            ││                            ││
+            ││                            ││
+            ││                            ││
+            ││                            ││
+            ││                            ││
+            ││                            ││
+            ││                            ││
+            ││                            ││
+            ││                            ││
+            ││                            ││
+            │└────────────────────────────┘│
+            └──────────────────────────────┘
+            """,
             _canvas.ToString());
     }
 
+    /*
     [Fact]
     public void Test6()
     {

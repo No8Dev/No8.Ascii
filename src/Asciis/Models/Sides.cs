@@ -2,6 +2,9 @@
 
 namespace No8.Ascii;
 
+/// <summary>
+///     Size of each edge
+/// </summary>
 public class Sides
 {
     public static Sides Zero =>
