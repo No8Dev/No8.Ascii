@@ -15,12 +15,12 @@ public class A_Test : BaseTests
     [Fact]
     public void a_stacked_labels()
     {
-        var root = new TestNode(name: "Root", new WindowLayoutPlan { Width = 32, Height = 16 })
+        var root = new TestNode(name: "Root", new LayoutPlan { Width = 32, Height = 16 })
                    {
-                       new TestNode(out var frame, name: "A", new FrameLayoutPlan { Height = 100.Percent() })
+                       new TestNode(out var frame, name: "A", new LayoutPlan { Height = 100.Percent() })
                        {
-                           new TestNode(out var heading, name: "B", new LabelLayoutPlan { Width = 10, Height = 5 }),
-                           new TestNode(out var text, name: "C", new LabelLayoutPlan { Width = 10, Height = 5 })
+                           new TestNode(out var heading, name: "B", new LayoutPlan { Width = 10, Height = 5 }),
+                           new TestNode(out var text, name: "C", new LayoutPlan { Width = 10, Height = 5 })
                        }
                    };
 
@@ -56,32 +56,34 @@ public class A_Test : BaseTests
     [Fact]
     public void a_layout_testharness()
     {
-        var root = new TestNode(new LayoutPlan { Width = 32, Height = 16 } )
-           .Add(new TestNode(out var frame, "A", new LayoutPlan { Margin = 1, Padding = 2, ElementsDirection = LayoutDirection.Vert } )
-                .Add(new TestNode(out var heading, "B", new LayoutPlan { Width = 16, Height = 4, AlignSelf_Cross = AlignmentLine_Cross.Center } ))
-                .Add(new TestNode(out var text, "C", new LayoutPlan { Width = 6, Height = 4, AlignSelf_Cross = AlignmentLine_Cross.Start } ))
+        var root = new TestNode(new TestPlan { Width = 32, Height = 16 } )
+           .Add(new TestNode(out var frame, "A", new TestPlan { Margin = 1, Padding = 2, ElementsDirection = LayoutDirection.Vert } )
+                .Add(new TestNode(out var heading, "B", new TestPlan { Width = 16, Height = 4, AlignSelf_Cross = AlignmentLine_Cross.Center } ))
+                .Add(new TestNode(out var text, "C", new TestPlan { Width = 6, Height = 4, AlignSelf_Cross = AlignmentLine_Cross.Start } ))
                 );
 
         ElementArrange.Calculate(root);
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║┌────────────────────────────┐║
-║│AAAAAAAAAAAAAAAAAAAAAAAAAAAA│║
-║│A╔════╔══════════════╗════╗A│║
-║│A║AAAA║BBBBBBBBBBBBBB║AAAA║A│║
-║│A║AAAA║BBBBBBBBBBBBBB║AAAA║A│║
-║│A║AAAA╚══════════════╝AAAA║A│║
-║│A╔════╗AAAAAAAAAAAAAAAAAAA║A│║
-║│A║CCCC║AAAAAAAAAAAAAAAAAAA║A│║
-║│A║CCCC║AAAAAAAAAAAAAAAAAAA║A│║
-║│A╚════╝═══════════════════╝A│║
-║│AAAAAAAAAAAAAAAAAAAAAAAAAAAA│║
-║└────────────────────────────┘║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║┌────────────────────────────┐║
+            ║│AAAAAAAAAAAAAAAAAAAAAAAAAAAA│║
+            ║│A╔════╔══════════════╗════╗A│║
+            ║│A║AAAA║BBBBBBBBBBBBBB║AAAA║A│║
+            ║│A║AAAA║BBBBBBBBBBBBBB║AAAA║A│║
+            ║│A║AAAA╚══════════════╝AAAA║A│║
+            ║│A╔════╗AAAAAAAAAAAAAAAAAAA║A│║
+            ║│A║CCCC║AAAAAAAAAAAAAAAAAAA║A│║
+            ║│A║CCCC║AAAAAAAAAAAAAAAAAAA║A│║
+            ║│A╚════╝═══════════════════╝A│║
+            ║│AAAAAAAAAAAAAAAAAAAAAAAAAAAA│║
+            ║└────────────────────────────┘║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -95,7 +97,7 @@ public class A_Test : BaseTests
     {
         ElementArrange.Calculate( new TestNode(
                                    "Container",
-                                        new LayoutPlan
+                                        new TestPlan
                                         {
                                             Width = 100,
                                             Height = 100,
@@ -106,23 +108,23 @@ public class A_Test : BaseTests
                                                 Align_Cross = AlignmentLine_Cross.Center
                                         })
                                    {
-                                       new TestNode( "Item1", new LayoutPlan { Width = 27, Height = 10 } ),
-                                       new TestNode( "Item2", new LayoutPlan { Width = 27, Height = 10 } ),
-                                       new TestNode( "Item3", new LayoutPlan { Width = 27, Height = 10 } ),
-                                       new TestNode( "Item4", new LayoutPlan { Width = 27, Height = 10 } ),
-                                       new TestNode( "Item5", new LayoutPlan { Width = 27, Height = 10 } )
+                                       new TestNode( "Item1", new TestPlan { Width = 27, Height = 10 } ),
+                                       new TestNode( "Item2", new TestPlan { Width = 27, Height = 10 } ),
+                                       new TestNode( "Item3", new TestPlan { Width = 27, Height = 10 } ),
+                                       new TestNode( "Item4", new TestPlan { Width = 27, Height = 10 } ),
+                                       new TestNode( "Item5", new TestPlan { Width = 27, Height = 10 } )
                                    });
 
         ElementArrange.Calculate(
-                              new TestNode(new LayoutPlan { ElementsDirection = LayoutDirection.Horz, Align_Cross = AlignmentLine_Cross.End, Width = 100, Height = 100 })
+                              new TestNode(new TestPlan { ElementsDirection = LayoutDirection.Horz, Align_Cross = AlignmentLine_Cross.End, Width = 100, Height = 100 })
                               {
-                                      new TestNode( out var rootA, new LayoutPlan { Width = 50, Height = 60 } ),
-                                      new TestNode( out var rootB, new LayoutPlan { ElementsDirection = LayoutDirection.Horz, ElementsWrap = LayoutWrap.Wrap, Width = 50, Height = 25 } )
+                                      new TestNode( out var rootA, new TestPlan { Width = 50, Height = 60 } ),
+                                      new TestNode( out var rootB, new TestPlan { ElementsDirection = LayoutDirection.Horz, ElementsWrap = LayoutWrap.Wrap, Width = 50, Height = 25 } )
                                       {
-                                          new TestNode( out var rootBa, new LayoutPlan { Width = 25, Height = 20 } ),
-                                          new TestNode( out var rootBb, new LayoutPlan { Width = 25, Height = 10 } ),
-                                          new TestNode( out var rootBc, new LayoutPlan { Width = 25, Height = 20 } ),
-                                          new TestNode( out var root_1_3, new LayoutPlan { Width = 25, Height = 10 } )
+                                          new TestNode( out var rootBa, new TestPlan { Width = 25, Height = 20 } ),
+                                          new TestNode( out var rootBb, new TestPlan { Width = 25, Height = 10 } ),
+                                          new TestNode( out var rootBc, new TestPlan { Width = 25, Height = 20 } ),
+                                          new TestNode( out var root_1_3, new TestPlan { Width = 25, Height = 10 } )
                                       }
                               });
 
@@ -133,7 +135,7 @@ public class A_Test : BaseTests
     public void a_margin_test()
     {
         var root = new TestNode {
-           new TestNode(out var layer1, "A", new LayoutPlan { Width = 16, Height = 3, Margin = 1 })
+           new TestNode(out var layer1, "A", new TestPlan { Width = 16, Height = 3, Margin = 1 })
         };
 
         ElementArrange.Calculate(root);
@@ -166,8 +168,8 @@ public class A_Test : BaseTests
     public void a_padding_test()
     {
         var root = new TestNode()
-           .Add(new TestNode(out var layer1, "A", new LayoutPlan { Padding = 1 })
-                   .Add(new TestNode(out var layer2, "B", new LayoutPlan { Width = 5, Height = 3 }))
+           .Add(new TestNode(out var layer1, "A", new TestPlan { Padding = 1 })
+                   .Add(new TestNode(out var layer2, "B", new TestPlan { Width = 5, Height = 3 }))
                );
 
         ElementArrange.Calculate(root);
@@ -200,7 +202,7 @@ public class A_Test : BaseTests
     [Fact]
     public void a_layout_test()
     {
-        var framePlan = new LayoutPlan
+        var framePlan = new TestPlan
         {
             AlignElements_LayoutDirection = AlignmentElements_LayoutDirection.SpaceBetween,
             Align_Cross = AlignmentLine_Cross.Stretch,
@@ -208,39 +210,36 @@ public class A_Test : BaseTests
             FlexGrow = 1
         };
 
-        var root = new TestNode
-        {
-            Plan = new LayoutPlan
-            {
-                AlignElements_LayoutDirection = AlignmentElements_LayoutDirection.SpaceBetween,
-                Align_Cross = AlignmentLine_Cross.Stretch,
-                Flex = 1,
-                FlexGrow = 1
-            }
-        }
-                  .Add(new TestNode(out var frame1, "A", new LayoutPlan
+        var root = new TestNode(
+                new TestPlan
+                {
+                    AlignElements_LayoutDirection = AlignmentElements_LayoutDirection.SpaceBetween,
+                    Align_Cross = AlignmentLine_Cross.Stretch,
+                    Flex = 1,
+                    FlexGrow = 1
+                })
+                  .Add(new TestNode(out var frame1, "A", new TestPlan
                   {
                       AlignElements_LayoutDirection = AlignmentElements_LayoutDirection.SpaceBetween,
                       Align_Cross = AlignmentLine_Cross.Stretch,
                       Flex = 1,
                       FlexGrow = 1,
                   }))
-                  .Add(new TestNode(out var frame2, "B", new LayoutPlan
+                  .Add(new TestNode(out var frame2, "B", new TestPlan
                   {
                       AlignElements_LayoutDirection = AlignmentElements_LayoutDirection.SpaceBetween,
                       Align_Cross = AlignmentLine_Cross.Stretch,
                       Flex = 1,
                       FlexGrow = 1,
                   })
-                          .Add(new TestNode(out var text, "C")
-                          {
-                              Plan = new LayoutPlan
+                          .Add(new TestNode(out var text, "C", new TestPlan
                               {
                                       //Height = 1,
                                       IsText = true,
                                   Margin = 1,
                                   Padding = 1,
-                              },
+                              })
+                          {
                               MeasureFunc = (n, w, wm, h, hm) => new VecF(10, 1)
                           })
                       );
@@ -277,7 +276,7 @@ public class A_Test : BaseTests
     [Fact]
     public void a_simple_layout_test()
     {
-        var framePlan = new LayoutPlan
+        var framePlan = new TestPlan
         {
             AlignElements_LayoutDirection = AlignmentElements_LayoutDirection.SpaceBetween,
             Align_Cross = AlignmentLine_Cross.Stretch,
@@ -285,17 +284,15 @@ public class A_Test : BaseTests
             FlexGrow = 1
         };
 
-        var root = new TestNode { Plan = framePlan }
-           .Add(new TestNode(out var text, "A")
-           {
-               Plan = new LayoutPlan
+        var root = new TestNode ( framePlan )
+           .Add(new TestNode(out var text, "A",
+               new TestPlan
                {
                    Margin = 1,
                    Padding = 1,
                    Width = 10,
                    Height = 5
-               },
-           });
+               }));
 
         ElementArrange.Calculate(root, 32, 16);
 

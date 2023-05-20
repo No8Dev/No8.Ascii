@@ -7,12 +7,12 @@ namespace No8.Ascii.Controls;
 
 public class Window : Control, IHasStyle<WindowStyle>, IHasLayoutPlan<WindowLayoutPlan>
 {
-    public Window(LayoutPlan? plan = null, Style? style = null)
+    public Window(ControlPlan? plan = null, Style? style = null)
         : base(plan ?? new WindowLayoutPlan(), style)
     {
     }
 
-    public Window(out Window node, LayoutPlan? plan = null, Style? style = null)
+    public Window(out Window node, ControlPlan? plan = null, Style? style = null)
         : this(plan, style)
     {
         node = this;
@@ -25,7 +25,7 @@ public class Window : Control, IHasStyle<WindowStyle>, IHasLayoutPlan<WindowLayo
 
     public Vec Pointer { get; private set; } = Vec.Unknown;
 
-    public new WindowLayoutPlan Plan => (WindowLayoutPlan)_plan!;
+    public new WindowLayoutPlan ControlPlan => (WindowLayoutPlan)_controlPlan!;
     public new WindowStyle Style => (WindowStyle)_style!;
 
 
@@ -188,12 +188,12 @@ public class Window : Control, IHasStyle<WindowStyle>, IHasLayoutPlan<WindowLayo
 
 }
 
-public class WindowLayoutPlan : LayoutPlan
+public class WindowLayoutPlan : ControlPlan
 {
-    public WindowLayoutPlan()
+    public WindowLayoutPlan(LayoutPlan? plan = null) : base(plan)
     {
-        Width  = 100.Percent();
-        Height = 100.Percent();
+        LayoutPlan.Width  = 100.Percent();
+        LayoutPlan.Height = 100.Percent();
     }
 
 }

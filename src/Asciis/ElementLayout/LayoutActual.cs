@@ -1,8 +1,6 @@
-﻿
-using No8.Ascii.ElementLayout;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
-namespace No8.Ascii.Controls;
+namespace No8.Ascii.ElementLayout;
 
 using static NumberExtensions;
 

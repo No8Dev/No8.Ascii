@@ -1,21 +1,21 @@
-﻿using No8.Ascii.ElementLayout;
+using No8.Ascii.ElementLayout;
 
 namespace No8.Ascii.Controls;
 
-public class Frame : Control, IHasStyle<FrameStyle>, IHasLayoutPlan<FrameLayoutPlan>
+public class Row : Control, IHasStyle<RowStyle>, IHasLayoutPlan<RowLayoutPlan>
 {
     internal static readonly Brush? DefaultBorderBrush = null;
-    internal static readonly Edges DefaultBorder = Edges.One;
+    internal static readonly Edges DefaultBorder = Edges.Zero;
     internal static readonly LineSet DefaultLineSet = LineSet.Single;
 
     //**********************************************
 
-    public Frame(FrameLayoutPlan? plan = null, FrameStyle? style = null)
-        : base(plan ?? new FrameLayoutPlan(new LayoutPlan()), style)
+    public Row(RowLayoutPlan? plan = null, RowStyle? style = null)
+        : base(plan ?? new RowLayoutPlan(new LayoutPlan()), style)
     {
     }
 
-    public Frame(out Control control, FrameLayoutPlan? plan = null, FrameStyle? style = null)
+    public Row(out Control control, RowLayoutPlan? plan = null, RowStyle? style = null)
         : this(plan, style)
     {
         control = this;
@@ -23,8 +23,8 @@ public class Frame : Control, IHasStyle<FrameStyle>, IHasLayoutPlan<FrameLayoutP
 
     //--
 
-    public new FrameLayoutPlan ControlPlan { get; } = new ();
-    public new FrameStyle Style => (FrameStyle)_style!;
+    public new RowLayoutPlan ControlPlan { get; } = new ();
+    public new RowStyle Style => (RowStyle)_style!;
 
     public Brush? BorderBrush
     {
@@ -38,19 +38,7 @@ public class Frame : Control, IHasStyle<FrameStyle>, IHasLayoutPlan<FrameLayoutP
         set => Style.LineSet = value;
     }
 
-    public string? Text
-    {
-        get => _text; 
-        set => ChangeDirtiesLayout(ref _text, value);
-    }
-
-
     // -- 
-
-    public void Add(string text) => Text = text;
-
-    // -- 
-
 
     public override void OnDraw(Canvas canvas, RectF? clip)
     {
@@ -115,18 +103,6 @@ public class Frame : Control, IHasStyle<FrameStyle>, IHasLayoutPlan<FrameLayoutP
                     (int)bounds.Top,
                     LineSet, foreground, background);
         }
-        if (!string.IsNullOrWhiteSpace(Text))
-        {
-            var max = System.Math.Clamp(Text.Length, 3, Layout.Width - border.Left - border.Right - 4);
-
-            var str = Text.Length > max ? $"[ {Text.Substring(0, (int)max - 2)}.. ]" : $"[ {Text} ]";
-            canvas.DrawString(
-                (int)(bounds.Left + border.Left + 1),
-                (int)bounds.Top,
-                str,
-                foreground,
-                background);
-        }
 
         base.OnDraw(canvas, clip);
 
@@ -134,11 +110,9 @@ public class Frame : Control, IHasStyle<FrameStyle>, IHasLayoutPlan<FrameLayoutP
     }
 
     // --
-
-    private string?    _text;
 }
 
-public class FrameLayoutPlan : ControlPlan
+public class RowLayoutPlan : ControlPlan
 {
     public ControlAlign HorzAlign
     {
@@ -151,38 +125,43 @@ public class FrameLayoutPlan : ControlPlan
         get => ChildrenVertAlign;
         set => ChildrenVertAlign = value;
     }
-
+    
     public LayoutWrap ElementsWrap
     {
         get => LayoutPlan.ElementsWrap;
         set => LayoutPlan.ElementsWrap = value;
     }
 
-    public FrameLayoutPlan(LayoutPlan? plan = null) : base(plan)
+    public RowLayoutPlan(LayoutPlan? plan = null) : base(plan)
     {
-        // Default values for Frame
-        LayoutPlan.Padding = 1;
-        LayoutPlan.Width = 100.Percent();
-        LayoutPlan.Height = 100.Percent();
+        // Default values for Row
+        //LayoutPlan.Padding = 1;
+        LayoutPlan.ElementsDirection = LayoutDirection.Horz;
+        HorzAlign = ControlAlign.Stretch;
+        VertAlign = ControlAlign.Start;
+        //LayoutPlan.Width = 100.Percent();
+        //LayoutPlan.Height = 100.Percent();
+
     }
+
 }
 
-public class FrameStyle : Style
+public class RowStyle : Style
 {
     public Edges Border
     {
-        get => Get<Edges?>(nameof(Border)) ?? Frame.DefaultBorder;
+        get => Get<Edges?>(nameof(Border)) ?? Row.DefaultBorder;
         set => Set(nameof(Border), value);
     }
 
     public Brush? BorderBrush
     {
-        get => Get<Brush?>(nameof(BorderBrush)) ?? Frame.DefaultBorderBrush;
+        get => Get<Brush?>(nameof(BorderBrush)) ?? Row.DefaultBorderBrush;
         set => Set(nameof(BorderBrush), value);
     }
     public LineSet? LineSet
     {
-        get => Get<LineSet?>(nameof(LineSet)) ?? Frame.DefaultLineSet;
+        get => Get<LineSet?>(nameof(LineSet)) ?? Row.DefaultLineSet;
         set => Set(nameof(LineSet), value);
     }
 }

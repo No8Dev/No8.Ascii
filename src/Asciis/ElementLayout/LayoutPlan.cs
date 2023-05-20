@@ -1,7 +1,6 @@
-﻿using No8.Ascii.ElementLayout;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace No8.Ascii.Controls;
+namespace No8.Ascii.ElementLayout;
 
 using static NumberExtensions;
 
@@ -16,8 +15,8 @@ public class LayoutPlan
     private const LayoutWrap                        DefaultElementsWrap                  = LayoutWrap.NoWrap;
     private const AlignmentElements_LayoutDirection DefaultAlignElements_LayoutDirection = AlignmentElements_LayoutDirection.Start;
     private const Alignment_Cross                   DefaultAlignElements_Cross           = Alignment_Cross.Start;
-    private const AlignmentLine_Cross        DefaultAlign_Cross                   = AlignmentLine_Cross.Stretch;
-    private const AlignmentLine_Cross        DefaultAlignSelf_Cross               = AlignmentLine_Cross.Auto;
+    private const AlignmentLine_Cross               DefaultAlign_Cross                   = AlignmentLine_Cross.Stretch;
+    private const AlignmentLine_Cross               DefaultAlignSelf_Cross               = AlignmentLine_Cross.Auto;
     private const Overflow                          DefaultOverflow                      = Overflow.Visible;
 
     public const float DefaultFlexGrow = 0.0f;
@@ -140,6 +139,27 @@ public class LayoutPlan
     }
 
     /// <summary>
+    /// Alignment of lines of elements in the Cross-Direction
+    ///            Col
+    ///  A B C D E F G
+    /// [1     D   1   ]  A = Start
+    /// [2     D 1     ]  B = End
+    /// [3     D     1 ]  C = Centre
+    /// [    1 D       ]  D = Stretch
+    /// [    2 D 2 2 2 ]  E = Space Around
+    /// [    3 D       ]  F = Space Between
+    /// [  1   D     3 ]  G = Space Evenly (not implemented)
+    /// [  2   D 3     ]
+    /// [  3   D   3   ]
+    /// </summary>
+    /// <remarks>Default value is: Start</remarks>
+    public Alignment_Cross AlignElements_Cross
+    {
+        get => _alignElements_Cross ??= DefaultAlignElements_Cross;
+        set => CheckChanged(ref _alignElements_Cross, value);
+    }
+    
+    /// <summary>
     /// Determines how each element is laid out in the Cross Direction within a single line.
     /// [A     D ]  A = Start
     /// [A   C D ]  B = End
@@ -163,27 +183,6 @@ public class LayoutPlan
     {
         get => _alignSelf_Cross ??= DefaultAlignSelf_Cross;
         set => CheckChanged(ref _alignSelf_Cross, value);
-    }
-
-    /// <summary>
-    /// Alignment of lines of elements in the Cross-Direction
-    ///            Col
-    ///  A B C D E F G
-    /// [1     D   1   ]  A = Start
-    /// [2     D 1     ]  B = End
-    /// [3     D     1 ]  C = Centre
-    /// [    1 D       ]  D = Stretch
-    /// [    2 D 2 2 2 ]  E = Space Around
-    /// [    3 D       ]  F = Space Between
-    /// [  1   D     3 ]  G = Space Evenly (not implemented)
-    /// [  2   D 3     ]
-    /// [  3   D   3   ]
-    /// </summary>
-    /// <remarks>Default value is: Start</remarks>
-    public Alignment_Cross AlignElements_Cross
-    {
-        get => _alignElements_Cross ??= DefaultAlignElements_Cross;
-        set => CheckChanged(ref _alignElements_Cross, value);
     }
 
     /// <summary>
@@ -218,7 +217,7 @@ public class LayoutPlan
     }
 
     /// <summary>
-    ///     Node Padding
+    ///     Element Padding
     /// </summary>
     public Sides Padding
     {
@@ -595,7 +594,7 @@ public class LayoutPlan
     /// <summary>
     ///     Be notified when planned values change
     /// </summary>
-    private void CheckChanged<T>(ref T field, T value)
+    internal void CheckChanged<T>(ref T field, T value)
     {
         if (!EqualityComparer<T>.Default.Equals(field, value))
         {

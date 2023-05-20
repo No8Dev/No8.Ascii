@@ -1,16 +1,17 @@
 ﻿using No8.Ascii.Controls;
+using No8.Ascii.ElementLayout;
 
 namespace No8.Ascii.Tests.Controls
 {
     internal class TestControl : Control
     {
-        public TestControl(LayoutPlan? plan = null)
+        public TestControl(ControlPlan? plan = null)
             : base(plan)
         {
 
         }
 
-        public TestControl(out Control node, LayoutPlan? plan = null)
+        public TestControl(out Control node, ControlPlan? plan = null)
             : this(plan)
         {
             node = this;

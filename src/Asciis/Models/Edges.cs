@@ -6,6 +6,7 @@ using static NumberExtensions;
 public class Edges
 {
     public static readonly Edges Zero = new(0f, 0f, 0f, 0f);
+    public static readonly Edges One = new(1f, 1f, 1f, 1f);
 
     public float Left   { get; set; }
     public float Top    { get; set; }

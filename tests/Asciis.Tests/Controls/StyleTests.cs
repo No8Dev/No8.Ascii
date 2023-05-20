@@ -1,4 +1,5 @@
 ﻿using No8.Ascii.Controls;
+using No8.Ascii.ElementLayout;
 using No8.Ascii.Tests.Helpers;
 using Xunit;
 

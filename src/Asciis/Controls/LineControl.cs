@@ -1,17 +1,19 @@
-﻿namespace No8.Ascii.Controls;
+﻿using No8.Ascii.ElementLayout;
+
+namespace No8.Ascii.Controls;
 
 public class LineControl : Control
 {
     //**********************************************
 
-    public LineControl(LayoutPlan? plan = null)
+    public LineControl(ControlPlan? plan = null)
         : base(plan)
     {
     }
 
     public LineControl(
         out Control control,
-        LayoutPlan? plan = null)
+        ControlPlan? plan = null)
         : this(plan)
     {
         control = this;

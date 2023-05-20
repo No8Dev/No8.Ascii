@@ -1,17 +1,18 @@
 ﻿using No8.Ascii.Controls;
+using No8.Ascii.ElementLayout;
 
 namespace No8.Ascii.Tests.Layouts;
 
 public class TestNode : Control
 {
     public TestNode(string name, LayoutPlan? plan = null, Style? style = null)
-        : base(plan ?? new TestNodeLayoutPlan(), style ?? new TestNodeStyle())
+        : base(new ControlPlan(plan ?? new TestPlan()), style ?? new TestStyle())
     {
         Name = name;
     }
 
     public TestNode(LayoutPlan? plan = null, Style? style = null)
-        : base(plan ?? new TestNodeLayoutPlan(), style ?? new TestNodeStyle())
+        : base(new ControlPlan(plan ?? new TestPlan()), style ?? new TestStyle())
     {
     }
 
@@ -49,6 +50,9 @@ public class TestNode : Control
     }
 }
 
-public class TestNodeLayoutPlan : LayoutPlan { }
+public class TestPlan : LayoutPlan
+{
+    
+}
 
-public class TestNodeStyle : Style { }
+public class TestStyle : Style { }

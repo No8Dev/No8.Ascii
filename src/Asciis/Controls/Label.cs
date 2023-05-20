@@ -1,4 +1,6 @@
-﻿namespace No8.Ascii.Controls;
+﻿using No8.Ascii.ElementLayout;
+
+namespace No8.Ascii.Controls;
 
 public class Label : Control, IHasStyle<LabelStyle>, IHasLayoutPlan<LabelLayoutPlan>
 {
@@ -21,12 +23,12 @@ public class Label : Control, IHasStyle<LabelStyle>, IHasLayoutPlan<LabelLayoutP
 
     //**********************************************
 
-    public Label(LayoutPlan? plan = null, LabelStyle? style = null)
-        : base(plan ?? new LabelLayoutPlan(), style)
+    public Label(ControlPlan? plan = null, LabelStyle? style = null)
+        : base(plan ?? new LabelLayoutPlan(new LayoutPlan()), style)
     {
     }
 
-    public Label(out Label label, LayoutPlan? plan = null, LabelStyle? style = null)
+    public Label(out Label label, ControlPlan? plan = null, LabelStyle? style = null)
         : this(plan, style)
     {
         label = this;
@@ -34,7 +36,7 @@ public class Label : Control, IHasStyle<LabelStyle>, IHasLayoutPlan<LabelLayoutP
 
     //--
 
-    public new LabelLayoutPlan Plan  => (LabelLayoutPlan)_plan!;
+    public new LabelLayoutPlan ControlPlan  => (LabelLayoutPlan)_controlPlan!;
     public new LabelStyle      Style => (LabelStyle)_style!;
 
     public void Add(string text) => Text = text;
@@ -83,13 +85,13 @@ public class Label : Control, IHasStyle<LabelStyle>, IHasLayoutPlan<LabelLayoutP
     private List<string>? _lines;
 }
 
-public class LabelLayoutPlan : LayoutPlan
+public class LabelLayoutPlan : ControlPlan
 {
-    public LabelLayoutPlan()
+    public LabelLayoutPlan(LayoutPlan? plan = null) : base(plan)
     {
-        IsText    = true;
-        MinHeight = 1;
-        MinWidth  = 1;
+        LayoutPlan.IsText    = true;
+        LayoutPlan.MinHeight = 1;
+        LayoutPlan.MinWidth  = 1;
     }
 }
 

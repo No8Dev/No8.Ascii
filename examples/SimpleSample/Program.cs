@@ -34,6 +34,7 @@ while (true)
     }
 }
 
+/*
 
 
 var app = new AsciiApp(args);
@@ -125,3 +126,4 @@ window.DoLayout(100, 20);
 app.AddWindow( window );
 await app.StartAsync();
 
+*/

@@ -15,9 +15,9 @@ public interface IHasStyle<out T>
 }
 
 public interface IHasLayoutPlan<out T>
-    where T : LayoutPlan
+    where T : ControlPlan
 {
-    T Plan { get; }
+    T ControlPlan { get; }
 }
 
 
@@ -25,7 +25,7 @@ public interface IHasLayoutPlan<out T>
 ///     Base control containing all basic properties used to define the control
 /// </summary>
 [DebuggerDisplay("{ShortString}")]
-public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>, IHasLayoutPlan<LayoutPlan>, IAnimatable
+public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>, IHasLayoutPlan<ControlPlan>, IAnimatable
 {
     public delegate void PropertyChangedDelegate<in T>(T oldValue, T newValue);
 
@@ -45,8 +45,8 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
     private   bool          _needsLayout   = true;
     private   bool          _needsPainting = true;
 
-    protected LayoutPlan? _plan;
-    protected Style?      _style;
+    protected ControlPlan? _controlPlan;
+    protected Style?       _style;
 
 
     public event EventHandler?         Dirtied;
@@ -55,11 +55,11 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
 
     //**********************************************
 
-    protected Control(LayoutPlan? plan = null, Style? style = null)
+    protected Control(ControlPlan? plan = null, Style? style = null)
     {
         if (plan != null)
         {
-            Plan.MergeFrom(plan);
+            Plan.MergeFrom(plan.LayoutPlan);
             _isDirty = Plan.IsDirty;
         }
 
@@ -79,7 +79,7 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
 
     protected Control(
         out Control control,
-        LayoutPlan? plan  = null,
+        ControlPlan? plan  = null,
         Style?      style = null)
         : this(plan, style)
     {
@@ -206,19 +206,30 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
 
     public string? Name { get; set; }
 
-    public LayoutPlan Plan
+    public virtual LayoutPlan Plan => ControlPlan.LayoutPlan;
+
+    public ControlPlan ControlPlan
     {
-        get =>
-            _plan ??= DefaultLayoutPlan(this)
-               .OnChanged(PlanOnChanged);
+        get
+        {
+            _controlPlan ??= DefaultLayoutPlan(this);
+            _controlPlan.LayoutPlan.OnChanged(PlanOnChanged);
+            return _controlPlan;
+        }
         init
         {
-            if (_plan == null)
-                _plan = DefaultLayoutPlan(this)
-                       .MergeFrom(value)
-                       .OnChanged(PlanOnChanged);
+            if (_controlPlan == null)
+            {
+                _controlPlan = DefaultLayoutPlan(this);
+                _controlPlan
+                    .LayoutPlan
+                    .MergeFrom(value.LayoutPlan)
+                    .OnChanged(PlanOnChanged);
+            }
             else
-                _plan.MergeFrom(value);
+            {
+                _controlPlan.LayoutPlan.MergeFrom(value.LayoutPlan);
+            }
         }
     }
 
@@ -293,7 +304,7 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
                     RaiseDirtied();
                 else
                 {
-                    Plan.IsDirty   = false;
+                    Plan.IsDirty = false;
                     if (_style != null)
                         _style.IsDirty = false;
                 }
@@ -498,7 +509,7 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
     /// <summary>
     ///     Check to see if the control has a default style attribute and create that type
     /// </summary>
-    public static LayoutPlan DefaultLayoutPlan(Control control)
+    public static ControlPlan DefaultLayoutPlan(Control control)
     {
         var           type   = control.GetType();
         ObjectHandle? handle = null;
@@ -523,8 +534,8 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
             }
         }
 
-        var plan = (LayoutPlan?)handle?.Unwrap();
-        return plan ?? new LayoutPlan();
+        var plan = (ControlPlan?)handle?.Unwrap();
+        return plan ?? new ControlPlan(new LayoutPlan());
     }
 
 
@@ -550,9 +561,9 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
     private void PlanOnChanged(object?  sender, LayoutPlan e)     { MarkDirty(); }
     private void StyleOnChanged(object? sender, Style      style) { NeedsPainting = true; }
 
-    public Control Add(LayoutPlan plan)
+    public Control Add(ControlPlan plan)
     {
-        Plan.MergeFrom(plan);
+        Plan.MergeFrom(plan.LayoutPlan);
         return this;
     }
 
