@@ -25,16 +25,18 @@ public class EdgeTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔╔═════╗═╗
-║║AAAAA║░║
-║║AAAAA║░║
-║║AAAAA║░║
-║║AAAAA║░║
-║║AAAAA║░║
-║║AAAAA║░║
-║║AAAAA║░║
-║║AAAAA║░║
-╚╚═════╝═╝",
+            """
+            ╔╔═════╗═╗
+            ║║AAAAA║░║
+            ║║AAAAA║░║
+            ║║AAAAA║░║
+            ║║AAAAA║░║
+            ║║AAAAA║░║
+            ║║AAAAA║░║
+            ║║AAAAA║░║
+            ║║AAAAA║░║
+            ╚╚═════╝═╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(1, 0, 7, 10), rootA.Layout.Bounds);
@@ -50,16 +52,18 @@ public class EdgeTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═╔═════╗╗
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-╚═╚═════╝╝",
+            """
+            ╔═╔═════╗╗
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ╚═╚═════╝╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(2, 0, 7, 10), rootA.Layout.Bounds);
@@ -75,16 +79,18 @@ public class EdgeTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═╔═════╗╗
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-║░║AAAAA║║
-╚═╚═════╝╝",
+            """
+            ╔═╔═════╗╗
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ║░║AAAAA║║
+            ╚═╚═════╝╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(2, 0, 7, 10), rootA.Layout.Bounds);
@@ -100,16 +106,18 @@ public class EdgeTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔════════╗
-║░░░░░░░░║
-╔════════╗
-║AAAAAAAA║
-║AAAAAAAA║
-║AAAAAAAA║
-║AAAAAAAA║
-║AAAAAAAA║
-╚════════╝
-╚════════╝",
+            """
+            ╔════════╗
+            ║░░░░░░░░║
+            ╔════════╗
+            ║AAAAAAAA║
+            ║AAAAAAAA║
+            ║AAAAAAAA║
+            ║AAAAAAAA║
+            ║AAAAAAAA║
+            ╚════════╝
+            ╚════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 2, 10, 7), rootA.Layout.Bounds);
@@ -125,16 +133,18 @@ public class EdgeTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔════════╗
-║░░░░░░░░║
-║╔══════╗║
-║║AAAAAA║║
-║║AAAAAA║║
-║║AAAAAA║║
-║║AAAAAA║║
-║╚══════╝║
-║░░░░░░░░║
-╚════════╝",
+            """
+            ╔════════╗
+            ║░░░░░░░░║
+            ║╔══════╗║
+            ║║AAAAAA║║
+            ║║AAAAAA║║
+            ║║AAAAAA║║
+            ║║AAAAAA║║
+            ║╚══════╝║
+            ║░░░░░░░░║
+            ╚════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(1, 2, 8, 6), rootA.Layout.Bounds);
@@ -150,16 +160,18 @@ public class EdgeTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔════════╗
-║░╔════╗░║
-║░║AAAA║░║
-║░║AAAA║░║
-║░║AAAA║░║
-║░║AAAA║░║
-║░║AAAA║░║
-║░║AAAA║░║
-║░╚════╝░║
-╚════════╝",
+            """
+            ╔════════╗
+            ║░╔════╗░║
+            ║░║AAAA║░║
+            ║░║AAAA║░║
+            ║░║AAAA║░║
+            ║░║AAAA║░║
+            ║░║AAAA║░║
+            ║░║AAAA║░║
+            ║░╚════╝░║
+            ╚════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(2, 1, 6, 8), rootA.Layout.Bounds);
@@ -175,16 +187,18 @@ public class EdgeTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔════════╗
-║╔══════╗║
-║║AAAAAA║║
-║║AAAAAA║║
-║║AAAAAA║║
-║║AAAAAA║║
-║║AAAAAA║║
-║║AAAAAA║║
-║╚══════╝║
-╚════════╝",
+            """
+            ╔════════╗
+            ║╔══════╗║
+            ║║AAAAAA║║
+            ║║AAAAAA║║
+            ║║AAAAAA║║
+            ║║AAAAAA║║
+            ║║AAAAAA║║
+            ║║AAAAAA║║
+            ║╚══════╝║
+            ╚════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(1, 1, 8, 8), rootA.Layout.Bounds);

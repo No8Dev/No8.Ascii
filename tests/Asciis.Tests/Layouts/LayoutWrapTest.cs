@@ -28,22 +28,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root,32,16);
         Assert.Equal(
-            @"╔══════╗╔══════╗═══════════════╗
-║AAAAAA║║DDDDDD║░░░░░░░░░░░░░░░║
-║AAAAAA║║DDDDDD║░░░░░░░░░░░░░░░║
-║AAAAAA║║DDDDDD║░░░░░░░░░░░░░░░║
-╚══════╝╚══════╝░░░░░░░░░░░░░░░║
-╔══════╗░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBBBB║░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBBBB║░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBBBB║░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════╝░░░░░░░░░░░░░░░░░░░░░░░║
-╔══════╗░░░░░░░░░░░░░░░░░░░░░░░║
-║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
-║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
-║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════╝░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════╗╔══════╗═══════════════╗
+            ║AAAAAA║║DDDDDD║░░░░░░░░░░░░░░░║
+            ║AAAAAA║║DDDDDD║░░░░░░░░░░░░░░░║
+            ║AAAAAA║║DDDDDD║░░░░░░░░░░░░░░░║
+            ╚══════╝╚══════╝░░░░░░░░░░░░░░░║
+            ╔══════╗░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBBBB║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBBBB║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBBBB║░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════╝░░░░░░░░░░░░░░░░░░░░░░░║
+            ╔══════╗░░░░░░░░░░░░░░░░░░░░░░░║
+            ║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════╝░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -66,22 +68,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔════════╗╔════════╗╔════════╗═╗
-║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
-║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
-║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
-║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
-║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
-║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
-╚════════╝╚════════╝╚════════╝░║
-╔════════╗░░░░░░░░░░░░░░░░░░░░░║
-║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
-║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
-║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
-║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
-║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
-║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
-╚════════╝═════════════════════╝",
+            """
+            ╔════════╗╔════════╗╔════════╗═╗
+            ║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
+            ║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
+            ║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
+            ║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
+            ║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
+            ║AAAAAAAA║║BBBBBBBB║║CCCCCCCC║░║
+            ╚════════╝╚════════╝╚════════╝░║
+            ╔════════╗░░░░░░░░░░░░░░░░░░░░░║
+            ║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
+            ║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
+            ║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
+            ║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
+            ║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
+            ║DDDDDDDD║░░░░░░░░░░░░░░░░░░░░░║
+            ╚════════╝═════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -104,22 +108,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root,32,16);
         Assert.Equal(
-            @"╔═════════╔═══╗╔═══╗═══════════╗
-║░░░░░░░░░║CCC║║DDD║░░░░░░░░░░░║
-║░░░░░░░░░║CCC║║DDD║░░░░░░░░░░░║
-║░░░░░░░░░║CCC║║DDD║░░░░░░░░░░░║
-║░░░░╔═══╗║CCC║║DDD║░░░░░░░░░░░║
-║░░░░║BBB║║CCC║║DDD║░░░░░░░░░░░║
-║░░░░║BBB║║CCC║║DDD║░░░░░░░░░░░║
-║░░░░║BBB║║CCC║║DDD║░░░░░░░░░░░║
-╔═══╗║BBB║║CCC║║DDD║░░░░░░░░░░░║
-║AAA║║BBB║║CCC║║DDD║░░░░░░░░░░░║
-║AAA║║BBB║║CCC║║DDD║░░░░░░░░░░░║
-╚═══╝╚═══╝╚═══╝╚═══╝░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔═════════╔═══╗╔═══╗═══════════╗
+            ║░░░░░░░░░║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░░░░░░║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░░░░░░║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░╔═══╗║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ╔═══╗║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ║AAA║║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ║AAA║║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ╚═══╝╚═══╝╚═══╝╚═══╝░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -142,22 +148,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root,32,16);
         Assert.Equal(
-            @"╔═════════╔═══╗╔═══╗═══════════╗
-║░░░░░░░░░║CCC║║DDD║░░░░░░░░░░░║
-║░░░░╔═══╗║CCC║║DDD║░░░░░░░░░░░║
-║░░░░║BBB║║CCC║║DDD║░░░░░░░░░░░║
-╔═══╗║BBB║║CCC║║DDD║░░░░░░░░░░░║
-║AAA║║BBB║║CCC║║DDD║░░░░░░░░░░░║
-║AAA║║BBB║║CCC║║DDD║░░░░░░░░░░░║
-╚═══╝║BBB║║CCC║║DDD║░░░░░░░░░░░║
-║░░░░║BBB║║CCC║║DDD║░░░░░░░░░░░║
-║░░░░╚═══╝║CCC║║DDD║░░░░░░░░░░░║
-║░░░░░░░░░║CCC║║DDD║░░░░░░░░░░░║
-║░░░░░░░░░╚═══╝╚═══╝░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔═════════╔═══╗╔═══╗═══════════╗
+            ║░░░░░░░░░║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░╔═══╗║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ╔═══╗║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ║AAA║║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ║AAA║║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ╚═══╝║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░║BBB║║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░╚═══╝║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░░░░░░║CCC║║DDD║░░░░░░░░░░░║
+            ║░░░░░░░░░╚═══╝╚═══╝░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -178,22 +186,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════╗═══════════╗
-║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
-║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
-║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
-║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
-║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
-║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
-╚══════════════════╝░░░░░░░░░░░║
-╔══════════════════╗░░░░░░░░░░░║
-║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
-║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
-║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
-║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
-║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
-║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
-╚══════════════════╝═══════════╝",
+            """
+            ╔══════════════════╗═══════════╗
+            ║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
+            ║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
+            ║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
+            ║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
+            ║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
+            ║AAAAAAAAAAAAAAAAAA║░░░░░░░░░░░║
+            ╚══════════════════╝░░░░░░░░░░░║
+            ╔══════════════════╗░░░░░░░░░░░║
+            ║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
+            ║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
+            ║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
+            ║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
+            ║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
+            ║BBBBBBBBBBBBBBBBBB║░░░░░░░░░░░║
+            ╚══════════════════╝═══════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -216,22 +226,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -253,22 +265,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"AAAAAAAAAABBBBBBBBBB═══════════╗
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            AAAAAAAAAABBBBBBBBBB═══════════╗
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -289,22 +303,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════╗═══╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-╚══════════════════════════╝AAA║
-╔════════════╗AAAAAAAAAAAAAAAAA║
-║CCCCCCCCCCCC║AAAAAAAAAAAAAAAAA║
-║CCCCCCCCCCCC║AAAAAAAAAAAAAAAAA║
-║CCCCCCCCCCCC║AAAAAAAAAAAAAAAAA║
-║CCCCCCCCCCCC║AAAAAAAAAAAAAAAAA║
-╚════════════╝═════════════════╝
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════╗═══╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ╚══════════════════════════╝AAA║
+            ╔════════════╗AAAAAAAAAAAAAAAAA║
+            ║CCCCCCCCCCCC║AAAAAAAAAAAAAAAAA║
+            ║CCCCCCCCCCCC║AAAAAAAAAAAAAAAAA║
+            ║CCCCCCCCCCCC║AAAAAAAAAAAAAAAAA║
+            ║CCCCCCCCCCCC║AAAAAAAAAAAAAAAAA║
+            ╚════════════╝═════════════════╝
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -326,22 +342,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════╗═══╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-╚══════════════════════════╝AAA║
-╔════╗AAAAAAAAAAAAAAAAAAAAAAAAA║
-║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
-║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
-║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
-║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
-╚════╝═════════════════════════╝
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════╗═══╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ╚══════════════════════════╝AAA║
+            ╔════╗AAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚════╝═════════════════════════╝
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -363,22 +381,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════╗═══╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
-╚══════════════════════════╝AAA║
-╔════╗AAAAAAAAAAAAAAAAAAAAAAAAA║
-║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
-║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
-║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
-║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
-╚════╝═════════════════════════╝
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════╗═══╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBB║AAA║
+            ╚══════════════════════════╝AAA║
+            ╔════╗AAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║CCCC║AAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚════╝═════════════════════════╝
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -407,22 +427,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═════════╔══╗═════════════════╗
-║░░░░░░░░░║AA║░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░║AA║░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░║AA║░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░║AA║░░░░╔══════╗░░░░░║
-║░░░░░░░░░╚══╝░░░░║CCCCCC║░░░░░║
-║░░░░░░░░░░░░░░░░░║CCCCCC║░░░░░║
-║░░░░░░░░░░░░░░░░░║CCCCCC║░░░░░║
-║░░░░░░░╔══════╗░░║CCCCCC║░░░░░║
-║░░░░░░░║BBBBBB║░░║CCCCCC║░░░░░║
-║░░░░░░░║BBBBBB║░░║CCCCCC║░░░░░║
-║░░░░░░░║BBBBBB║░░╚══════╝░░░░░║
-║░░░░░░░║BBBBBB║░░░░░░░░░░░░░░░║
-║░░░░░░░╚══════╝░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔═════════╔══╗═════════════════╗
+            ║░░░░░░░░░║AA║░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░║AA║░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░║AA║░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░║AA║░░░░╔══════╗░░░░░║
+            ║░░░░░░░░░╚══╝░░░░║CCCCCC║░░░░░║
+            ║░░░░░░░░░░░░░░░░░║CCCCCC║░░░░░║
+            ║░░░░░░░░░░░░░░░░░║CCCCCC║░░░░░║
+            ║░░░░░░░╔══════╗░░║CCCCCC║░░░░░║
+            ║░░░░░░░║BBBBBB║░░║CCCCCC║░░░░░║
+            ║░░░░░░░║BBBBBB║░░║CCCCCC║░░░░░║
+            ║░░░░░░░║BBBBBB║░░╚══════╝░░░░░║
+            ║░░░░░░░║BBBBBB║░░░░░░░░░░░░░░░║
+            ║░░░░░░░╚══════╝░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -467,22 +489,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════╔════════╗══════════╗
-║░░░░░░░░░░║AAAAAAAA║░░░░░░░░░░║
-║░░░░░░░░░░║AAAAAAAA║░░░░░░░░░░║
-║░░░░░░░░░░╚════════╝░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░╔══════╗░░░░░░░░░░░║
-║░░░░░░░░░░░║BBBBBB║░░░░░░░░░░░║
-║░░░░░░░░░░░║BBBBBB║░░░░░░░░░░░║
-║░░░░░░░░░░░╚══════╝░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░╔══╗░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░║CC║░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░║CC║░░░░░░░░░░░░░║
-╚═════════════╚══╝═════════════╝",
+            """
+            ╔══════════╔════════╗══════════╗
+            ║░░░░░░░░░░║AAAAAAAA║░░░░░░░░░░║
+            ║░░░░░░░░░░║AAAAAAAA║░░░░░░░░░░║
+            ║░░░░░░░░░░╚════════╝░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░╔══════╗░░░░░░░░░░░║
+            ║░░░░░░░░░░░║BBBBBB║░░░░░░░░░░░║
+            ║░░░░░░░░░░░║BBBBBB║░░░░░░░░░░░║
+            ║░░░░░░░░░░░╚══════╝░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░╔══╗░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░║CC║░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░║CC║░░░░░░░░░░░░░║
+            ╚═════════════╚══╝═════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -508,22 +532,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔════════╗═════════╗═══════════╗
-║CCCCCCCC║AAAAAAAAA║░░░░░░░░░░░║
-║CCCCCCCC║AAAAAAAAA║░░░░░░░░░░░║
-║CCCCCCCC║AAAAAAAAA║░░░░░░░░░░░║
-║CCCCCCCC║AAAAAAAAA║░░░░░░░░░░░║
-╚════════╝AAAAAAAAA║░░░░░░░░░░░║
-╔════════╗AAAAAAAAA║░░░░░░░░░░░║
-║EEEEEEEE║AAAAAAAAA║░░░░░░░░░░░║
-║EEEEEEEE║AAAAAAAAA║░░░░░░░░░░░║
-║EEEEEEEE║AAAAAAAAA║░░░░░░░░░░░║
-║EEEEEEEE║AAAAAAAAA║░░░░░░░░░░░║
-╚════════╝═════════╝░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔════════╗═════════╗═══════════╗
+            ║CCCCCCCC║AAAAAAAAA║░░░░░░░░░░░║
+            ║CCCCCCCC║AAAAAAAAA║░░░░░░░░░░░║
+            ║CCCCCCCC║AAAAAAAAA║░░░░░░░░░░░║
+            ║CCCCCCCC║AAAAAAAAA║░░░░░░░░░░░║
+            ╚════════╝AAAAAAAAA║░░░░░░░░░░░║
+            ╔════════╗AAAAAAAAA║░░░░░░░░░░░║
+            ║EEEEEEEE║AAAAAAAAA║░░░░░░░░░░░║
+            ║EEEEEEEE║AAAAAAAAA║░░░░░░░░░░░║
+            ║EEEEEEEE║AAAAAAAAA║░░░░░░░░░░░║
+            ║EEEEEEEE║AAAAAAAAA║░░░░░░░░░░░║
+            ╚════════╝═════════╝░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -551,22 +577,24 @@ public class LayoutWrapTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═════╗════╗═══════════════════╗
-║CCCCC║AAAA║░░░░░░░░░░░░░░░░░░░║
-║CCCCC║AAAA║░░░░░░░░░░░░░░░░░░░║
-║CCCCC║AAAA║░░░░░░░░░░░░░░░░░░░║
-║CCCCC║AAAA║░░░░░░░░░░░░░░░░░░░║
-╚═════╝AAAA║░░░░░░░░░░░░░░░░░░░║
-║AAAAAAAAAA║░░░░░░░░░░░░░░░░░░░║
-║AAAAAAAAAA║░░░░░░░░░░░░░░░░░░░║
-╔═════╗AAAA║░░░░░░░░░░░░░░░░░░░║
-║EEEEE║AAAA║░░░░░░░░░░░░░░░░░░░║
-║EEEEE║AAAA║░░░░░░░░░░░░░░░░░░░║
-║EEEEE║AAAA║░░░░░░░░░░░░░░░░░░░║
-║EEEEE║AAAA║░░░░░░░░░░░░░░░░░░░║
-╚═════╝════╝░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔═════╗════╗═══════════════════╗
+            ║CCCCC║AAAA║░░░░░░░░░░░░░░░░░░░║
+            ║CCCCC║AAAA║░░░░░░░░░░░░░░░░░░░║
+            ║CCCCC║AAAA║░░░░░░░░░░░░░░░░░░░║
+            ║CCCCC║AAAA║░░░░░░░░░░░░░░░░░░░║
+            ╚═════╝AAAA║░░░░░░░░░░░░░░░░░░░║
+            ║AAAAAAAAAA║░░░░░░░░░░░░░░░░░░░║
+            ║AAAAAAAAAA║░░░░░░░░░░░░░░░░░░░║
+            ╔═════╗AAAA║░░░░░░░░░░░░░░░░░░░║
+            ║EEEEE║AAAA║░░░░░░░░░░░░░░░░░░░║
+            ║EEEEE║AAAA║░░░░░░░░░░░░░░░░░░░║
+            ║EEEEE║AAAA║░░░░░░░░░░░░░░░░░░░║
+            ║EEEEE║AAAA║░░░░░░░░░░░░░░░░░░░║
+            ╚═════╝════╝░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);

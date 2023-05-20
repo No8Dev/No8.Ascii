@@ -29,22 +29,24 @@ public class FlexDirectionTest : BaseTests
         TestContext.WriteLine(Canvas!.ToString());
 
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-╚══════════════════════════════╝
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ╚══════════════════════════════╝
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -65,22 +67,24 @@ public class FlexDirectionTest : BaseTests
 
         Draw(root,32,16);
         Assert.Equal(
-            @"╔══════╗╔══════╗╔══════╗═══════╗
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-╚══════╝╚══════╝╚══════╝═══════╝",
+            """
+            ╔══════╗╔══════╗╔══════╗═══════╗
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ╚══════╝╚══════╝╚══════╝═══════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -101,22 +105,24 @@ public class FlexDirectionTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-╚══════════════════════════════╝
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ╚══════════════════════════════╝
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -139,22 +145,24 @@ public class FlexDirectionTest : BaseTests
 
 
         Assert.Equal(
-            @"╔══════╗╔══════╗╔══════╗═══════╗
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
-╚══════╝╚══════╝╚══════╝═══════╝",
+            """
+            ╔══════╗╔══════╗╔══════╗═══════╗
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ║AAAAAA║║BBBBBB║║CCCCCC║░░░░░░░║
+            ╚══════╝╚══════╝╚══════╝═══════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);

@@ -30,22 +30,24 @@ public class RoundingTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═════════╗╔════════╗╔═════════╗
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
-╚═════════╝╚════════╝╚═════════╝",
+            """
+            ╔═════════╗╔════════╗╔═════════╗
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ║AAAAAAAAA║║BBBBBBBB║║CCCCCCCCC║
+            ╚═════════╝╚════════╝╚═════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -71,22 +73,24 @@ public class RoundingTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔════╗╔═════╗╔════╗╔═════╗╔════╗
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
-╚════╝╚═════╝╚════╝╚═════╝╚════╝",
+            """
+            ╔════╗╔═════╗╔════╗╔═════╗╔════╗
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ║AAAA║║BBBBB║║CCCC║║DDDDD║║EEEE║
+            ╚════╝╚═════╝╚════╝╚═════╝╚════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -111,22 +115,24 @@ public class RoundingTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-        @"╔══════════════════════╗╔══╗╔══╗
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
-╚══════════════════════╝╚══╝╚══╝",
+            """
+            ╔══════════════════════╗╔══╗╔══╗
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ║AAAAAAAAAAAAAAAAAAAAAA║║BB║║CC║
+            ╚══════════════════════╝╚══╝╚══╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -150,22 +156,24 @@ public class RoundingTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -189,22 +197,24 @@ public class RoundingTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -232,22 +242,24 @@ public class RoundingTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╔══════════════════════════════╗
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-╔══════════════════════════════╗
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╔══════════════════════════════╗
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ╔══════════════════════════════╗
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -273,22 +285,24 @@ public class RoundingTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -312,22 +326,24 @@ public class RoundingTest : BaseTests
 
         Draw(root,32,16);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 17), root.Layout.Bounds);
@@ -351,22 +367,24 @@ public class RoundingTest : BaseTests
 
         Draw(root,32,16);
         Assert.Equal(
-        @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 17), root.Layout.Bounds);
@@ -390,22 +408,24 @@ public class RoundingTest : BaseTests
 
         Draw(root,32,16);
         Assert.Equal(
-            @"
-╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╔══════════════════════════════╗
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
-║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║",
+            """
+
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╔══════════════════════════════╗
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            ║CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC║
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 1, 32, 16), root.Layout.Bounds);
@@ -432,22 +452,24 @@ public class RoundingTest : BaseTests
 
         Draw(root,32,16);
         Assert.Equal(
-            @"╔═════════╗╔════════╗╔═════════╗
-║AAAAAAAAA║║CCCCCCCC║║DDDDDDDDD║
-║AAAAAAAAA║║CCCCCCCC║║DDDDDDDDD║
-╚═════════╝╚════════╝╚═════════╝
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔═════════╗╔════════╗╔═════════╗
+            ║AAAAAAAAA║║CCCCCCCC║║DDDDDDDDD║
+            ║AAAAAAAAA║║CCCCCCCC║║DDDDDDDDD║
+            ╚═════════╝╚════════╝╚═════════╝
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -475,22 +497,24 @@ public class RoundingTest : BaseTests
 
         Draw(root,32,16);
         Assert.Equal(
-            @"╔══════╗═══════════════════════╗
-║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
-║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
-║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════╝░░░░░░░░░░░░░░░░░░░░░░░║
-╔══════╗░░░░░░░░░░░░░░░░░░░░░░░║
-║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
-║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
-║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
-║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════╝░░░░░░░░░░░░░░░░░░░░░░░║
-╔══════╗░░░░░░░░░░░░░░░░░░░░░░░║
-║DDDDDD║░░░░░░░░░░░░░░░░░░░░░░░║
-║DDDDDD║░░░░░░░░░░░░░░░░░░░░░░░║
-║DDDDDD║░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════╝═══════════════════════╝",
+            """
+            ╔══════╗═══════════════════════╗
+            ║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════╝░░░░░░░░░░░░░░░░░░░░░░░║
+            ╔══════╗░░░░░░░░░░░░░░░░░░░░░░░║
+            ║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║CCCCCC║░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════╝░░░░░░░░░░░░░░░░░░░░░░░║
+            ╔══════╗░░░░░░░░░░░░░░░░░░░░░░░║
+            ║DDDDDD║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║DDDDDD║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║DDDDDD║░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════╝═══════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -523,22 +547,24 @@ public class RoundingTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═════════╗╔════════╗╔═════════╗
-║AAAAAAAAA║║CCCCCCCC║║GGGGGGGGG║
-║AAAAAAAAA║║CCCCCCCC║║GGGGGGGGG║
-║AAAAAAAAA║║CCCCCCCC║║GGGGGGGGG║
-║AAAAAAAAA║╚════════╝║GGGGGGGGG║
-║AAAAAAAAA║╔════════╗║GGGGGGGGG║
-║AAAAAAAAA║║EEEEEEEE║║GGGGGGGGG║
-║AAAAAAAAA║║EEEEEEEE║║GGGGGGGGG║
-║AAAAAAAAA║║EEEEEEEE║║GGGGGGGGG║
-║AAAAAAAAA║║EEEEEEEE║║GGGGGGGGG║
-║AAAAAAAAA║╚════════╝║GGGGGGGGG║
-║AAAAAAAAA║╔════════╗║GGGGGGGGG║
-║AAAAAAAAA║║FFFFFFFF║║GGGGGGGGG║
-║AAAAAAAAA║║FFFFFFFF║║GGGGGGGGG║
-║AAAAAAAAA║║FFFFFFFF║║GGGGGGGGG║
-╚═════════╝╚════════╝╚═════════╝",
+            """
+            ╔═════════╗╔════════╗╔═════════╗
+            ║AAAAAAAAA║║CCCCCCCC║║GGGGGGGGG║
+            ║AAAAAAAAA║║CCCCCCCC║║GGGGGGGGG║
+            ║AAAAAAAAA║║CCCCCCCC║║GGGGGGGGG║
+            ║AAAAAAAAA║╚════════╝║GGGGGGGGG║
+            ║AAAAAAAAA║╔════════╗║GGGGGGGGG║
+            ║AAAAAAAAA║║EEEEEEEE║║GGGGGGGGG║
+            ║AAAAAAAAA║║EEEEEEEE║║GGGGGGGGG║
+            ║AAAAAAAAA║║EEEEEEEE║║GGGGGGGGG║
+            ║AAAAAAAAA║║EEEEEEEE║║GGGGGGGGG║
+            ║AAAAAAAAA║╚════════╝║GGGGGGGGG║
+            ║AAAAAAAAA║╔════════╗║GGGGGGGGG║
+            ║AAAAAAAAA║║FFFFFFFF║║GGGGGGGGG║
+            ║AAAAAAAAA║║FFFFFFFF║║GGGGGGGGG║
+            ║AAAAAAAAA║║FFFFFFFF║║GGGGGGGGG║
+            ╚═════════╝╚════════╝╚═════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);

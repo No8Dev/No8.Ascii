@@ -25,22 +25,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔════════╗═════════════════════╗
-║AAAAAAAA║░░░░░░░░░░░░░░░░░░░░░║
-║AAAAAAAA║░░░░░░░░░░░░░░░░░░░░░║
-║AAAAAAAA║░░░░░░░░░░░░░░░░░░░░░║
-╚════════╝░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔════════╗═════════════════════╗
+            ║AAAAAAAA║░░░░░░░░░░░░░░░░░░░░░║
+            ║AAAAAAAA║░░░░░░░░░░░░░░░░░░░░░║
+            ║AAAAAAAA║░░░░░░░░░░░░░░░░░░░░░║
+            ╚════════╝░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -57,22 +59,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░╔════════════╗░░░░░░░░░░░░░░░║
-║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║░╚════════════╝░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░╔════════════╗░░░░░░░░░░░░░░░║
+            ║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║░║AAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║░╚════════════╝░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -89,22 +93,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -122,22 +128,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════╗╔══════════╗
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
-╚══════════════════╝╚══════════╝",
+            """
+            ╔══════════════════╗╔══════════╗
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAAA║║BBBBBBBBBB║
+            ╚══════════════════╝╚══════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -156,22 +164,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -190,22 +200,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -224,22 +236,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════╗╔══════════════════════╗
-║AAAAAA║║BBBBBBBBBBBBBBBBBBBBBB║
-║AAAAAA║╚══════════════════════╝
-║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
-║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
-║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
-║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
-║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
-║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════╝░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════╗╔══════════════════════╗
+            ║AAAAAA║║BBBBBBBBBBBBBBBBBBBBBB║
+            ║AAAAAA║╚══════════════════════╝
+            ║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
+            ║AAAAAA║░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════╝░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -258,22 +272,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -292,22 +308,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═════════════════╗╔═════╗═════╗
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
-╚═════════════════╝╚═════╝═════╝",
+            """
+            ╔═════════════════╗╔═════╗═════╗
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ║AAAAAAAAAAAAAAAAA║║BBBBB║░░░░░║
+            ╚═════════════════╝╚═════╝═════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -326,22 +344,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═════════════════╗════════════╗
-║AAAAAAAAAAAAAAAAA║░░░░░░░░░░░░║
-║AAAAAAAAAAAAAAAAA║░░░░░░░░░░░░║
-╚═════════════════╝░░░░░░░░░░░░║
-╔════╗░░░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
-║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚════╝═════════════════════════╝",
+            """
+            ╔═════════════════╗════════════╗
+            ║AAAAAAAAAAAAAAAAA║░░░░░░░░░░░░║
+            ║AAAAAAAAAAAAAAAAA║░░░░░░░░░░░░║
+            ╚═════════════════╝░░░░░░░░░░░░║
+            ╔════╗░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║BBBB║░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚════╝═════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -360,22 +380,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═════════════════╗╔═══════════╗
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
-╚═════════════════╝╚═══════════╝",
+            """
+            ╔═════════════════╗╔═══════════╗
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ║AAAAAAAAAAAAAAAAA║║BBBBBBBBBBB║
+            ╚═════════════════╝╚═══════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -394,22 +416,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
-╚══════════════════════════════╝
-╔══════════════════════════════╗
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ║AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA║
+            ╚══════════════════════════════╝
+            ╔══════════════════════════════╗
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ║BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -437,22 +461,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░┌──────────────────────────┐░║
-║░│╔════════════════════════╗│░║
-║░│║AAAAAAAAAAAAAAAAAAAAAAAA║│░║
-║░│║A╔═════════╗─┐AAAAAAAAAA║│░║
-║░│╚═║┌────┐BBB║B│══════════╝│░║
-║░└──╚└────┘═══╝B│───────────┘░║
-║░░░░│BBBBBBBBBBB│░░░░░░░░░░░░░║
-║░░░░└───────────┘░░░░░░░░░░░░░║
-╔══════════════════════════════╗
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░┌──────────────────────────┐░║
+            ║░│╔════════════════════════╗│░║
+            ║░│║AAAAAAAAAAAAAAAAAAAAAAAA║│░║
+            ║░│║A╔═════════╗─┐AAAAAAAAAA║│░║
+            ║░│╚═║┌────┐BBB║B│══════════╝│░║
+            ║░└──╚└────┘═══╝B│───────────┘░║
+            ║░░░░│BBBBBBBBBBB│░░░░░░░░░░░░░║
+            ║░░░░└───────────┘░░░░░░░░░░░░░║
+            ╔══════════════════════════════╗
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ║DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -473,22 +499,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░╔════════╗═══════════════╗░░║
-║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
-║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
-║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
-║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
-║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
-║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
-║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
-║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
-║░░╚════════╝═══════════════╝░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░╔════════╗═══════════════╗░░║
+            ║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
+            ║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
+            ║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
+            ║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
+            ║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
+            ║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
+            ║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
+            ║░░║BBBBBBBB║AAAAAAAAAAAAAAA║░░║
+            ║░░╚════════╝═══════════════╝░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -507,22 +535,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"┌──────────────────────────────┐
-│AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA│
-│AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA│
-│AA╔════════╗══════════════╗AAA│
-│AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
-│AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
-│AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
-│AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
-│AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
-│AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
-│AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
-│AA║BBBBBBBB║══════════════╝AAA│
-│AA╚════════╝AAAAAAAAAAAAAAAAAA│
-│AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA│
-│AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA│
-└──────────────────────────────┘",
+            """
+            ┌──────────────────────────────┐
+            │AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA│
+            │AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA│
+            │AA╔════════╗══════════════╗AAA│
+            │AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
+            │AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
+            │AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
+            │AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
+            │AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
+            │AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
+            │AA║BBBBBBBB║AAAAAAAAAAAAAA║AAA│
+            │AA║BBBBBBBB║══════════════╝AAA│
+            │AA╚════════╝AAAAAAAAAAAAAAAAAA│
+            │AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA│
+            │AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA│
+            └──────────────────────────────┘
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -547,22 +577,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════════════════════╗
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░╔════════╗░░░░░░░░░░░║
-║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
-║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
-║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
-║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
-║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
-║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
-║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
-║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
-║░░░░░░░░░╚════════╝░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░╔════════╗░░░░░░░░░░░║
+            ║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
+            ║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
+            ║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
+            ║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
+            ║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
+            ║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
+            ║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
+            ║░░░░░░░░░║AAAAAAAA║░░░░░░░░░░░║
+            ║░░░░░░░░░╚════════╝░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -579,22 +611,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔══════════════╗═══════════════╗
-║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
-╚══════════════╝░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════╗═══════════════╗
+            ║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ║AAAAAAAAAAAAAA║░░░░░░░░░░░░░░░║
+            ╚══════════════╝░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -614,22 +648,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔════════╗CCCCCCCCCCCC╔════════╗
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
-╚════════╝╚══════════╝╚════════╝",
+            """
+            ╔════════╗CCCCCCCCCCCC╔════════╗
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ║AAAAAAAA║║BBBBBBBBBB║║DDDDDDDD║
+            ╚════════╝╚══════════╝╚════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -655,22 +691,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-        @"╔══════════════════════════════╗
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╔══════════════╗╔══════════════╗
-║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
-║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
-║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
-║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
-║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
-║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
-╚══════════════╝╚══════════════╝
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔══════════════════════════════╗
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╔══════════════╗╔══════════════╗
+            ║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
+            ║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
+            ║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
+            ║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
+            ║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
+            ║CCCCCCCCCCCCCC║║DDDDDDDDDDDDDD║
+            ╚══════════════╝╚══════════════╝
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
@@ -699,22 +737,24 @@ public class PercentageTest : BaseTests
 
         Draw(root);
         Assert.Equal(
-            @"╔═══════════════╔═══════════════
-║░░░░░░░░░░░░░░░║BBBBBBBBBBBBBBB
-║░░░░░░░░░░░░░░░║BBBBBBBBBBBBBBB
-║░░░░░░░░░░░░░░░║BBBBBBBBBBBBBBB
-║░░░░░░░░░░░░░░░║BBBBBBBBBBBBBBB
-║░░░░░░░░░░░░░░░╚═══════════════
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
-╚══════════════════════════════╝",
+            """
+            ╔═══════════════╔═══════════════
+            ║░░░░░░░░░░░░░░░║BBBBBBBBBBBBBBB
+            ║░░░░░░░░░░░░░░░║BBBBBBBBBBBBBBB
+            ║░░░░░░░░░░░░░░░║BBBBBBBBBBBBBBB
+            ║░░░░░░░░░░░░░░░║BBBBBBBBBBBBBBB
+            ║░░░░░░░░░░░░░░░╚═══════════════
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║
+            ╚══════════════════════════════╝
+            """,
             Canvas!.ToString());
 
         Assert.Equal(new RectF(0, 0, 32, 16), root.Layout.Bounds);
