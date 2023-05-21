@@ -10,13 +10,13 @@ public class Row : Control, IHasStyle<RowStyle>, IHasLayoutPlan<RowLayoutPlan>
 
     //**********************************************
 
-    public Row(RowLayoutPlan? plan = null, RowStyle? style = null)
-        : base(plan ?? new RowLayoutPlan(new LayoutPlan()), style)
+    public Row() // RowLayoutPlan? plan = null, BorderStyle? style = null)
+        : base(new RowLayoutPlan(new LayoutPlan()))
     {
     }
 
-    public Row(out Control control, RowLayoutPlan? plan = null, RowStyle? style = null)
-        : this(plan, style)
+    public Row(out Control control) //, RowLayoutPlan? plan = null, BorderStyle? style = null)
+        : this() //plan, style)
     {
         control = this;
     }
@@ -132,6 +132,18 @@ public class RowLayoutPlan : ControlPlan
         set => LayoutPlan.ElementsWrap = value;
     }
 
+    public float FlexShrink
+    {
+        get => LayoutPlan.FlexShrink;
+        set => LayoutPlan.FlexShrink = value;
+    }
+
+    public float FlexGrow
+    {
+        get => LayoutPlan.FlexGrow;
+        set => LayoutPlan.FlexGrow = value;
+    }
+
     public RowLayoutPlan(LayoutPlan? plan = null) : base(plan)
     {
         // Default values for Row
@@ -145,24 +157,3 @@ public class RowLayoutPlan : ControlPlan
     }
 
 }
-
-public class RowStyle : Style
-{
-    public Edges Border
-    {
-        get => Get<Edges?>(nameof(Border)) ?? Row.DefaultBorder;
-        set => Set(nameof(Border), value);
-    }
-
-    public Brush? BorderBrush
-    {
-        get => Get<Brush?>(nameof(BorderBrush)) ?? Row.DefaultBorderBrush;
-        set => Set(nameof(BorderBrush), value);
-    }
-    public LineSet? LineSet
-    {
-        get => Get<LineSet?>(nameof(LineSet)) ?? Row.DefaultLineSet;
-        set => Set(nameof(LineSet), value);
-    }
-}
-

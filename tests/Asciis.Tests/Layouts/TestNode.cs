@@ -5,24 +5,24 @@ namespace No8.Ascii.Tests.Layouts;
 
 public class TestNode : Control
 {
-    public TestNode(string name, LayoutPlan? plan = null, Style? style = null)
-        : base(new ControlPlan(plan ?? new TestPlan()), style ?? new TestStyle())
+    public TestNode(string name, LayoutPlan? plan = null) //, Style? style = null)
+        : base(new ControlPlan(plan ?? new TestPlan())) //, style ?? new TestStyle())
     {
         Name = name;
     }
 
-    public TestNode(LayoutPlan? plan = null, Style? style = null)
-        : base(new ControlPlan(plan ?? new TestPlan()), style ?? new TestStyle())
+    public TestNode(LayoutPlan? plan = null) //, Style? style = null)
+        : base(new ControlPlan(plan ?? new TestPlan())) //, style ?? new TestStyle())
     {
     }
 
-    public TestNode(out TestNode node, string name, LayoutPlan? plan = null, Style? style = null)
-        : this(name, plan, style)
+    public TestNode(out TestNode node, string name, LayoutPlan? plan = null) //, Style? style = null)
+        : this(name, plan) //, style)
     {
         node = this;
     }
-    public TestNode(out TestNode node, LayoutPlan? plan = null, Style? style = null)
-        : this(plan, style)
+    public TestNode(out TestNode node, LayoutPlan? plan = null) //, Style? style = null)
+        : this(plan) //, style)
     {
         node = this;
     }

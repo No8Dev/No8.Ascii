@@ -1,14 +1,13 @@
 ﻿using No8.Ascii.Tests.Helpers;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace No8.Ascii.Tests.Canvas;
 
 [TestClass]
-public class DrawLineTests
+public class DrawLineTests : BaseCanvasTests
 {
-    private readonly No8.Ascii.Canvas _canvas;
-
-    public DrawLineTests()
+    public DrawLineTests(ITestOutputHelper context) : base(context)
     {
         _canvas = new No8.Ascii.Canvas(10, 5);
     }

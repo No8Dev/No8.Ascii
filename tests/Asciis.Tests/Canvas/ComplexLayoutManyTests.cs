@@ -3,28 +3,16 @@ using No8.Ascii.ElementLayout;
 using No8.Ascii.Platforms;
 using No8.Ascii.Tests.Helpers;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace No8.Ascii.Tests.Canvas;
 
 [TestClass]
-public class ComplexLayoutManyTests
+public class ComplexLayoutManyTests : BaseCanvasTests
 {
-    private No8.Ascii.Canvas? _canvas;
-
-    private void Draw( Control root, int width = 32, int height = 16 )
+    public ComplexLayoutManyTests(ITestOutputHelper context) : base(context)
     {
-        _canvas = new No8.Ascii.Canvas(width, height);
-        ElementArrange.Calculate(root, width, height);
-
-        root.OnDraw(_canvas, null);
-
-        System.Console.WriteLine(root);
-        System.Console.WriteLine(root.Layout);
     }
-
-    private Frame LittleBox() => new() { new FrameLayoutPlan { Width = 3, Height = 2 } };
-
-    private Frame MediumBox() => new() { new FrameLayoutPlan { Width = 6, Height = 3 } };
 
     [Fact]
     public void Layout0Wrap_Many_Start_Start()

@@ -67,7 +67,6 @@ public class Style : DynamicObject, IEnumerable<KeyValuePair<string, object>>
         return true;
     }
 
-
     /// <summary>
     ///     Has the planned valued changed since the last layout arrangement
     /// </summary>

@@ -1,18 +1,16 @@
 ﻿using No8.Ascii.Tests.Helpers;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace No8.Ascii.Tests.Canvas;
 
 [TestClass]
-public class DrawThingsTests
+public class DrawThingsTests : BaseCanvasTests
 {
-    private readonly No8.Ascii.Canvas _canvas;
-
-    public DrawThingsTests()
+    public DrawThingsTests(ITestOutputHelper context) : base(context)
     {
         _canvas = new No8.Ascii.Canvas(40, 20);
     }
-
 
     [Fact]
     public void DrawTriange()

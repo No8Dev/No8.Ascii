@@ -158,6 +158,18 @@ public class FrameLayoutPlan : ControlPlan
         set => LayoutPlan.ElementsWrap = value;
     }
 
+    public float FlexShrink
+    {
+        get => LayoutPlan.FlexShrink;
+        set => LayoutPlan.FlexShrink = value;
+    }
+    public float FlexGrow
+    {
+        get => LayoutPlan.FlexGrow;
+        set => LayoutPlan.FlexGrow = value;
+    }
+    
+
     public FrameLayoutPlan(LayoutPlan? plan = null) : base(plan)
     {
         // Default values for Frame
