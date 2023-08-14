@@ -55,7 +55,7 @@ public class ComplexLayoutManyTests : BaseCanvasTests
         {
             new FrameLayoutPlan
             {
-                ElementsWrap = LayoutWrap.Wrap
+                Wrap = LayoutWrap.Wrap
             },
             MediumBox(), MediumBox(), LittleBox(),
             MediumBox(), MediumBox(), LittleBox(),
@@ -93,7 +93,7 @@ public class ComplexLayoutManyTests : BaseCanvasTests
         {
             new FrameLayoutPlan
             {
-                ElementsWrap = LayoutWrap.Wrap,
+                Wrap = LayoutWrap.Wrap,
                 HorzAlign = ControlAlign.Center
             },
             MediumBox(), MediumBox(), LittleBox(),
@@ -133,7 +133,7 @@ public class ComplexLayoutManyTests : BaseCanvasTests
         {
             new FrameLayoutPlan
             {
-                ElementsWrap = LayoutWrap.Wrap,
+                Wrap = LayoutWrap.Wrap,
                 HorzAlign = ControlAlign.End
             },
             MediumBox(), MediumBox(), LittleBox(),
@@ -172,7 +172,7 @@ public class ComplexLayoutManyTests : BaseCanvasTests
         {
             new FrameLayoutPlan
             {
-                ElementsWrap = LayoutWrap.Wrap,
+                Wrap = LayoutWrap.Wrap,
                 HorzAlign = ControlAlign.Stretch
             },
             MediumBox(), MediumBox(), LittleBox(),

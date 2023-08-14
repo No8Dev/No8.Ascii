@@ -21,7 +21,7 @@ public class AlignTests : BaseCanvasTests
             new FrameLayoutPlan
             {
                 LayoutPlan = { ElementsDirection = LayoutDirection.Horz },
-                ElementsWrap = LayoutWrap.Wrap,
+                Wrap = LayoutWrap.Wrap,
             },
             LargeBox(), LargeBox(), LargeBox(),
             LargeBox(), LargeBox()
@@ -59,7 +59,7 @@ public class AlignTests : BaseCanvasTests
             new FrameLayoutPlan
             {
                 LayoutPlan = { ElementsDirection = LayoutDirection.Horz },
-                ElementsWrap = LayoutWrap.Wrap,
+                Wrap = LayoutWrap.Wrap,
             },
             LittleBox(), MediumBox(), LargeBox(),
             LargeBox(), MediumBox(), LittleBox()
@@ -97,7 +97,7 @@ public class AlignTests : BaseCanvasTests
             new FrameLayoutPlan
             {
                 LayoutPlan = { ElementsDirection = LayoutDirection.Horz },
-                ElementsWrap = LayoutWrap.Wrap,
+                Wrap = LayoutWrap.Wrap,
             },
             new Frame { new FrameLayoutPlan { Width = 4, Height = 4, FlexGrow = 1 } },
             new Frame { new FrameLayoutPlan { Width = 4, Height = 4 } },

@@ -7,25 +7,11 @@ using No8.Ascii.ElementLayout;
 
 namespace No8.Ascii.Controls;
 
-
-public interface IHasStyle<out T>
-    where T : Style
-{
-    T Style { get; }
-}
-
-public interface IHasLayoutPlan<out T>
-    where T : ControlPlan
-{
-    T ControlPlan { get; }
-}
-
-
 /// <summary>
 ///     Base control containing all basic properties used to define the control
 /// </summary>
 [DebuggerDisplay("{ShortString}")]
-public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>, IHasLayoutPlan<ControlPlan>, IAnimatable
+public abstract class Control : IEnumerable<Control>, IElement, IAnimatable
 {
     public delegate void PropertyChangedDelegate<in T>(T oldValue, T newValue);
 
@@ -33,7 +19,6 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
 
     private readonly List<Control>                _children               = new();
     private readonly Dictionary<string, Delegate> _propertyChangedActions = new();
-
     private readonly Dictionary<string, PropertyChangingDelegate> _propertyChangingActions = new();
 
     private   bool          _hasFocus;
@@ -46,7 +31,14 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
     private   bool          _needsPainting = true;
 
     protected ControlPlan? _controlPlan;
-    protected Style?       _style;
+
+    protected Brush? _foregroundBrush;
+    protected Brush? _backgroundBrush;
+    protected float? _translationX;
+    protected float? _translationY;
+    protected float? _scaleX;
+    protected float? _scaleY;
+    protected float? _opacity;
 
 
     public event EventHandler?         Dirtied;
@@ -62,19 +54,7 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
             Plan.MergeFrom(plan.LayoutPlan);
             _isDirty = Plan.IsDirty;
         }
-
         SetupPlanChanged();
-
-        _style = DefaultStyle(this);
-        if (style != null)
-        {
-            Style    =  style;
-            _isDirty |= style.IsDirty;
-        }
-        else
-            Style = DefaultStyle(this);
-
-        SetupStyleChanged();
     }
 
     protected Control(
@@ -94,12 +74,6 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
         internal set => SetHost(value);
     }
 
-    public Brush? ForegroundBrush
-    {
-        get => Style.ForegroundBrush;
-        set => Style.ForegroundBrush = value;
-    }
-
     /// <summary>
     ///     The boundtry of the control. Includes Transformations
     /// </summary>
@@ -108,8 +82,8 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
         get
         {
             return Layout.Bounds
-                .Offset(Style.TranslationX ?? 0, Style.TranslationY ?? 0)
-                .Scale(Style.ScaleX, Style.ScaleY);
+                .Offset(_translationX ?? 0, _translationY ?? 0)
+                .Scale(_scaleX, _scaleY);
         }
     }
 
@@ -127,47 +101,53 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
         }
     }
 
+    public Brush? ForegroundBrush
+    {
+        get => _foregroundBrush;
+        set => ChangeDirtiesPainting(ref _foregroundBrush, value);
+    }
+
     public Brush? BackgroundBrush
     {
-        get => Style.BackgroundBrush;
-        set => Style.BackgroundBrush = value;
+        get => _backgroundBrush;
+        set => ChangeDirtiesPainting(ref _backgroundBrush, value);
     }
 
     public float TranslationX
     {
-        get => Style.TranslationX ?? 0;
-        set => Style.TranslationX = value;
+        get => _translationX ?? 0;
+        set => ChangeDirtiesPainting(ref _translationX, value);
     }
     public float TranslationY
     {
-        get => Style.TranslationY ?? 0;
-        set => Style.TranslationY = value;
+        get => _translationY ?? 0;
+        set => ChangeDirtiesPainting(ref _translationY, value);
     }
 
     public float Scale
     {
-        get => Style.ScaleX ?? 1;
+        get => _scaleX ?? 1;
         set
         {
-            Style.ScaleX = value;
-            Style.ScaleY = value;
+            ChangeDirtiesLayout(ref _scaleX, value);
+            ChangeDirtiesLayout(ref _scaleY, value);
         }
     }
     public float ScaleX
     {
-        get => Style.ScaleX ?? 1;
-        set => Style.ScaleX = value;
+        get => _scaleX ?? 1;
+        set => ChangeDirtiesLayout(ref _scaleX, value);
     }
     public float ScaleY
     {
-        get => Style.ScaleY ?? 1;
-        set => Style.ScaleY = value;
+        get => _scaleY ?? 1;
+        set => ChangeDirtiesLayout(ref _scaleY, value);
     }
 
     public float Opacity
     {
-        get => Style.Opacity ?? 1;
-        set => Style.Opacity = value;
+        get => _opacity ?? 1;
+        set => ChangeDirtiesPainting(ref _opacity, value);
     }
 
     public virtual bool CanFocus { get; }
@@ -248,21 +228,6 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
         }
     }
 
-    public Style Style
-    {
-        get => _style ??= DefaultStyle(this).OnChanged(StyleOnChanged);
-        init
-        {
-            if (_style == null)
-                _style = DefaultStyle(this)
-                        .MergeFrom(value)
-                        .OnChanged(StyleOnChanged);
-            else
-                _style.MergeFrom(value);
-        }
-    }
-
-
     public bool NeedsPainting
     {
         get => _needsPainting;
@@ -303,11 +268,7 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
                 if (value)
                     RaiseDirtied();
                 else
-                {
                     Plan.IsDirty = false;
-                    if (_style != null)
-                        _style.IsDirty = false;
-                }
             }
         }
     }
@@ -432,7 +393,6 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
         _needsPainting = false;
         _isDirty       = false;
         Plan.IsDirty   = false;
-        Style.IsDirty  = false;
         foreach (var child in Children)
             child.CleanFlags();
     }
@@ -457,8 +417,6 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
     {
         _isDirty      = false;
         Plan.IsDirty  = false;
-        Style.IsDirty = false;
-
         foreach (var child in Children)
             child.ClearDirtyFlags();
     }
@@ -469,41 +427,7 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
 
     public void SetStyle(Style style)
     {
-        Style.Clear();
-        Style.MergeFrom(DefaultStyle(this));
-        Style.Combine(Style, style);
-    }
-
-    /// <summary>
-    ///     Check to see if the control has a default style attribute and create that type
-    /// </summary>
-    public static Style DefaultStyle(Control control)
-    {
-        var           type   = control.GetType();
-        ObjectHandle? handle = null;
-        try
-        {
-            handle = Activator.CreateInstance(type.Assembly.FullName ?? "", type.FullName + ".Style");
-        }
-        catch
-        {
-            // ignored
-        }
-
-        if (handle == null)
-        {
-            try
-            {
-                handle = Activator.CreateInstance(type.Assembly.FullName ?? "", type.FullName + "Style");
-            }
-            catch
-            {
-                // ignored
-            }
-        }
-
-        var style = (Style?)handle?.Unwrap();
-        return style ?? new Style();
+        style.ApplyTo(this);
     }
 
     /// <summary>
@@ -557,9 +481,7 @@ public abstract class Control : IEnumerable<Control>, IElement, IHasStyle<Style>
     //**********************************************
 
     private void SetupPlanChanged()                               { Plan.Changed  += PlanOnChanged; }
-    private void SetupStyleChanged()                              { Style.Changed += StyleOnChanged; }
     private void PlanOnChanged(object?  sender, LayoutPlan e)     { MarkDirty(); }
-    private void StyleOnChanged(object? sender, Style      style) { NeedsPainting = true; }
 
     public Control Add(ControlPlan plan)
     {

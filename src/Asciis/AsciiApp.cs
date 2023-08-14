@@ -25,7 +25,7 @@ public class AsciiApp : IApp
 {
     public DependencyInjectionContainer Services { get; } = new();
     public ConfigurationManager Configuration { get; } = new();
-    public ConsoleDriver Driver { get; }
+    public ConsoleDriver ConsoleDriver { get; }
     public Canvas Canvas { get; }
 
     public bool NeedsLayout { get; set; }
@@ -49,15 +49,15 @@ public class AsciiApp : IApp
 
         InitConfig(args);
 
-        Driver = ConsoleDriver.Create(Services);
-
+        ConsoleDriver = ConsoleDriver.Create(Services);
+        
         InitServices();
         #if POSIX
         InitPosix();
         #endif
         System.Console.OutputEncoding = Encoding.UTF8;
 
-        Canvas = new Canvas(Driver.Cols, Driver.Rows);
+        Canvas = new Canvas(ConsoleDriver.Cols, ConsoleDriver.Rows);
 
         SynchronizationContext.SetSynchronizationContext(new AsciiSlimAppSyncContext(this));
     }
@@ -95,13 +95,13 @@ public class AsciiApp : IApp
 
     private void InitServices()
     {
-        Services.Register(Driver);
+        Services.Register(ConsoleDriver);
         Services.Register(this);
     }
 
     internal static string GetDefaultApplicationName()
     {
-        var startupAssemblyName = Assembly.GetEntryAssembly()?.GetName()?.Name;
+        var startupAssemblyName = Assembly.GetEntryAssembly()?.GetName().Name;
         return startupAssemblyName ?? "AsciiApp";
     }
 
@@ -124,7 +124,7 @@ public class AsciiApp : IApp
 
             context.Cancel = true;
 
-            _current?.StopAsync();
+            _current?.Stop();
         }
     }
     
@@ -299,15 +299,15 @@ public class AsciiApp : IApp
         {
             RunTimers();
 
-            if (Driver.WindowSizeChanged())
+            if (ConsoleDriver.WindowSizeChanged())
             {
-                Canvas.Resize(Driver.Cols, Driver.Rows);
+                Canvas.Resize(ConsoleDriver.Cols, ConsoleDriver.Rows);
                 foreach (var window in _windows)
                     window.NeedsLayout = true;
             }
-            Driver.GatherInputEvents();
+            ConsoleDriver.GatherInputEvents();
 
-            ProcessInputQueues(Driver.KbEvents, Driver.PointerEvents);
+            ProcessInputQueues(ConsoleDriver.KbEvents, ConsoleDriver.PointerEvents);
 
             ProcessWindows((float)elapsedTime.TotalSeconds);
 
@@ -319,25 +319,15 @@ public class AsciiApp : IApp
         }
     }
 
-
-
     /// <summary>
     ///     Shuts down the application.
     /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns>
-    ///     A <see cref="Task" /> that represents the shutdown of the <see cref="IHost" />.
-    ///     Successful completion indicates that all the HTTP server has stopped.
-    /// </returns>
-    public Task StopAsync(CancellationToken cancellationToken = default)
+    public void Stop()
     {
         _active = false;
-
-        return Task.CompletedTask;
     }
 
-
-    public void ProcessWindows(float elapsedSeconds)
+    private void ProcessWindows(float elapsedSeconds)
     {
         foreach (var window in _windows.ToArray())
         {
@@ -345,7 +335,7 @@ public class AsciiApp : IApp
 
             if (window.NeedsLayout || NeedsLayout)
             {
-                ElementArrange.Calculate(window, Driver.Cols, Driver.Rows);
+                ElementArrange.Calculate(window, ConsoleDriver.Cols, ConsoleDriver.Rows);
 
                 window.NeedsLayout = false;
                 window.NeedsPainting = true;
@@ -368,7 +358,7 @@ public class AsciiApp : IApp
         if (_invalidateConsole)
         {
             _invalidateConsole = false;
-            Driver.WriteConsole(Canvas);
+            ConsoleDriver.WriteConsole(Canvas);
             UpdateCursor();
         }
     }
@@ -383,15 +373,15 @@ public class AsciiApp : IApp
                 var (left, top) = System.Console.GetCursorPosition();
                 if (left != Canvas.Cursor.X || top != Canvas.Cursor.Y)
                 {
-                    Driver.Write(Terminal.Cursor.Show);
-                    Driver.Write(Terminal.Cursor.Set(Canvas.Cursor.Y + 1, Canvas.Cursor.X + 1));
+                    Terminal.Cursor.Show();
+                    Terminal.Cursor.Set(Canvas.Cursor.Y + 1, Canvas.Cursor.X + 1);
                 }
             }
         }
         else
         {
-            Driver.Write(Terminal.Cursor.Set(1, 1));
-            Driver.Write(Terminal.Cursor.Hide);
+            Terminal.Cursor.Set(1, 1);
+            Terminal.Cursor.Hide();
         }
     }
 
@@ -420,7 +410,7 @@ public class AsciiApp : IApp
             HandlePointerEvent(pointerEvent);
     }
 
-    public KeyState GetVirtualKey(VirtualKeyCode code) => Driver.VirtualKeys[(int)code];
+    public KeyState GetVirtualKey(VirtualKeyCode code) => ConsoleDriver.VirtualKeys[(int)code];
 
     private void HandleKbEvent(KeyboardEvent kbEvent)
     {

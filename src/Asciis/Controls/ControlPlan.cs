@@ -204,7 +204,7 @@ public class ControlPlan
 
     //********************************************************************
 
-    protected ControlAlign ChildrenHorzAlign
+    public ControlAlign HorzAlign
     {
         get
         {
@@ -223,7 +223,7 @@ public class ControlPlan
             }
         }
     }
-    protected ControlAlign ChildrenVertAlign
+    public ControlAlign VertAlign
     {
         get
         {

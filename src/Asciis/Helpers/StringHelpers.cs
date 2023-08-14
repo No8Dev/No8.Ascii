@@ -136,4 +136,29 @@ public static class StringHelpers
 
     public static StringBuilder AppendCRLF(this StringBuilder sb) => 
         sb.Append("\r\n");
+    
+    public static int FindNull<T>(this Span<T> data, int start) where T : struct
+    {
+        for (var i = start; i < data.Length; i++)
+        {
+            if (data[i].Equals(default))
+                return i;
+        }
+
+        return -1;
+    }
+    
+    public static string ReadNullTerminatedString(this string source, int offset = 0)
+    {
+        var sb = new StringBuilder();
+        for (var pos = offset; pos < source.Length; pos++)
+        {
+            if (source[pos] == '\0')
+                break;
+
+            sb.Append(source[pos]);
+        }
+
+        return sb.ToString();
+    }
 }

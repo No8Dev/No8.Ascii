@@ -2,7 +2,7 @@
 
 namespace No8.Ascii.Controls;
 
-public class Frame : Control, IHasStyle<FrameStyle>, IHasLayoutPlan<FrameLayoutPlan>
+public class Frame : Control
 {
     internal static readonly Brush? DefaultBorderBrush = null;
     internal static readonly Edges DefaultBorder = Edges.One;
@@ -24,18 +24,26 @@ public class Frame : Control, IHasStyle<FrameStyle>, IHasLayoutPlan<FrameLayoutP
     //--
 
     public new FrameLayoutPlan ControlPlan { get; } = new ();
-    public new FrameStyle Style => (FrameStyle)_style!;
+    protected Brush? _borderBrush;
+    protected LineSet? _lineSet;
+    protected Edges? _border;
+    
+    public Edges Border
+    {
+        get => _border ?? Frame.DefaultBorder;
+        set => ChangeDirtiesLayout(ref _border, value);
+    }
 
     public Brush? BorderBrush
     {
-        get => Style.BorderBrush;
-        set => Style.BorderBrush = value;
+        get => _borderBrush;
+        set => ChangeDirtiesPainting(ref _borderBrush, value);
     }
 
     public LineSet LineSet
     {
-        get => Style.LineSet ?? LineSet.Single;
-        set => Style.LineSet = value;
+        get => _lineSet ?? LineSet.Single;
+        set => ChangeDirtiesPainting(ref _lineSet, value);
     }
 
     public string? Text
@@ -69,7 +77,7 @@ public class Frame : Control, IHasStyle<FrameStyle>, IHasLayoutPlan<FrameLayoutP
         if (BorderBrush is not null)
             canvas.PaintBorderForeground(bounds, BorderBrush);
 
-        var border = Style.Border;
+        var border = Border;
 
         if (border.Left > 0 &&
             border.Top > 0 &&
@@ -137,65 +145,3 @@ public class Frame : Control, IHasStyle<FrameStyle>, IHasLayoutPlan<FrameLayoutP
 
     private string?    _text;
 }
-
-public class FrameLayoutPlan : ControlPlan
-{
-    public ControlAlign HorzAlign
-    {
-        get => ChildrenHorzAlign;
-        set => ChildrenHorzAlign = value;
-    }
-    
-    public ControlAlign VertAlign
-    {
-        get => ChildrenVertAlign;
-        set => ChildrenVertAlign = value;
-    }
-
-    public LayoutWrap ElementsWrap
-    {
-        get => LayoutPlan.ElementsWrap;
-        set => LayoutPlan.ElementsWrap = value;
-    }
-
-    public float FlexShrink
-    {
-        get => LayoutPlan.FlexShrink;
-        set => LayoutPlan.FlexShrink = value;
-    }
-    public float FlexGrow
-    {
-        get => LayoutPlan.FlexGrow;
-        set => LayoutPlan.FlexGrow = value;
-    }
-    
-
-    public FrameLayoutPlan(LayoutPlan? plan = null) : base(plan)
-    {
-        // Default values for Frame
-        LayoutPlan.Padding = 1;
-        LayoutPlan.Width = 100.Percent();
-        LayoutPlan.Height = 100.Percent();
-    }
-}
-
-public class FrameStyle : Style
-{
-    public Edges Border
-    {
-        get => Get<Edges?>(nameof(Border)) ?? Frame.DefaultBorder;
-        set => Set(nameof(Border), value);
-    }
-
-    public Brush? BorderBrush
-    {
-        get => Get<Brush?>(nameof(BorderBrush)) ?? Frame.DefaultBorderBrush;
-        set => Set(nameof(BorderBrush), value);
-    }
-    public LineSet? LineSet
-    {
-        get => Get<LineSet?>(nameof(LineSet)) ?? Frame.DefaultLineSet;
-        set => Set(nameof(LineSet), value);
-    }
-}
-

@@ -119,6 +119,40 @@ public class Canvas
         SetGlyph((int)x, (int)y, (Rune)chr, foreground, background);
     }
 
+    public void DrawString(int x, int y, string str, Brush? foregroundBrush = null, Brush? backgroundBrush = null)
+    {
+        Color? foreground = (foregroundBrush as SolidColorBrush)?.Color;
+        Color? background = (backgroundBrush as SolidColorBrush)?.Color;
+
+        if (foregroundBrush is GradientBrush foreGradientBrush)
+            PaintForeground(x, y, str.Length, 1, foreGradientBrush);
+        if (backgroundBrush is GradientBrush backGradientBrush)
+            PaintBackground(x, y, str.Length, 1, backGradientBrush);
+
+        for (int i = 0; i < str.Length; i++)
+        {
+            if (x + i >= Width) break;
+            SetGlyph(x + i, y, (Rune)str[i], foreground, background);
+        }
+    }
+
+    /// <summary>
+    ///     Draw a string to the canvas but do not write spaces 
+    /// </summary>
+    public void DrawStringAlpha(int x, int y, string str, Brush? foregroundBrush = null, Brush? backgroundBrush = null)
+    {
+        for (int i = 0; i < str.Length; i++)
+        {
+            if (str[i] != ' ')
+            {
+                var percent = (float)i / (float)str.Length;
+                var foreground = foregroundBrush?.GetColorAt(percent);
+                var background = backgroundBrush?.GetColorAt(percent);
+                SetGlyph(x + i, y, (Rune)str[i], foreground, background);
+            }
+        }
+    }
+    
     public void Resize(int wide, int high)
     {
         var newGlyphs = new Glyph[wide * high];
@@ -670,7 +704,7 @@ public class Canvas
         
     }
 
-    public virtual void Draw(int x, int y, Rune? c = null, Color? foreground = null, Color? background = null)
+    public void Draw(int x, int y, Rune? c = null, Color? foreground = null, Color? background = null)
     {
         SetGlyph(x, y, c ?? Zero, foreground, background);
     }
@@ -692,29 +726,6 @@ public class Canvas
             {
                 SetGlyph(px, py, c ?? Zero, foreground, background);
             }
-        }
-    }
-
-    public void DrawString(int x, int y, string str, Brush? foregroundBrush = null, Brush? backgroundBrush = null)
-    {
-        Color? foreground = (foregroundBrush as SolidColorBrush)?.Color;
-        Color? background = (backgroundBrush as SolidColorBrush)?.Color;
-
-        if (foregroundBrush is GradientBrush foreGradientBrush)
-            PaintForeground(x, y, str.Length, 1, foreGradientBrush);
-        if (backgroundBrush is GradientBrush backGradientBrush)
-            PaintBackground(x, y, str.Length, 1, backGradientBrush);
-
-        for (int i = 0; i < str.Length; i++)
-            SetGlyph(x + i, y, (Rune)str[i], foreground, background);
-    }
-
-    public void DrawStringAlpha(int x, int y, string c, Color? foreground = null, Color? background = null)
-    {
-        for (int i = 0; i < c.Length; i++)
-        {
-            if (c[i] != ' ')
-                SetGlyph(x + i, y, (Rune)c[i], foreground, background);
         }
     }
 

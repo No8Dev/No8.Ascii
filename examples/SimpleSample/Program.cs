@@ -20,7 +20,7 @@ Console.WriteLine(@"
      │ Loading... │
      ╰────────────╯");
 
-Console.Write(Terminal.Mode.LocatorReportingCells);
+Console.Write(TerminalSeq.Mode.LocatorReportingCells);
 
 while (true)
 {

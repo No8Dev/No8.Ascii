@@ -2,7 +2,7 @@ using No8.Ascii.ElementLayout;
 
 namespace No8.Ascii.Controls;
 
-public class Row : Control, IHasStyle<RowStyle>, IHasLayoutPlan<RowLayoutPlan>
+public class Row : Control
 {
     internal static readonly Brush? DefaultBorderBrush = null;
     internal static readonly Edges DefaultBorder = Edges.Zero;
@@ -24,18 +24,26 @@ public class Row : Control, IHasStyle<RowStyle>, IHasLayoutPlan<RowLayoutPlan>
     //--
 
     public new RowLayoutPlan ControlPlan { get; } = new ();
-    public new RowStyle Style => (RowStyle)_style!;
+    protected Brush? _borderBrush;
+    protected LineSet? _lineSet;
+    protected Edges? _border;
+
+    public Edges Border
+    {
+        get => _border ?? Frame.DefaultBorder;
+        set => ChangeDirtiesLayout(ref _border, value);
+    }
 
     public Brush? BorderBrush
     {
-        get => Style.BorderBrush;
-        set => Style.BorderBrush = value;
+        get => _borderBrush;
+        set => ChangeDirtiesPainting(ref _borderBrush, value);
     }
 
     public LineSet LineSet
     {
-        get => Style.LineSet ?? LineSet.Single;
-        set => Style.LineSet = value;
+        get => _lineSet ?? LineSet.Single;
+        set => ChangeDirtiesPainting(ref _lineSet, value);
     }
 
     // -- 
@@ -57,7 +65,7 @@ public class Row : Control, IHasStyle<RowStyle>, IHasLayoutPlan<RowLayoutPlan>
         if (BorderBrush is not null)
             canvas.PaintBorderForeground(bounds, BorderBrush);
 
-        var border = Style.Border;
+        var border = Border;
 
         if (border.Left > 0 &&
             border.Top > 0 &&
@@ -110,50 +118,4 @@ public class Row : Control, IHasStyle<RowStyle>, IHasLayoutPlan<RowLayoutPlan>
     }
 
     // --
-}
-
-public class RowLayoutPlan : ControlPlan
-{
-    public ControlAlign HorzAlign
-    {
-        get => ChildrenHorzAlign;
-        set => ChildrenHorzAlign = value;
-    }
-    
-    public ControlAlign VertAlign
-    {
-        get => ChildrenVertAlign;
-        set => ChildrenVertAlign = value;
-    }
-    
-    public LayoutWrap ElementsWrap
-    {
-        get => LayoutPlan.ElementsWrap;
-        set => LayoutPlan.ElementsWrap = value;
-    }
-
-    public float FlexShrink
-    {
-        get => LayoutPlan.FlexShrink;
-        set => LayoutPlan.FlexShrink = value;
-    }
-
-    public float FlexGrow
-    {
-        get => LayoutPlan.FlexGrow;
-        set => LayoutPlan.FlexGrow = value;
-    }
-
-    public RowLayoutPlan(LayoutPlan? plan = null) : base(plan)
-    {
-        // Default values for Row
-        //LayoutPlan.Padding = 1;
-        LayoutPlan.ElementsDirection = LayoutDirection.Horz;
-        HorzAlign = ControlAlign.Stretch;
-        VertAlign = ControlAlign.Start;
-        //LayoutPlan.Width = 100.Percent();
-        //LayoutPlan.Height = 100.Percent();
-
-    }
-
 }

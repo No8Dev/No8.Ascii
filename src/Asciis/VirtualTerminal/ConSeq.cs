@@ -23,6 +23,14 @@ public class ConSeq
         if ("<=>!?$[ ]".Contains(Sequence[1]))
             len = 2;
 
+        if (Sequence.Length >= 3)
+        {
+            // < mouse SGR Protocol
+            // M mouse X11 protocol
+            if ("<M".Contains(Sequence[2]))
+                len = 3;
+        }
+        
         return Sequence.Substring(0, len);
     }
     public string FinalChars()
@@ -46,7 +54,7 @@ public class ConSeq
         foreach (var ch in value)
         {
             if (ch < ' ')
-                sb.Append($"<{(Terminal.ControlChar)ch}>");
+                sb.Append($"<{(TerminalSeq.ControlChar)ch}>");
             else
                 sb.Append(ch);
         }
@@ -86,6 +94,7 @@ public class ConSeq
             ///     Data String         *****
             ///     String Term         0x1b \
 
+            var negative = false;
             var p          = -1;
             var startChars = seq.StartChars();
             
@@ -103,16 +112,23 @@ public class ConSeq
                     }
                     else
                     {
-                        seq.AddParameter(p);
+                        seq.AddParameter(negative ? -p : p);
                         p = -1;
+                        negative = false;
                     }
                 }
                 else
                 {
                     if (p >= 0)
                     {
-                        seq.AddParameter(p);
+                        seq.AddParameter(negative ? -p : p);
                         p = -1;
+                        negative = false;
+                    }
+                    else if (ch == '-')
+                    {
+                        negative = true;
+                        continue;
                     }
 
                     if (IsIntermediate(ch))
@@ -129,7 +145,7 @@ public class ConSeq
         
         return seq;
     }
-
+    
     private void AddParameter(int p) => _parameters.Add(p);
     private void AddIntermediate(char ch) => _intermediates.Add(ch);
     
@@ -138,4 +154,3 @@ public class ConSeq
     internal static bool IsFinal(char ch) => ch >= 0x40 && ch <= 0x7E;
 
 }
-

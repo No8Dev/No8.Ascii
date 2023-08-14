@@ -213,7 +213,7 @@ public static partial class Windows
     }
     
     [Flags]
-    public enum CharacterAttributes : ushort
+    public enum  CharacterAttributes : ushort
     {
         FgBlack       = 0x0000,
         FgDarkBlue    = 0x0001,

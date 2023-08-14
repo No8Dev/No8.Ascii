@@ -5,7 +5,7 @@ using No8.Ascii.ElementLayout;
 
 namespace No8.Ascii.Controls;
 
-public class Window : Control, IHasStyle<WindowStyle>, IHasLayoutPlan<WindowLayoutPlan>
+public class Window : Control
 {
     public Window(ControlPlan? plan = null, Style? style = null)
         : base(plan ?? new WindowLayoutPlan(), style)
@@ -26,8 +26,7 @@ public class Window : Control, IHasStyle<WindowStyle>, IHasLayoutPlan<WindowLayo
     public Vec Pointer { get; private set; } = Vec.Unknown;
 
     public new WindowLayoutPlan ControlPlan => (WindowLayoutPlan)_controlPlan!;
-    public new WindowStyle Style => (WindowStyle)_style!;
-
+    
 
     //--
     public event EventHandler?                         Loaded;
@@ -186,18 +185,4 @@ public class Window : Control, IHasStyle<WindowStyle>, IHasLayoutPlan<WindowLayo
     }
 
 
-}
-
-public class WindowLayoutPlan : ControlPlan
-{
-    public WindowLayoutPlan(LayoutPlan? plan = null) : base(plan)
-    {
-        LayoutPlan.Width  = 100.Percent();
-        LayoutPlan.Height = 100.Percent();
-    }
-
-}
-
-public class WindowStyle : Style
-{
 }

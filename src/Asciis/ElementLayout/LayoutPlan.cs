@@ -67,18 +67,18 @@ public class LayoutPlan
         return sb.ToString();
     }
 
-    protected virtual void AppendProperty<T>(StringBuilder sb, string? name, T? value, T defaultValue)
+    protected void AppendProperty<T>(StringBuilder sb, string? name, T? value, T defaultValue)
         where T : struct
     {
         if (value != null && !value.Value.Equals(defaultValue))
             sb.Append($" {name}={value}");
     }
-    protected virtual void AppendProperty(StringBuilder sb, string? name, float? value, float defaultValue)
+    protected void AppendProperty(StringBuilder sb, string? name, float? value, float defaultValue)
     {
         if (value != null && !value.IsUndefined() && !value.Value.Is(defaultValue))
             sb.Append($" {name}={value}");
     }
-    protected virtual void AppendProperty(StringBuilder sb, string? name, Number? value, Number defaultValue)
+    protected void AppendProperty(StringBuilder sb, string? name, Number? value, Number defaultValue)
     {
         if (value != null && !value.IsUndefined() && value.Value != defaultValue)
             sb.Append($" {name}={value}");

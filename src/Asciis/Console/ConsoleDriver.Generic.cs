@@ -60,17 +60,17 @@ public class ConsoleDriverGeneric : ConsoleDriver
                     count++;
 
                     if (index != lastIndex + 1)
-                        sb.Append(Terminal.Cursor.Set(y + 1, x + 1));
+                        sb.Append(TerminalSeq.Cursor.Set(y + 1, x + 1));
                     lastIndex = index;
 
                     if (chr.Fore != lastForeground && chr.Fore != null)
                     {
-                        sb.Append(Terminal.Color.Fore(chr.Fore.Value));
+                        sb.Append(TerminalSeq.Color.Fore(chr.Fore.Value));
                         lastForeground = chr.Fore;
                     }
                     if (chr.Back != lastBackground && chr.Back != null)
                     {
-                        sb.Append(Terminal.Color.Back(chr.Back.Value.R, chr.Back.Value.G, chr.Back.Value.B));
+                        sb.Append(TerminalSeq.Color.Back(chr.Back.Value.R, chr.Back.Value.G, chr.Back.Value.B));
                         lastBackground = chr.Back;
                     }
                     sb.Append(chr.Chr);

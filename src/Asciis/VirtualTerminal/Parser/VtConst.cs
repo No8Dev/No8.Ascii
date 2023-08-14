@@ -51,7 +51,7 @@ public enum VtState
 
 public record StateCell( int Ch, VtAction Action, VtState State );
 
-public static class VtConst
+public static class  VtConst
 {
     private static Dictionary<VtAction, string> actionNames =
         new()

@@ -9,21 +9,43 @@ public abstract class ConsoleDriver
 {
     public static ConsoleDriver Create(DependencyInjectionContainer dic)
     {
-        dic.Register<ConsoleDriverNoIO>().AsSingleton();
-        dic.Register<ConsoleDriverGeneric>().AsSingleton();
-        if (OperatingSystem.IsWindows())
-            dic.Register<ConsoleDriverWindows>().AsSingleton();
-        if (OperatingSystem.IsLinux())
-            dic.Register<ConsoleDriverCurses>().AsSingleton();
+        dic.Register(Current);
+        return Current;
+        
+        // dic.Register<ConsoleDriverNoIO>().AsSingleton();
+        // dic.Register<ConsoleDriverGeneric>().AsSingleton();
+        // if (OperatingSystem.IsWindows())
+        //     dic.Register<ConsoleDriverWindows>().AsSingleton();
+        // if (OperatingSystem.IsLinux())
+        //     dic.Register<ConsoleDriverCurses>().AsSingleton();
+        //
+        // if (UnitTestDetector.IsRunningFromNUnit) 
+        //     return dic.Resolve<ConsoleDriverNoIO>()!;
+        // if (OperatingSystem.IsWindows()) 
+        //     return dic.Resolve<ConsoleDriverWindows>()!;
+        // if (OperatingSystem.IsLinux()) 
+        //     return dic.Resolve<ConsoleDriverCurses>()!;
+        //
+        // return dic.Resolve<ConsoleDriverGeneric>()!;
+    }
 
-        if (UnitTestDetector.IsRunningFromNUnit) 
-            return dic.Resolve<ConsoleDriverNoIO>()!;
-        if (OperatingSystem.IsWindows()) 
-            return dic.Resolve<ConsoleDriverWindows>()!;
-        if (OperatingSystem.IsLinux()) 
-            return dic.Resolve<ConsoleDriverCurses>()!;
-
-        return dic.Resolve<ConsoleDriverGeneric>()!;
+    private static ConsoleDriver? _current;
+    public static ConsoleDriver Current
+    {
+        get
+        {
+            if (_current != null)
+                return _current;
+            if (OperatingSystem.IsWindows())
+                _current = new ConsoleDriverWindows();
+            else if (OperatingSystem.IsLinux())
+                _current = new ConsoleDriverCurses();
+            else if (UnitTestDetector.IsRunningFromNUnit)
+                _current = new ConsoleDriverNoIO();
+            else
+                _current = new ConsoleDriverGeneric();
+            return _current;
+        }
     }
 
 

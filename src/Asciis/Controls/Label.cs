@@ -2,7 +2,7 @@
 
 namespace No8.Ascii.Controls;
 
-public class Label : Control, IHasStyle<LabelStyle>, IHasLayoutPlan<LabelLayoutPlan>
+public class Label : Control
 {
     public string? Text
     {
@@ -37,7 +37,6 @@ public class Label : Control, IHasStyle<LabelStyle>, IHasLayoutPlan<LabelLayoutP
     //--
 
     public new LabelLayoutPlan ControlPlan  => (LabelLayoutPlan)_controlPlan!;
-    public new LabelStyle      Style => (LabelStyle)_style!;
 
     public void Add(string text) => Text = text;
 
@@ -84,19 +83,3 @@ public class Label : Control, IHasStyle<LabelStyle>, IHasLayoutPlan<LabelLayoutP
     private string? _text;
     private List<string>? _lines;
 }
-
-public class LabelLayoutPlan : ControlPlan
-{
-    public LabelLayoutPlan(LayoutPlan? plan = null) : base(plan)
-    {
-        LayoutPlan.IsText    = true;
-        LayoutPlan.MinHeight = 1;
-        LayoutPlan.MinWidth  = 1;
-    }
-}
-
-public class LabelStyle : Style
-{
-
-}
-

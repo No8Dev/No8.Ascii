@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices.JavaScript;
+
 namespace No8.Ascii.VirtualTerminal;
 
 using System;
@@ -61,13 +63,13 @@ public sealed class ExConsole : IDisposable
         if (_fullScreen)
             return;
         _fullScreen = true;
-        Console.Write(Terminal.Mode.ScreenAlt);
+        Terminal.Screen.ScreenAlt();
     }
 
     public void NormalScreen()
     {
         if (_fullScreen)
-            Console.Write(Terminal.Mode.ScreenNormal);
+            Terminal.Screen.ScreenNormal();
         _fullScreen = false;
     }
 
@@ -103,10 +105,8 @@ public sealed class ExConsole : IDisposable
         if (_options.StartFullScreen)
             FullScreen();
 
-        Console.Write(Terminal.Mode.MouseTrackingSGR); // SGR mouse mode
-        Console.Write(Terminal.Mode.MouseTrackingAll); // all mouse
-        //Console.Write(Terminal.Mode.MouseTrackingHilite); // highlight mouse
-        Console.Write(Terminal.Mode.MouseTrackingFocus); // Focus
+        Terminal.Mouse.TrackingStart();
+        Terminal.Mouse.HighlightEnable();
         
         while (Alive)
         {
@@ -116,27 +116,26 @@ public sealed class ExConsole : IDisposable
                 try
                 {
                     key = Console.ReadKey(true);
+                    if (key != null)
+                        AddKey(key.Value);
                 }
                 catch (Exception e)
                 {
                     Debug.WriteLine("Exception reading key: " + e);
                     break;
                 }
-                if (key != null)
-                    AddKey(key.Value);
             }
         }
         
         // Leave
         try
         {
-            Console.Write(Terminal.Mode.StopMouseTrackingFocus); // Focus
-            //Console.Write(Terminal.Mode.StopMouseTrackingHilite); // highlight mouse
-            Console.Write(Terminal.Mode.MouseTrackingAll); // all mouse
-            Console.Write(Terminal.Mode.StopMouseTrackingSGR); // SGR mouse mode
-            
+            //Terminal.Mouse.TrackingStop();
+            //Terminal.Mouse.HighlightDisable();
+
             // only want to restore normal screen if entered Alt screen mode
             NormalScreen();
+            Terminal.Special.SoftReset();
         }
         catch
         {
@@ -176,7 +175,7 @@ public sealed class ExConsole : IDisposable
         #endif
 
         var ch = key.KeyChar;
-        if (ch == Terminal.SpecialKey.ESC && !_escapeSequence)
+        if (ch == '\x1b' && !_escapeSequence)   // If ESC character
         {
             _escapeSequence = true;
             Sequence.Clear();
@@ -272,14 +271,24 @@ public sealed class ExConsole : IDisposable
         var value = CloseSequence();
     }
 
-    private void RaiseKeyAvailable(ConsoleKeyInfo e) => KeyAvailable?.Invoke(null, e);
+    private void RaiseKeyAvailable(ConsoleKeyInfo e)
+    {
+        tcsKeyAvailable?.SetResult(e);
+        tcsKeyAvailable = null;
+        KeyAvailable?.Invoke(null, e);
+    }
 
     private void RaiseSequenceAvailable()
     {
         var value = CloseSequence();
+        tcsSequenceAvailable?.SetResult(value);
+        tcsSequenceAvailable = null;
         SequenceAvailable?.Invoke(null, value);
     }
 
+    private TaskCompletionSource<ConsoleKeyInfo?>? tcsKeyAvailable;
+    private TaskCompletionSource<string?>? tcsSequenceAvailable;
+    
     public void Send(string value)
     {
         #if _TRACECONN
@@ -287,14 +296,33 @@ public sealed class ExConsole : IDisposable
             foreach (var ch in value)
             {
                 if (ch < ' ')
-                    sb.Append($"<{(Terminal.ControlChar)ch}>");
+                    sb.Append($"<{(TerminalSeq.ControlChar)ch}>");
                 else
                     sb.Append(ch);
             }
             Trace.TraceInformation(sb.ToString());
         #endif
-            
+
         Console.Write(value);
+    }
+    
+    public Task<string?> Post(string value, TimeSpan? timeout = null)
+    {
+        tcsSequenceAvailable = new TaskCompletionSource<string?>();
+        Console.Write(value);
+
+        return TaskHelpers.TaskWithTimeoutException(
+            tcsSequenceAvailable.Task,
+            timeout ?? TimeSpan.FromMilliseconds(100));
+    }
+
+    public Task<ConsoleKeyInfo?> ReadKey(TimeSpan? timeout = null)
+    {
+        tcsKeyAvailable = new TaskCompletionSource<ConsoleKeyInfo?>();
+
+        return TaskHelpers.TaskWithTimeoutDefault(
+            tcsKeyAvailable.Task, 
+            timeout ?? TimeSpan.FromMilliseconds(200));
     }
 
     public void Dispose()

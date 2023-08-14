@@ -11,11 +11,8 @@ public class Glyph : ICloneable
         get => _chr;
         set
         {
-            if (value.Utf16SequenceLength == 1)
-                ChrStr = "" + value;
-            else
-                ChrStr = "" + value;
             _chr = value;
+            ChrStr = "" + value;
         }
     }
 
