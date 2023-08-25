@@ -26,6 +26,7 @@ public class AsciiApp : IApp
     public DependencyInjectionContainer Services { get; } = new();
     public ConfigurationManager Configuration { get; } = new();
     public ConsoleDriver ConsoleDriver { get; }
+    public ExConsole ExCon { get; }
     public Canvas Canvas { get; }
 
     public bool NeedsLayout { get; set; }
@@ -50,11 +51,9 @@ public class AsciiApp : IApp
         InitConfig(args);
 
         ConsoleDriver = ConsoleDriver.Create(Services);
+        ExCon = ExConsole.Create(options => { options.ConsoleDriver = ConsoleDriver; });
         
         InitServices();
-        #if POSIX
-        InitPosix();
-        #endif
         System.Console.OutputEncoding = Encoding.UTF8;
 
         Canvas = new Canvas(ConsoleDriver.Cols, ConsoleDriver.Rows);
@@ -104,40 +103,6 @@ public class AsciiApp : IApp
         var startupAssemblyName = Assembly.GetEntryAssembly()?.GetName().Name;
         return startupAssemblyName ?? "AsciiApp";
     }
-
-    // --
-#if POSIX
-    private PosixSignalRegistration? _sigIntRegistration;
-    private PosixSignalRegistration? _sigQuitRegistration;
-    private PosixSignalRegistration? _sigTermRegistration;
-
-    private void InitPosix()
-    {
-        _sigIntRegistration = PosixSignalRegistration.Create(PosixSignal.SIGINT, HandlePosixSignal);
-        _sigQuitRegistration = PosixSignalRegistration.Create(PosixSignal.SIGQUIT, HandlePosixSignal);
-        _sigTermRegistration = PosixSignalRegistration.Create(PosixSignal.SIGTERM, HandlePosixSignal);
-
-        static void HandlePosixSignal(PosixSignalContext context)
-        {
-            Debug.Assert(
-                context.Signal is PosixSignal.SIGINT or PosixSignal.SIGQUIT or PosixSignal.SIGTERM);
-
-            context.Cancel = true;
-
-            _current?.Stop();
-        }
-    }
-    
-    public void Dispose()
-    {
-        _sigIntRegistration?.Dispose();
-        _sigQuitRegistration?.Dispose();
-        _sigTermRegistration?.Dispose();
-    }
-    
-#endif
-
-    // --
 
     public void AddWindow(Window window)
     {
@@ -373,15 +338,15 @@ public class AsciiApp : IApp
                 var (left, top) = System.Console.GetCursorPosition();
                 if (left != Canvas.Cursor.X || top != Canvas.Cursor.Y)
                 {
-                    Terminal.Cursor.Show();
-                    Terminal.Cursor.Set(Canvas.Cursor.Y + 1, Canvas.Cursor.X + 1);
+                    ExCon.Cursor.Show();
+                    ExCon.Cursor.Set(Canvas.Cursor.Y + 1, Canvas.Cursor.X + 1);
                 }
             }
         }
         else
         {
-            Terminal.Cursor.Set(1, 1);
-            Terminal.Cursor.Hide();
+            ExCon.Cursor.Set(1, 1);
+            ExCon.Cursor.Hide();
         }
     }
 

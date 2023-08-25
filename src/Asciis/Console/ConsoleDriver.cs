@@ -7,6 +7,9 @@ namespace No8.Ascii;
 
 public abstract class ConsoleDriver
 {
+    internal object _outLock = new();
+    internal object _inLock = new();
+    
     public static ConsoleDriver Create(DependencyInjectionContainer dic)
     {
         dic.Register(Current);

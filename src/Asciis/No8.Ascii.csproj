@@ -35,7 +35,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-	  <DefineConstants>TRACE,POSIX,_TRACECONN</DefineConstants>
+	  <DefineConstants>TRACE,POSIX</DefineConstants>
 	</PropertyGroup>
 
   <ItemGroup>

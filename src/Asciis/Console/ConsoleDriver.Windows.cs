@@ -49,7 +49,7 @@ public sealed class ConsoleDriverWindows : ConsoleDriver
         OutputHandle   = GetStdHandle(StandardHandle.Output);
         ErrorHandle    = GetStdHandle(StandardHandle.Error);
 
-        Terminal.Screen.ScreenAlt();
+        Write(TerminalSeq.Mode.ScreenAlt);
 
         // Console Input Mode
         _originalConsoleInputMode = ConsoleInputMode;
@@ -130,7 +130,7 @@ public sealed class ConsoleDriverWindows : ConsoleDriver
         ConsoleOutputMode = _originalConsoleOutputMode;
         ConsoleErrorMode  = _originalConsoleErrorMode;
 
-        Terminal.Screen.ScreenNormal();
+        Write(TerminalSeq.Mode.ScreenNormal);
     }
 
     ~ConsoleDriverWindows()
@@ -531,7 +531,10 @@ public sealed class ConsoleDriverWindows : ConsoleDriver
         if (string.IsNullOrEmpty(str))
             return;
 
-        Kernel32.WriteConsole(OutputHandle, str, (uint)str.Length, out var written, IntPtr.Zero);
+        lock (System.Console.Out)
+        {
+            Kernel32.WriteConsole(OutputHandle, str, (uint)str.Length, out var written, IntPtr.Zero);
+        }
     }
 
     public override void WriteConsole(Canvas canvas)

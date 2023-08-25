@@ -1,4 +1,5 @@
-using System.Runtime.InteropServices.JavaScript;
+using System.Runtime.InteropServices;
+using No8.Ascii.TermInfo;
 
 namespace No8.Ascii.VirtualTerminal;
 
@@ -9,12 +10,66 @@ using System.Text;
 /// <summary>
 ///     Extended Console
 /// </summary>
-public sealed class ExConsole : IDisposable
+public partial class ExConsole : IDisposable
 {
+
+    private static readonly PosixSignalRegistration? _sigIntRegistration;
+    private static readonly PosixSignalRegistration? _sigQuitRegistration;
+    private static readonly PosixSignalRegistration? _sigTermRegistration;
+    private static readonly PosixSignalRegistration? _sigWinChRegistration;
+
+    private static EventHandler _windowChanged;
+    private static EventHandler _closeSignal; 
+
+    static ExConsole()
+    {
+        _sigIntRegistration = PosixSignalRegistration.Create(PosixSignal.SIGINT, HandlePosixSignal);    // Interrupt
+        _sigQuitRegistration = PosixSignalRegistration.Create(PosixSignal.SIGQUIT, HandlePosixSignal);  // Quit
+        _sigTermRegistration = PosixSignalRegistration.Create(PosixSignal.SIGTERM, HandlePosixSignal);  // Termination
+        
+        // This doesn't work on Windows
+        _sigWinChRegistration = PosixSignalRegistration.Create(PosixSignal.SIGWINCH, HandleSignalWinCh);   // Window Changed (resize)
+
+        static void HandlePosixSignal(PosixSignalContext context)
+        {
+            Debug.Assert(
+                context.Signal is 
+                    PosixSignal.SIGINT or 
+                    PosixSignal.SIGQUIT or 
+                    PosixSignal.SIGTERM);
+            context.Cancel = true;
+            
+            _closeSignal?.Invoke(null, EventArgs.Empty);
+        }
+
+        static void HandleSignalWinCh(PosixSignalContext context)
+        {
+            _windowChanged?.Invoke(null, EventArgs.Empty);
+        }
+    }
+
+    /// <summary>
+    ///     Static Destructor.
+    /// </summary>
+    static void ExConsole_dtor()
+    {
+        _sigIntRegistration?.Dispose();
+        _sigQuitRegistration?.Dispose();
+        _sigTermRegistration?.Dispose();
+        _sigWinChRegistration?.Dispose();
+    }
+
+    private static readonly Destructor Finalize = new();
+    private sealed class Destructor
+    {
+        ~Destructor() => ExConsole_dtor();
+    }
+    
     public class Options
     {
         public bool StartFullScreen { get; set; } = true;
         public bool StopOnControlC { get; set; } = true;
+        public ConsoleDriver? ConsoleDriver { get; set; }
     }
 
     public static ExConsole Create(Action<Options>? configure = null)
@@ -32,7 +87,7 @@ public sealed class ExConsole : IDisposable
         
         if (_options.StartFullScreen)
             FullScreen();
-
+        
         RunningTask = Task.Run(MonitorInput); 
         RunningTask.ConfigureAwait(true);
         return RunningTask;
@@ -44,18 +99,81 @@ public sealed class ExConsole : IDisposable
     
     public event EventHandler<ConsoleKeyInfo>? KeyAvailable;
     public event EventHandler<string>? SequenceAvailable;
+    public event EventHandler<WindowSize> WindowResized;
+    public event EventHandler<PointerEvent> Pointer;
+
     
     private readonly ManualResetEventSlim _exitEvent = new(false);
     private readonly Options _options;
     private bool _fullScreen;
     private readonly bool _stopOnControlC;
+    
+    private readonly ConsoleDriver? _consoleDriver;
+    private ConsoleDriver CD => _consoleDriver;
+    
+    public TermInfoDesc TermInfo { get; }
+
 
     private ExConsole(Options options)
     {
         _options = options;
-        
+        _consoleDriver = _options.ConsoleDriver ??= ConsoleDriver.Current;
+    
+        // Bug in optimiser. Must have full handler syntax
         Console.CancelKeyPress += new ConsoleCancelEventHandler(ConsoleCancelEventHandler);
         _stopOnControlC = options.StopOnControlC;
+
+        _closeSignal += OnCloseSignal;
+        _windowChanged += OnWindowChanged;
+
+        TermInfo = TermInfoLoader.Load();
+        InitConsole();
+    }
+
+    private void OnWindowChanged(object? sender, EventArgs e)
+    {
+        _consoleDriver.Write(TerminalSeq.ControlSeq.WindowManipulation("18")); // Report the size of the text area in characters.
+    }
+
+    private void OnCloseSignal(object? sender, EventArgs e)
+    {
+        if (_stopOnControlC)
+            Stop();
+    }
+
+    private void InitConsole()
+    {
+        Send(TermInfo.Init1string);
+        Send(TermInfo.Init2string);
+        Send(TermInfo.ClearMargins);
+        if (TermInfo.InitFile is not null)
+        {
+            Send(File.ReadAllText(TermInfo.InitFile));
+        }
+        Send(TermInfo.Init3string);
+        
+        Send(TermInfo.ExitAmMode);  // Auto Margin
+    }
+
+    public void Dispose()
+    {
+        _closeSignal -= OnCloseSignal;
+        _windowChanged -= OnWindowChanged;
+
+        NormalScreen();
+
+        Send(TermInfo.ExitAttributeMode);
+        Send(TermInfo.CursorNormal);
+        
+        Send(TermInfo.Reset1string);
+        Send(TermInfo.Reset2string);
+        if (TermInfo.ResetFile is not null)
+        {
+            Send(File.ReadAllText(TermInfo.ResetFile));
+        }
+        Send(TermInfo.Reset3string);
+        
+        _exitEvent.Dispose();
     }
 
     public void FullScreen()
@@ -63,13 +181,13 @@ public sealed class ExConsole : IDisposable
         if (_fullScreen)
             return;
         _fullScreen = true;
-        Terminal.Screen.ScreenAlt();
+        Screen.ScreenAlt();
     }
 
     public void NormalScreen()
     {
         if (_fullScreen)
-            Terminal.Screen.ScreenNormal();
+            Screen.ScreenNormal();
         _fullScreen = false;
     }
 
@@ -102,11 +220,8 @@ public sealed class ExConsole : IDisposable
         var oldOutputEncoding = Console.OutputEncoding;
         Console.OutputEncoding = Encoding.UTF8;
         
-        if (_options.StartFullScreen)
-            FullScreen();
-
-        Terminal.Mouse.TrackingStart();
-        Terminal.Mouse.HighlightEnable();
+        Mouse.TrackingStart();
+        Mouse.HighlightEnable();
         
         while (Alive)
         {
@@ -125,6 +240,13 @@ public sealed class ExConsole : IDisposable
                     break;
                 }
             }
+
+            if (_firstMouseTime > 0)
+            {
+                var now = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeMilliseconds();
+                if ((now - _firstMouseTime) > MaxClick)
+                    ParseMouseEvents();
+            }
         }
         
         // Leave
@@ -135,7 +257,7 @@ public sealed class ExConsole : IDisposable
 
             // only want to restore normal screen if entered Alt screen mode
             NormalScreen();
-            Terminal.Special.SoftReset();
+            Special.SoftReset();
         }
         catch
         {
@@ -283,14 +405,21 @@ public sealed class ExConsole : IDisposable
         var value = CloseSequence();
         tcsSequenceAvailable?.SetResult(value);
         tcsSequenceAvailable = null;
+
+        var conSeq = ConSeq.Parse(value);
+        ProcessConSeq(conSeq);
+        
         SequenceAvailable?.Invoke(null, value);
     }
 
     private TaskCompletionSource<ConsoleKeyInfo?>? tcsKeyAvailable;
     private TaskCompletionSource<string?>? tcsSequenceAvailable;
     
-    public void Send(string value)
+    public void Send(string? value)
     {
+        if (value is null)
+            return;
+        
         #if _TRACECONN
             var sb = new StringBuilder("Send: ");
             foreach (var ch in value)
@@ -325,9 +454,174 @@ public sealed class ExConsole : IDisposable
             timeout ?? TimeSpan.FromMilliseconds(200));
     }
 
-    public void Dispose()
+    private void ProcessConSeq(ConSeq? conSeq)
     {
-        NormalScreen();
-        _exitEvent.Dispose();
+        if (conSeq == null)
+            return;
+
+        switch (conSeq)
+        {
+            // Size of TextArea in characters
+            case { Final: 't', Parameters: [8, _, _] }:
+                WindowResized?.Invoke(this, new WindowSize(conSeq.Parameters[1], conSeq.Parameters[2]));
+                break;
+            
+            // Cursor position
+            case { Final:'R', Parameters: [_, _] }:
+                break;
+
+            case { Final: 'm', Parameters: [_, _, _] }:
+                {
+                    var mask = conSeq.Parameters[0];
+                    var buttonId = mask & 0x03;
+                    var shift = (mask & 0x04) == 0x04; 
+                    var alt = (mask & 0x08) == 0x08; 
+                    var ctrl = (mask & 0x10) == 0x10;
+
+                    buttonId++;
+                    var pointerEvent = new PointerEvent(
+                        ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeMilliseconds(), 
+                        PointerEventType.Released, 
+                        conSeq.Parameters[1], 
+                        conSeq.Parameters[2], 
+                        buttonId, 0, shift, alt, ctrl);
+                    
+                    Pointer?.Invoke(this, pointerEvent);
+                    PushPointerEvent(pointerEvent);
+                }
+                break;
+
+            case { Final: 'M', Parameters: [_, _, _] }:
+                {
+                    var mask = conSeq.Parameters[0];
+                    var x = conSeq.Parameters[1];
+                    var y = conSeq.Parameters[2];
+                    var buttonId = mask & 0x03;
+
+                    var shift = (mask & 0x04) == 0x04; 
+                    var alt = (mask & 0x08) == 0x08; 
+                    var ctrl = (mask & 0x10) == 0x10;
+
+                    var now = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeMilliseconds();
+
+                    // Pressed for mouse button 1,2,3
+                    if (mask is >= 0 and <= 3)
+                    {
+                        buttonId++;
+                        var pointerEvent = new PointerEvent(
+                            now,
+                            PointerEventType.Pressed,
+                            x,
+                            y,
+                            buttonId, 0, shift, alt, ctrl);
+                        PushPointerEvent(pointerEvent);
+                        Pointer?.Invoke(this, pointerEvent);
+                    }
+                    // Mouse Wheel UP
+                    else if (mask == 0x40)
+                    {
+                        var pointerEvent = new PointerEvent(
+                            now,
+                            PointerEventType.Wheel,
+                            x,
+                            y,
+                            0, -1, shift, alt, ctrl);
+                        Pointer?.Invoke(this, pointerEvent);
+                    }
+                    // Mouse wheel DOWN
+                    else if (mask == 0x41)
+                    {
+                        var pointerEvent = new PointerEvent(
+                            now,
+                            PointerEventType.Wheel,
+                            x,
+                            y,
+                            0, 1, shift, alt, ctrl);
+                        Pointer?.Invoke(this, pointerEvent);
+                    }
+                    // Mouse move
+                    else if ((mask & 0x20) == 0x20)
+                    {
+                        if (buttonId == 3)
+                            buttonId = 0; // mouse move, no buttons pressed
+                        else 
+                            buttonId++;     // 0 = left button, 1 = middle button, 2 = right button => button 1,2,3 
+                        
+                        var pointerEvent = new PointerEvent(
+                            now,
+                            PointerEventType.Move,
+                            x,
+                            y,
+                            buttonId,
+                            0, shift, alt, ctrl);
+                        Pointer?.Invoke(this, pointerEvent);
+                    }
+                }
+                break;
+            
+            default:
+                Trace.WriteLine(conSeq);
+                break;
+        }
+    }
+
+    private const int EV_MAX = 8;
+    private const int MaxClick = 300;
+    private readonly System.Collections.Concurrent.ConcurrentQueue<PointerEvent> _pointerEvents = new();
+    private long _firstMouseTime;
+
+    private void PushPointerEvent(PointerEvent pointerEvent)
+    {
+        if (_pointerEvents.Count == 0)
+            _firstMouseTime = pointerEvent.TimeStamp;
+        _pointerEvents.Enqueue(pointerEvent);
+
+        var diff = pointerEvent.TimeStamp - _firstMouseTime;
+        if (diff > MaxClick && pointerEvent.PointerEventType == PointerEventType.Released)
+            ParseMouseEvents();
+    }
+
+    // Attempt to locate any click/double clicks
+    // Called after MaxClick ms, or button released after MaxClick ms
+    private void ParseMouseEvents()
+    {
+        if (_pointerEvents.IsEmpty)
+            return;
+        if (_pointerEvents.Count == 1 &&
+            _pointerEvents.TryPeek(out var pe) &&
+            pe.PointerEventType == PointerEventType.Pressed)
+            return;
+        
+        var pointerEvents = _pointerEvents.ToArray();
+        _pointerEvents.Clear();
+        
+        Trace.WriteLine("Parse Mouse Events:" + string.Join<PointerEvent>(", ", pointerEvents ));
+
+        // If last event is a button pressed, then queue it for next mouse released
+        var last = pointerEvents[^1]; 
+        if (last.PointerEventType == PointerEventType.Pressed)
+        {
+            Trace.WriteLine("Last: " + last.ToString());
+            _pointerEvents.Enqueue(last);
+            _firstMouseTime = last.TimeStamp;
+        }
+        else
+            _firstMouseTime = 0;
+
+        for (int btn = 1; btn <= 3; btn++)
+        {
+            var count = pointerEvents.Count(
+                pe => pe.PointerEventType == PointerEventType.Released && pe.ButtonId == btn);
+            if (count > 0)
+            {
+                var btnLast = pointerEvents.Last(pe =>
+                    pe.PointerEventType == PointerEventType.Released && pe.ButtonId == btn);
+                var pointerEvent = btnLast with { PointerEventType = count > 1 ? PointerEventType.DoubleClick : PointerEventType.Click };
+                
+                Trace.WriteLine($"Clicks: {btn}: {count} {pointerEvent}");
+                
+                Pointer?.Invoke(this, pointerEvent);
+            }
+        }
     }
 }

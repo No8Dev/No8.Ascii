@@ -85,8 +85,8 @@ public static class TerminalSeq
         public static string AnsiConformance3 => "\x1b N"; // Set ANSI conformance level 3 (dpANS X3.134.1).
 
         public static string BackIndex => "\x1b6";         // ESC 6     Back Index (DECBI), VT420 and up.
-        public static string SaveCursor => "\x1b7";        // ESC 7     Save Cursor (DECSC), VT100.
-        public static string RestoreCursor => "\x1b8";     // ESC 8     Restore Cursor (DECRC), VT100.
+        public static string SaveCursor => "\x1b7";        // ESC 7     (SC) Save Cursor (DECSC), VT100.
+        public static string RestoreCursor => "\x1b8";     // ESC 8     (RC) Restore Cursor (DECRC), VT100.
         public static string ForwardIndex => "\x1b9";      // ESC 9     Forward Index (DECFI), VT420 and up.
         public static string ApplicationKeypad => "\x1b="; // ESC =>     Application Keypad (DECKPAM).
         public static string NormalKeypad => "\x1b>";      // ESC >     Normal Keypad (DECKPNM), VT100.
@@ -1037,7 +1037,7 @@ public static class TerminalSeq
         /// <summary>
         ///     Clear screen
         /// </summary>
-        public static string ClearScreen => "\x1b[2J";  // CSI Ps J - ED Erase in display, Top to bottom of display
+        public static string ClearScreen => "\x1b[2J";  // CSI Ps J - (ED2) Erase in display, Top to bottom of display
 
         /// <summary>
         ///     Cursor Position[row; column] (default => [1,1]) (CUP).
@@ -1566,7 +1566,10 @@ public static class TerminalSeq
         ///     <para>22  ⇒  Extinguish Caps Lock.</para>
         ///     <para>23  ⇒  Extinguish Scroll Lock.</para>
         /// </param>
-        public static string LoadLEDs(string Ps) => $"\x1b[{Ps}q"; // CSI Ps q  Load LEDs (DECLL), VT100.
+        public static string LoadLEDs(int Ps) => $"\x1b[{Ps}q"; // CSI Ps q  Load LEDs (DECLL), VT100.
+
+        public static string NumLock(bool on) => on ? "\x1b[?108h" : "\x1b[?108l";
+        public static string CapsLock(bool on) => on ? "\x1b[?109h" : "\x1b[?109l";
 
         /// <summary>
         ///     Set cursor style (DECSCUSR), VT520. 
@@ -1580,7 +1583,7 @@ public static class TerminalSeq
         ///     <para>5  ⇒  blinking bar, xterm.</para>
         ///     <para>6  ⇒  steady bar, xterm.</para>
         /// </param>
-        public static string SetCursorStyle(string Ps) => $"\x1b[{Ps} q"; // CSI Ps SP q
+        public static string SetCursorStyle(int Ps) => $"\x1b[{Ps} q"; // CSI Ps SP q
 
         /// <summary>
         ///     Set Scrolling Region [top;bottom] (default => full size of window) (DECSTBM), VT100.
@@ -1772,7 +1775,7 @@ public static class TerminalSeq
 
 
         /// <summary>
-        ///     Window manipulation (XTWINOPS), dtterm, extended by xterm.
+        ///     Window manipulation (), dtterm, extended by xterm.
         ///     These controls may be disabled using the allowWindowOps resource. 
         /// </summary>
         /// <param name="Ps">
@@ -2238,6 +2241,18 @@ public static class TerminalSeq
         ///     Ps => L  ; c ⇒  Set icon label.  Sun shelltool, CDE dtterm.
         /// </summary>
         public static string SetTextParameters(string Ps, string Pt) => $"\x1b]{Ps};{Pt}\x1b\\"; // OSC Ps ; Pt ST
+    }
+
+    public static class StandardCaps
+    {
+        public static string IsoDec_G0 = "\x1b(0";   // "ISO DEC G0",enable DEC graphics for G0
+        public static string IsoUK_G0 = "\x1b(A";    // "ISO UK G0",	enable UK chars for G0
+        public static string IsoUS_G0 = "\x1b(B";    // "ISO US G0",	enable US chars for G0
+        public static string IsoDEC_G1 = "\x1b)0";   // "ISO DEC G1",enable DEC graphics for G1
+        public static string IsoUK_G1 = "\x1b)A";    // "ISO UK G1",	enable UK chars for G1
+        public static string IsoUS_G1 = "\x1b)B";    // "ISO US G1",	enable US chars for G1
+
+
     }
 }
 

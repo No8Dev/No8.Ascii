@@ -71,7 +71,8 @@ internal static class TermInfoParser
         var nums = ReadNums(reader, header[Ordinals.ExtNumCount], numWidth);
 
         var indices = new Span<int>(ReadIntegers(reader, header[Ordinals.ExtOffsetCount], BitWidth.TwoBytes));
-        var data = new Span<char>(Encoding.ASCII.GetString(reader.ReadBytes(header[Ordinals.ExtTableSize])).ToCharArray());
+        var lineData = Encoding.ASCII.GetString(reader.ReadBytes(header[Ordinals.ExtTableSize]));
+        var data = new Span<char>(lineData.ToCharArray());
 
         // Read string caps
         var (strings, last) = ReadStrings(indices, data, header[Ordinals.ExtStringCount]);

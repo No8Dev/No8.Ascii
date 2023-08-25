@@ -6,14 +6,17 @@ public record PointerEvent(
     int X,
     int Y,
     int ButtonId = -1,
-    int Value = -1
+    int Value = 0,
+    bool Shift = false,
+    bool Alt = false,
+    bool Ctrl = false
     )
 {
     public override string ToString()
     {
         return ButtonId > 0
-                   ? $"Pointer: {PointerEventType} [{ButtonId}] ({X},{Y})"
-                   : $"Pointer: {PointerEventType} ({X},{Y})";
+                   ? $"Pointer: {PointerEventType} [{ButtonId}] ({X},{Y}) {(Shift ? "Sft" : "   ")} {(Alt ? "Alt" : "   ")} {(Ctrl ? "Ctl" : "   ")}"
+                   : $"Pointer: {PointerEventType} ({X},{Y}) {(Shift ? "Sft" : "   ")} {(Alt ? "Alt" : "   ")} {(Ctrl ? "Ctl" : "   ")}";
     }
 }
 

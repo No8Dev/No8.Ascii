@@ -32,7 +32,13 @@ public class ConsoleDriverGeneric : ConsoleDriver
 
     public override void Write(string str)
     {
-        System.Console.Write(str);
+        if (string.IsNullOrEmpty(str))
+            return;
+        
+        //lock (_outLock)
+        {
+            System.Console.Write(str);
+        }
     }
 
     public override void WriteConsole(Canvas canvas)
