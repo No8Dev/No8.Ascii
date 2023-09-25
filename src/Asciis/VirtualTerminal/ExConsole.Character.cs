@@ -106,42 +106,42 @@ public partial class ExConsole :
         void Attribute(CharacterAttr attr);
     }
     
-    void IExConsoleCharacter.UnderlineColor(System.Drawing.Color c) => CD.Write(Color.Underline(c));
-    void IExConsoleCharacter.UnderlineColorDefault() => CD.Write(Color.UnderlineDefault);
+    void IExConsoleCharacter.UnderlineColor(System.Drawing.Color c) => Write(Color.Underline(c));
+    void IExConsoleCharacter.UnderlineColorDefault() => Write(Color.UnderlineDefault);
     
-    void IExConsoleCharacter.ForeColor(System.Drawing.Color c) => CD.Write(Color.Fore(c));
-    void IExConsoleCharacter.ForeColorDefault()  => CD.Write(Color.ForeDefault);
+    void IExConsoleCharacter.ForeColor(System.Drawing.Color c) => Write(Color.Fore(c));
+    void IExConsoleCharacter.ForeColorDefault()  => Write(Color.ForeDefault);
     
-    void IExConsoleCharacter.BackColor(System.Drawing.Color c) => CD.Write(Color.Back(c));
-    void IExConsoleCharacter.BackColorDefault()  => CD.Write(Color.BackDefault);
+    void IExConsoleCharacter.BackColor(System.Drawing.Color c) => Write(Color.Back(c));
+    void IExConsoleCharacter.BackColorDefault()  => Write(Color.BackDefault);
 
     void IExConsoleCharacter.Attribute(params CharacterAttributes[] attrs)
     {
         foreach (var attr in attrs)
-            CD.Write(Graphics.Set((int)attr));
+            Write(Graphics.Set((int)attr));
     }
     
     void IExConsoleCharacter.Attribute(CharacterAttr attr)
     {
-        if (attr == CharacterAttr.None) CD.Write(Graphics.Reset);
+        if (attr == CharacterAttr.None) Write(Graphics.Reset);
         
-        if (attr.italic)   CD.Write(Graphics.Italic);
-        if (attr.reverse)   CD.Write(Graphics.Reverse);
-        if (attr.underline)   CD.Write(Graphics.Underline);
-        if (attr.doubleUnderline)   CD.Write(Graphics.DoubleUnderline);
-        if (attr.overline)   CD.Write(Graphics.Overlined);
-        if (attr.conceal)   CD.Write(Graphics.Conceal);
-        if (attr.strikeThrough)   CD.Write(Graphics.Strike);
+        if (attr.italic)   Write(Graphics.Italic);
+        if (attr.reverse)   Write(Graphics.Reverse);
+        if (attr.underline)   Write(Graphics.Underline);
+        if (attr.doubleUnderline)   Write(Graphics.DoubleUnderline);
+        if (attr.overline)   Write(Graphics.Overlined);
+        if (attr.conceal)   Write(Graphics.Conceal);
+        if (attr.strikeThrough)   Write(Graphics.Strike);
         
         // ReSharper disable ConvertIfStatementToSwitchStatement
-        if (attr.intensity == CharacterAttr.Intense.Bold) CD.Write(Graphics.Bold);
-        if (attr.intensity == CharacterAttr.Intense.Faint) CD.Write(Graphics.Faint);
+        if (attr.intensity == CharacterAttr.Intense.Bold) Write(Graphics.Bold);
+        if (attr.intensity == CharacterAttr.Intense.Faint) Write(Graphics.Faint);
         
-        if (attr.blinks == CharacterAttr.CharacterBlink.Slow) CD.Write(Graphics.SlowBlink);
-        if (attr.blinks == CharacterAttr.CharacterBlink.Fast) CD.Write(Graphics.FastBlink);
+        if (attr.blinks == CharacterAttr.CharacterBlink.Slow) Write(Graphics.SlowBlink);
+        if (attr.blinks == CharacterAttr.CharacterBlink.Fast) Write(Graphics.FastBlink);
         
-        if (attr.script == CharacterAttr.CharacterScript.Superscript) CD.Write(Graphics.SuperScript);
-        if (attr.script == CharacterAttr.CharacterScript.Subscript) CD.Write(Graphics.SubScript);
+        if (attr.script == CharacterAttr.CharacterScript.Superscript) Write(Graphics.SuperScript);
+        if (attr.script == CharacterAttr.CharacterScript.Subscript) Write(Graphics.SubScript);
         // ReSharper restore ConvertIfStatementToSwitchStatement
     }
 

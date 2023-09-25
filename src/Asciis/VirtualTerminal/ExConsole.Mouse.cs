@@ -8,6 +8,8 @@ using static TerminalSeq;
 
 public partial class ExConsole : ExConsole.IExConsoleMouse
 {
+    private int _mouseX;
+    private int _mouseY;
     public IExConsoleMouse Mouse => this;
     
     public interface IExConsoleMouse
@@ -16,44 +18,51 @@ public partial class ExConsole : ExConsole.IExConsoleMouse
         void HighlightDisable();
         void TrackingStart();
         void TrackingStop();
+        
+        int X { get; }
+        int Y { get; }
     }
     
     void IExConsoleMouse.HighlightEnable()
     {
-        CD.Write(ControlSeq.SetResourceValue(1));   // This should be the default anyway
-        CD.Write(Mode.MouseTrackingHilite);
+        Write(ControlSeq.SetResourceValue(1));   // This should be the default anyway
+        Write(Mode.MouseTrackingHilite);
     }
 
     void IExConsoleMouse.HighlightDisable()
     {
-        CD.Write(Mode.StopMouseTrackingHilite);
-        CD.Write(ControlSeq.SetResourceValue(1));
+        Write(Mode.StopMouseTrackingHilite);
+        Write(ControlSeq.SetResourceValue(1));
     }
 
     void IExConsoleMouse.TrackingStart()
     {
-        CD.Write(ControlSeq.PrivateModeSetDec(
+        Write(ControlSeq.PrivateModeSetDec(
             1003,   // Use All Motion Mouse Tracking
             1006   // SGR ext mouse mode
         ));
         if (TermInfo.Extended.Exist("XF"))
         {
-            CD.Write(ControlSeq.PrivateModeSetDec(
+            Write(ControlSeq.PrivateModeSetDec(
                 1004   // Send focus in/out events
             ));
         }
     }
     void IExConsoleMouse.TrackingStop()
     {
-        CD.Write(ControlSeq.PrivateResetDec(
+        Write(ControlSeq.PrivateResetDec(
             1003,   // Use All Motion Mouse Tracking
             1006   // SGR ext mouse mode
         ));
         if (TermInfo.Extended.Exist("XF"))
         {
-            CD.Write(ControlSeq.PrivateResetDec(
+            Write(ControlSeq.PrivateResetDec(
                 1004   // Send focus in/out events
             ));
         }
     }
+
+    int IExConsoleMouse.X => _mouseX;
+
+    int IExConsoleMouse.Y => _mouseY;
 }

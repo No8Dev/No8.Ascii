@@ -25,10 +25,10 @@ public partial class ExConsole : ExConsole.IExConsoleSpecial
     }
 
     public IExConsoleSpecial Special => this;
-    void IExConsoleSpecial.SoftReset() => CD.Write(TerminalSeq.ControlSeq.SoftTerminalReset);
+    void IExConsoleSpecial.SoftReset() => Write(TerminalSeq.ControlSeq.SoftTerminalReset);
     void IExConsoleSpecial.PlaySound(int vol, int duration, int note)
     {
-        CD.Write( TerminalSeq.AudibleAttributes.PlaySound(
+        Write( TerminalSeq.AudibleAttributes.PlaySound(
             Math.Clamp(vol, 0, 7), 
             Math.Clamp(duration, 0, 255), 
             Math.Clamp(note,0,25)) );

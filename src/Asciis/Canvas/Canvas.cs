@@ -165,8 +165,9 @@ public class Canvas
                 var index = y * wide + x;
                 if (x < Width && y < Height)
                 {
+                    var oldIndex = y * Width + x;
                     newGlyphs[index] = this[y, x];
-                    newOffsets[index] = Offsets[index];
+                    newOffsets[index] = Offsets[oldIndex];
                 }
                 else
                 {
@@ -707,7 +708,6 @@ public class Canvas
         var len = Width * Height;
         for (int i = 0; i < len; i++)
             glyphArray[i].CopyFrom( Glyphs[i] );
-        
     }
 
     public void Draw(int x, int y, Rune? c = null, Color? foreground = null, Color? background = null)

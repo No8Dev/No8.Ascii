@@ -42,28 +42,28 @@ public partial class ExConsole : ExConsole.IExConsoleEditing
         void RectangleAttributes(int top, int left, int bottom, int right,
             params FillCharacterAttributes[] flags);
     }
-        void IExConsoleEditing.CharacterDelete(int n) => CD.Write(TermInfo.DeleteCharacter ?? EditingControlFunctions.DeleteCharacter(n));
-        void IExConsoleEditing.CharacterErase(int n) => CD.Write(TermInfo.EraseChars ?? EditingControlFunctions.EraseCharacter(n));
-        void IExConsoleEditing.CharacterInsert(int n) => CD.Write(TermInfo.InsertCharacter ?? EditingControlFunctions.InsertCharacter(n));
+        void IExConsoleEditing.CharacterDelete(int n) => Write(TermInfo.DeleteCharacter ?? EditingControlFunctions.DeleteCharacter(n));
+        void IExConsoleEditing.CharacterErase(int n) => Write(TermInfo.EraseChars ?? EditingControlFunctions.EraseCharacter(n));
+        void IExConsoleEditing.CharacterInsert(int n) => Write(TermInfo.InsertCharacter ?? EditingControlFunctions.InsertCharacter(n));
         
         
-        void IExConsoleEditing.ColumnDelete(int n) => CD.Write(EditingControlFunctions.DeleteColumn(n));
-        void IExConsoleEditing.ColumnInsert(int n) => CD.Write(EditingControlFunctions.InsertColumn(n));
+        void IExConsoleEditing.ColumnDelete(int n) => Write(EditingControlFunctions.DeleteColumn(n));
+        void IExConsoleEditing.ColumnInsert(int n) => Write(EditingControlFunctions.InsertColumn(n));
         
-        void IExConsoleEditing.LineDelete(int n) => CD.Write(TermInfo.DeleteLine ?? EditingControlFunctions.DeleteLine(n));
-        void IExConsoleEditing.LineInsert(int n) => CD.Write(TermInfo.InsertLine ?? EditingControlFunctions.InsertLine(n));
+        void IExConsoleEditing.LineDelete(int n) => Write(TermInfo.DeleteLine ?? EditingControlFunctions.DeleteLine(n));
+        void IExConsoleEditing.LineInsert(int n) => Write(TermInfo.InsertLine ?? EditingControlFunctions.InsertLine(n));
 
 
-        void IExConsoleEditing.EraseCursorToEndOfDisplay() => CD.Write(TermInfo.ClrEos ?? EditingControlFunctions.EraseInDisplay(0));
-        void IExConsoleEditing.EraseCursorToEndOfLine() => CD.Write(TermInfo.ClrEol ?? EditingControlFunctions.EraseInLine(0));
+        void IExConsoleEditing.EraseCursorToEndOfDisplay() => Write(TermInfo.ClrEos ?? EditingControlFunctions.EraseInDisplay(0));
+        void IExConsoleEditing.EraseCursorToEndOfLine() => Write(TermInfo.ClrEol ?? EditingControlFunctions.EraseInLine(0));
         
-        void IExConsoleEditing.EraseTopOfDisplayToCursor() => CD.Write(EditingControlFunctions.EraseInDisplay(1));
-        void IExConsoleEditing.EraseStartOfLineToCursor() => CD.Write(TermInfo.ClrBol ?? EditingControlFunctions.EraseInLine(1));
+        void IExConsoleEditing.EraseTopOfDisplayToCursor() => Write(EditingControlFunctions.EraseInDisplay(1));
+        void IExConsoleEditing.EraseStartOfLineToCursor() => Write(TermInfo.ClrBol ?? EditingControlFunctions.EraseInLine(1));
 
         void IExConsoleEditing.EraseRectangle(int top, int left, int bottom, int right) =>
-            CD.Write(RectangleAreaProcessing.EraseRectangularArea(top, left, bottom, right));
+            Write(RectangleAreaProcessing.EraseRectangularArea(top, left, bottom, right));
         void IExConsoleEditing.FillRectangle(int top, int left, int bottom, int right, char ch) =>
-            CD.Write(RectangleAreaProcessing.FillRectangleArea(ch, top, left, bottom, right));
+            Write(RectangleAreaProcessing.FillRectangleArea(ch, top, left, bottom, right));
 
         /// <summary>
         ///     Set of clear all character attributes in a given rectangle 
@@ -72,13 +72,13 @@ public partial class ExConsole : ExConsole.IExConsoleEditing
         {
             if (!flags.Any())
             {
-                CD.Write(TerminalSeq.RectangleAreaProcessing.ChangeAttributeInRectangle(
+                Write(TerminalSeq.RectangleAreaProcessing.ChangeAttributeInRectangle(
                     top, left, bottom, right,
                     (int)FillCharacterAttributes.Off));
                 return;
             }
 
-            CD.Write(RectangleAreaProcessing.ChangeAttributeInRectangle(
+            Write(RectangleAreaProcessing.ChangeAttributeInRectangle(
                 top, left, bottom, right, 
                 flags.OfType<int>().ToArray()));
         }

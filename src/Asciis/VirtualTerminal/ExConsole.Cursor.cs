@@ -30,19 +30,19 @@ public partial class ExConsole :
         }
     }
     
-    void IExConsoleCursor.Set(int row, int col) => CD.Write(TerminalSeq.Cursor.Set(row, col));
-    void IExConsoleCursor.Up(int n) => CD.Write(TermInfo.CursorUp ?? TerminalSeq.Cursor.Up(n));
-    void IExConsoleCursor.Down(int n) => CD.Write(TermInfo.CursorDown ?? TerminalSeq.Cursor.Down(n));
-    void IExConsoleCursor.Right(int n) => CD.Write(TermInfo.CursorRight ?? TerminalSeq.Cursor.Right(n));
-    void IExConsoleCursor.Left(int n) => CD.Write(TermInfo.CursorLeft ?? TerminalSeq.Cursor.Left(n)); 
+    void IExConsoleCursor.Set(int row, int col) => Write(TerminalSeq.Cursor.Set(row, col));
+    void IExConsoleCursor.Up(int n) => Write(TermInfo.CursorUp ?? TerminalSeq.Cursor.Up(n));
+    void IExConsoleCursor.Down(int n) => Write(TermInfo.CursorDown ?? TerminalSeq.Cursor.Down(n));
+    void IExConsoleCursor.Right(int n) => Write(TermInfo.CursorRight ?? TerminalSeq.Cursor.Right(n));
+    void IExConsoleCursor.Left(int n) => Write(TermInfo.CursorLeft ?? TerminalSeq.Cursor.Left(n)); 
         
-    void IExConsoleCursor.Show() => CD.Write( TermInfo.CursorVisible ?? TerminalSeq.Cursor.Show);
-    void IExConsoleCursor.Hide() => CD.Write(TermInfo.CursorInvisible ?? TerminalSeq.Cursor.Hide);
+    void IExConsoleCursor.Show() => Write( TermInfo.CursorVisible ?? TerminalSeq.Cursor.Show);
+    void IExConsoleCursor.Hide() => Write(TermInfo.CursorInvisible ?? TerminalSeq.Cursor.Hide);
     
-    void IExConsoleCursor.Style.Blinking() => CD.Write(TerminalSeq.Cursor.Style.Blinking);
-    void IExConsoleCursor.Style.Steady() => CD.Write(TerminalSeq.Cursor.Style.Steady);
-    void IExConsoleCursor.Style.BlinkingUnderline() => CD.Write(TerminalSeq.Cursor.Style.BlinkingUnderline);
-    void IExConsoleCursor.Style.SteadyUnderline() => CD.Write(TerminalSeq.Cursor.Style.SteadyUnderline);
-    void IExConsoleCursor.Style.BlinkingBar() => CD.Write(TerminalSeq.Cursor.Style.BlinkingBar);
-    void IExConsoleCursor.Style.SteadyBar() => CD.Write(TerminalSeq.Cursor.Style.SteadyBar);
+    void IExConsoleCursor.Style.Blinking() => Write(TerminalSeq.Cursor.Style.Blinking);
+    void IExConsoleCursor.Style.Steady() => Write(TerminalSeq.Cursor.Style.Steady);
+    void IExConsoleCursor.Style.BlinkingUnderline() => Write(TerminalSeq.Cursor.Style.BlinkingUnderline);
+    void IExConsoleCursor.Style.SteadyUnderline() => Write(TerminalSeq.Cursor.Style.SteadyUnderline);
+    void IExConsoleCursor.Style.BlinkingBar() => Write(TerminalSeq.Cursor.Style.BlinkingBar);
+    void IExConsoleCursor.Style.SteadyBar() => Write(TerminalSeq.Cursor.Style.SteadyBar);
 }

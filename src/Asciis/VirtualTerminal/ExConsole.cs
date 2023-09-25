@@ -131,7 +131,7 @@ public partial class ExConsole : IDisposable
 
     private void OnWindowChanged(object? sender, EventArgs e)
     {
-        _consoleDriver?.Write(TerminalSeq.ControlSeq.WindowManipulation("18")); // Report the size of the text area in characters.
+        System.Console.Out.Write(TerminalSeq.ControlSeq.WindowManipulation("18")); // Report the size of the text area in characters.
     }
 
     private void OnCloseSignal(object? sender, EventArgs e)
@@ -499,6 +499,8 @@ public partial class ExConsole : IDisposable
             case { Final: 'm', Parameters: [_, _, _] }:
                 {
                     var mask = conSeq.Parameters[0];
+                    _mouseX = conSeq.Parameters[1];
+                    _mouseY = conSeq.Parameters[2];
                     var buttonId = mask & 0x03;
                     var shift = (mask & 0x04) == 0x04; 
                     var alt = (mask & 0x08) == 0x08; 
@@ -508,8 +510,8 @@ public partial class ExConsole : IDisposable
                     var pointerEvent = new PointerEvent(
                         ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeMilliseconds(), 
                         PointerEventType.Released, 
-                        conSeq.Parameters[1], 
-                        conSeq.Parameters[2], 
+                        _mouseX, 
+                        _mouseY, 
                         buttonId, 0, shift, alt, ctrl);
                     
                     Pointer?.Invoke(this, pointerEvent);
@@ -520,8 +522,8 @@ public partial class ExConsole : IDisposable
             case { Final: 'M', Parameters: [_, _, _] }:
                 {
                     var mask = conSeq.Parameters[0];
-                    var x = conSeq.Parameters[1];
-                    var y = conSeq.Parameters[2];
+                    _mouseX = conSeq.Parameters[1];
+                    _mouseY = conSeq.Parameters[2];
                     var buttonId = mask & 0x03;
 
                     var shift = (mask & 0x04) == 0x04; 
@@ -537,8 +539,8 @@ public partial class ExConsole : IDisposable
                         var pointerEvent = new PointerEvent(
                             now,
                             PointerEventType.Pressed,
-                            x,
-                            y,
+                            _mouseX,
+                            _mouseY,
                             buttonId, 0, shift, alt, ctrl);
                         PushPointerEvent(pointerEvent);
                         Pointer?.Invoke(this, pointerEvent);
@@ -549,8 +551,8 @@ public partial class ExConsole : IDisposable
                         var pointerEvent = new PointerEvent(
                             now,
                             PointerEventType.Wheel,
-                            x,
-                            y,
+                            _mouseX,
+                            _mouseY,
                             0, -1, shift, alt, ctrl);
                         Pointer?.Invoke(this, pointerEvent);
                     }
@@ -560,8 +562,8 @@ public partial class ExConsole : IDisposable
                         var pointerEvent = new PointerEvent(
                             now,
                             PointerEventType.Wheel,
-                            x,
-                            y,
+                            _mouseX,
+                            _mouseY,
                             0, 1, shift, alt, ctrl);
                         Pointer?.Invoke(this, pointerEvent);
                     }
@@ -576,8 +578,8 @@ public partial class ExConsole : IDisposable
                         var pointerEvent = new PointerEvent(
                             now,
                             PointerEventType.Move,
-                            x,
-                            y,
+                            _mouseX,
+                            _mouseY,
                             buttonId,
                             0, shift, alt, ctrl);
                         Pointer?.Invoke(this, pointerEvent);

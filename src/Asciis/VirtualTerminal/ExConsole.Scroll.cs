@@ -26,13 +26,13 @@ public partial class ExConsole :
         void Down(int lines);
     }
 
-    void IExConsoleScroll.Smooth() => CD.Write(TextProcessing.ScrollingMode.Smooth);
-    void IExConsoleScroll.Jump() => CD.Write(TextProcessing.ScrollingMode.Jump);
-    void IExConsoleScroll.Speed(int speed) => CD.Write(TextProcessing.SetScrollSpeed(speed));
+    void IExConsoleScroll.Smooth() => Write(TextProcessing.ScrollingMode.Smooth);
+    void IExConsoleScroll.Jump() => Write(TextProcessing.ScrollingMode.Jump);
+    void IExConsoleScroll.Speed(int speed) => Write(TextProcessing.SetScrollSpeed(speed));
 
     void IExConsoleScroll.Set(int topRow, int bottomRow) =>
-        CD.Write(TerminalSeq.Scroll.Set(topRow, bottomRow));
+        Write(TerminalSeq.Scroll.Set(topRow, bottomRow));
 
-    void IExConsoleScroll.Up(int lines) => CD.Write(TerminalSeq.Scroll.Up(lines));
-    void IExConsoleScroll.Down(int lines) => CD.Write(TerminalSeq.Scroll.Down(lines));
+    void IExConsoleScroll.Up(int lines) => Write(TerminalSeq.Scroll.Up(lines));
+    void IExConsoleScroll.Down(int lines) => Write(TerminalSeq.Scroll.Down(lines));
 }

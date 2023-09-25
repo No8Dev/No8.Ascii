@@ -39,6 +39,7 @@ public class AsciiApp : IApp
     private bool _invalidateConsole;
     private bool _active;
     private DateTime _screenTick = DateTime.Now;
+    private WindowSize? _newWindowSize = null;
 
     private static AsciiApp? _current;
 
@@ -61,11 +62,13 @@ public class AsciiApp : IApp
         InitServices();
         System.Console.OutputEncoding = Encoding.UTF8;
 
-        Canvas = new Canvas(ConsoleDriver.Cols, ConsoleDriver.Rows);
+        ExCon.WindowResized += (_, size) => _newWindowSize = size;
+
+        Canvas = new Canvas(System.Console.WindowWidth, System.Console.WindowHeight);
 
         SynchronizationContext.SetSynchronizationContext(new AsciiSlimAppSyncContext(this));
     }
-
+    
     private void InitConfig(string[]? args = null)
     {
         Configuration["contentRoot"] = Directory.GetCurrentDirectory();
@@ -238,9 +241,9 @@ public class AsciiApp : IApp
     public Task StartAsync(CancellationToken cancellationToken = default)
     {
         // Force arrange for first update
-        Canvas.Resize(ConsoleDriver.Cols, ConsoleDriver.Rows);
+        Canvas.Resize(System.Console.WindowWidth, System.Console.WindowHeight);
         foreach (var window in _windows.ToArray())
-            ElementArrange.Calculate(window, ConsoleDriver.Cols, ConsoleDriver.Rows);
+            ElementArrange.Calculate(window, System.Console.WindowWidth, System.Console.WindowHeight);
 
         return Task.Run(Start, cancellationToken);
     }
@@ -284,15 +287,18 @@ public class AsciiApp : IApp
         {
             RunTimers();
 
-            if (ConsoleDriver.WindowSizeChanged())
+            if (_newWindowSize is not null)
             {
-                Canvas.Resize(ConsoleDriver.Cols, ConsoleDriver.Rows);
+                var size = _newWindowSize;
+                _newWindowSize = null;
+                
+                Canvas.Resize(size.Cols, size.Rows);
+                
                 foreach (var window in _windows)
                     window.NeedsLayout = true;
             }
-            ConsoleDriver.GatherInputEvents();
-
-            ProcessInputQueues(ConsoleDriver.KbEvents, ConsoleDriver.PointerEvents);
+            //ConsoleDriver.GatherInputEvents();
+            //ProcessInputQueues(ConsoleDriver.KbEvents, ConsoleDriver.PointerEvents);
 
             ProcessWindows((float)elapsedTime.TotalSeconds);
 
@@ -322,7 +328,7 @@ public class AsciiApp : IApp
 
             if (window.NeedsLayout || NeedsLayout)
             {
-                ElementArrange.Calculate(window, ConsoleDriver.Cols, ConsoleDriver.Rows);
+                ElementArrange.Calculate(window, System.Console.WindowWidth, System.Console.WindowHeight);
 
                 window.NeedsLayout = false;
                 window.NeedsPainting = true;
@@ -376,6 +382,7 @@ public class AsciiApp : IApp
 
     public void InvalidateConsole() { _invalidateConsole = true; }
 
+    /*
     public void ProcessInputQueues(
         ConcurrentQueue<KeyboardEvent> kbEvents,
         ConcurrentQueue<PointerEvent> pointerEvents)
@@ -397,8 +404,9 @@ public class AsciiApp : IApp
         while (pointerEvents.TryDequeue(out var pointerEvent))
             HandlePointerEvent(pointerEvent);
     }
+    */
 
-    public KeyState GetVirtualKey(VirtualKeyCode code) => ConsoleDriver.VirtualKeys[(int)code];
+    // public KeyState GetVirtualKey(VirtualKeyCode code) => ConsoleDriver.VirtualKeys[(int)code];
 
     private void HandleKbEvent(KeyboardEvent kbEvent)
     {
