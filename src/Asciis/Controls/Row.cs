@@ -7,7 +7,7 @@ public class Row : Control
     internal static readonly Brush? DefaultBorderBrush = null;
     internal static readonly Edges DefaultBorder = Edges.Zero;
     internal static readonly LineSet DefaultLineSet = LineSet.Single;
-
+    
     //**********************************************
 
     public Row() // RowLayoutPlan? plan = null, BorderStyle? style = null)
@@ -30,7 +30,7 @@ public class Row : Control
 
     public Edges Border
     {
-        get => _border ?? Frame.DefaultBorder;
+        get => _border ?? Row.DefaultBorder;
         set => ChangeDirtiesLayout(ref _border, value);
     }
 

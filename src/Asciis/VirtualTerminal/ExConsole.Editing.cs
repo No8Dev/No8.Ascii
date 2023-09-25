@@ -42,16 +42,16 @@ public partial class ExConsole : ExConsole.IExConsoleEditing
         void RectangleAttributes(int top, int left, int bottom, int right,
             params FillCharacterAttributes[] flags);
     }
-        void IExConsoleEditing.CharacterDelete(int n = 1) => CD.Write(TermInfo.DeleteCharacter ?? EditingControlFunctions.DeleteCharacter(n));
-        void IExConsoleEditing.CharacterErase(int n = 1) => CD.Write(TermInfo.EraseChars ?? EditingControlFunctions.EraseCharacter(n));
-        void IExConsoleEditing.CharacterInsert(int n = 1) => CD.Write(TermInfo.InsertCharacter ?? EditingControlFunctions.InsertCharacter(n));
+        void IExConsoleEditing.CharacterDelete(int n) => CD.Write(TermInfo.DeleteCharacter ?? EditingControlFunctions.DeleteCharacter(n));
+        void IExConsoleEditing.CharacterErase(int n) => CD.Write(TermInfo.EraseChars ?? EditingControlFunctions.EraseCharacter(n));
+        void IExConsoleEditing.CharacterInsert(int n) => CD.Write(TermInfo.InsertCharacter ?? EditingControlFunctions.InsertCharacter(n));
         
         
-        void IExConsoleEditing.ColumnDelete(int n = 1) => CD.Write(EditingControlFunctions.DeleteColumn(n));
-        void IExConsoleEditing.ColumnInsert(int n = 1) => CD.Write(EditingControlFunctions.InsertColumn(n));
+        void IExConsoleEditing.ColumnDelete(int n) => CD.Write(EditingControlFunctions.DeleteColumn(n));
+        void IExConsoleEditing.ColumnInsert(int n) => CD.Write(EditingControlFunctions.InsertColumn(n));
         
-        void IExConsoleEditing.LineDelete(int n = 1) => CD.Write(TermInfo.DeleteLine ?? EditingControlFunctions.DeleteLine(n));
-        void IExConsoleEditing.LineInsert(int n = 1) => CD.Write(TermInfo.InsertLine ?? EditingControlFunctions.InsertLine(n));
+        void IExConsoleEditing.LineDelete(int n) => CD.Write(TermInfo.DeleteLine ?? EditingControlFunctions.DeleteLine(n));
+        void IExConsoleEditing.LineInsert(int n) => CD.Write(TermInfo.InsertLine ?? EditingControlFunctions.InsertLine(n));
 
 
         void IExConsoleEditing.EraseCursorToEndOfDisplay() => CD.Write(TermInfo.ClrEos ?? EditingControlFunctions.EraseInDisplay(0));

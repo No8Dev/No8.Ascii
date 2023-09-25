@@ -42,7 +42,7 @@ SUB (0x1a) Cancel a sequence in progress
 
 public static class TerminalSeq
 {
-    [Obsolete]
+    [Obsolete("Not actively used anymore. The industry have moved onto multi-byte sequences")]
     public static class Control8Bit
     {
         public static char IND => '\x84';   // Index

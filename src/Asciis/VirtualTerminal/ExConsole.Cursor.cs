@@ -31,10 +31,10 @@ public partial class ExConsole :
     }
     
     void IExConsoleCursor.Set(int row, int col) => CD.Write(TerminalSeq.Cursor.Set(row, col));
-    void IExConsoleCursor.Up(int n = 1) => CD.Write(TermInfo.CursorUp ?? TerminalSeq.Cursor.Up(n));
-    void IExConsoleCursor.Down(int n = 1) => CD.Write(TermInfo.CursorDown ?? TerminalSeq.Cursor.Down(n));
-    void IExConsoleCursor.Right(int n = 1) => CD.Write(TermInfo.CursorRight ?? TerminalSeq.Cursor.Right(n));
-    void IExConsoleCursor.Left(int n = 1) => CD.Write(TermInfo.CursorLeft ?? TerminalSeq.Cursor.Left(n)); 
+    void IExConsoleCursor.Up(int n) => CD.Write(TermInfo.CursorUp ?? TerminalSeq.Cursor.Up(n));
+    void IExConsoleCursor.Down(int n) => CD.Write(TermInfo.CursorDown ?? TerminalSeq.Cursor.Down(n));
+    void IExConsoleCursor.Right(int n) => CD.Write(TermInfo.CursorRight ?? TerminalSeq.Cursor.Right(n));
+    void IExConsoleCursor.Left(int n) => CD.Write(TermInfo.CursorLeft ?? TerminalSeq.Cursor.Left(n)); 
         
     void IExConsoleCursor.Show() => CD.Write( TermInfo.CursorVisible ?? TerminalSeq.Cursor.Show);
     void IExConsoleCursor.Hide() => CD.Write(TermInfo.CursorInvisible ?? TerminalSeq.Cursor.Hide);

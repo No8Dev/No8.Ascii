@@ -12,23 +12,26 @@ using System.Text;
 /// </summary>
 public partial class ExConsole : IDisposable
 {
+    private static readonly PosixSignalRegistration? SigIntRegistration;
+    private static readonly PosixSignalRegistration? SigQuitRegistration;
+    private static readonly PosixSignalRegistration? SigTermRegistration;
+    private static readonly PosixSignalRegistration? SigWinChRegistration;
 
-    private static readonly PosixSignalRegistration? _sigIntRegistration;
-    private static readonly PosixSignalRegistration? _sigQuitRegistration;
-    private static readonly PosixSignalRegistration? _sigTermRegistration;
-    private static readonly PosixSignalRegistration? _sigWinChRegistration;
-
-    private static EventHandler _windowChanged;
-    private static EventHandler _closeSignal; 
+    private static event EventHandler? WindowChanged;
+    private static event EventHandler? CloseSignal; 
 
     static ExConsole()
     {
-        _sigIntRegistration = PosixSignalRegistration.Create(PosixSignal.SIGINT, HandlePosixSignal);    // Interrupt
-        _sigQuitRegistration = PosixSignalRegistration.Create(PosixSignal.SIGQUIT, HandlePosixSignal);  // Quit
-        _sigTermRegistration = PosixSignalRegistration.Create(PosixSignal.SIGTERM, HandlePosixSignal);  // Termination
-        
-        // This doesn't work on Windows
-        _sigWinChRegistration = PosixSignalRegistration.Create(PosixSignal.SIGWINCH, HandleSignalWinCh);   // Window Changed (resize)
+        SigIntRegistration = PosixSignalRegistration.Create(PosixSignal.SIGINT, HandlePosixSignal);    // Interrupt
+        SigQuitRegistration = PosixSignalRegistration.Create(PosixSignal.SIGQUIT, HandlePosixSignal);  // Quit
+        SigTermRegistration = PosixSignalRegistration.Create(PosixSignal.SIGTERM, HandlePosixSignal);  // Termination
+
+        if (!OperatingSystem.IsWindows())
+        {
+            // This doesn't work on Windows
+            SigWinChRegistration =
+                PosixSignalRegistration.Create(PosixSignal.SIGWINCH, HandleSignalWinCh); // Window Changed (resize)
+        }
 
         static void HandlePosixSignal(PosixSignalContext context)
         {
@@ -37,14 +40,17 @@ public partial class ExConsole : IDisposable
                     PosixSignal.SIGINT or 
                     PosixSignal.SIGQUIT or 
                     PosixSignal.SIGTERM);
+
+            if (CloseSignal == null)
+                return;
+
             context.Cancel = true;
-            
-            _closeSignal?.Invoke(null, EventArgs.Empty);
+            CloseSignal.Invoke(null, EventArgs.Empty);
         }
 
         static void HandleSignalWinCh(PosixSignalContext context)
         {
-            _windowChanged?.Invoke(null, EventArgs.Empty);
+            WindowChanged?.Invoke(null, EventArgs.Empty);
         }
     }
 
@@ -53,28 +59,22 @@ public partial class ExConsole : IDisposable
     /// </summary>
     static void ExConsole_dtor()
     {
-        _sigIntRegistration?.Dispose();
-        _sigQuitRegistration?.Dispose();
-        _sigTermRegistration?.Dispose();
-        _sigWinChRegistration?.Dispose();
+        SigIntRegistration?.Dispose();
+        SigQuitRegistration?.Dispose();
+        SigTermRegistration?.Dispose();
+        SigWinChRegistration?.Dispose();
     }
 
+    // ReSharper disable once UnusedMember.Local    Fake a static de-constructor
     private static readonly Destructor Finalize = new();
     private sealed class Destructor
     {
         ~Destructor() => ExConsole_dtor();
     }
     
-    public class Options
+    public static ExConsole Create(Action<ExConOptions>? configure = null)
     {
-        public bool StartFullScreen { get; set; } = true;
-        public bool StopOnControlC { get; set; } = true;
-        public ConsoleDriver? ConsoleDriver { get; set; }
-    }
-
-    public static ExConsole Create(Action<Options>? configure = null)
-    {
-        Options options = new();
+        ExConOptions options = new();
         configure?.Invoke(options);
         
         return new ExConsole(options);
@@ -88,9 +88,7 @@ public partial class ExConsole : IDisposable
         if (_options.StartFullScreen)
             FullScreen();
         
-        RunningTask = Task.Run(MonitorInput); 
-        RunningTask.ConfigureAwait(true);
-        return RunningTask;
+        return RunningTask = Task.Run(MonitorInput); 
     }
     
     public bool Alive { get; private set; } = true;
@@ -99,32 +97,33 @@ public partial class ExConsole : IDisposable
     
     public event EventHandler<ConsoleKeyInfo>? KeyAvailable;
     public event EventHandler<string>? SequenceAvailable;
-    public event EventHandler<WindowSize> WindowResized;
-    public event EventHandler<PointerEvent> Pointer;
+    public event EventHandler<WindowSize>? WindowResized;
+    public event EventHandler<PointerEvent>? Pointer;
 
     
     private readonly ManualResetEventSlim _exitEvent = new(false);
-    private readonly Options _options;
+    private readonly ExConOptions _options;
     private bool _fullScreen;
     private readonly bool _stopOnControlC;
     
     private readonly ConsoleDriver? _consoleDriver;
-    private ConsoleDriver CD => _consoleDriver;
+    internal ConsoleDriver CD => _consoleDriver!;
     
-    public TermInfoDesc TermInfo { get; }
+    public TermInfoDesc? TermInfo { get; }
 
 
-    private ExConsole(Options options)
+    private ExConsole(ExConOptions options)
     {
         _options = options;
         _consoleDriver = _options.ConsoleDriver ??= ConsoleDriver.Current;
-    
+
+        // Stop the dotNet Console CancelKeyPress
         // Bug in optimiser. Must have full handler syntax
         Console.CancelKeyPress += new ConsoleCancelEventHandler(ConsoleCancelEventHandler);
         _stopOnControlC = options.StopOnControlC;
 
-        _closeSignal += OnCloseSignal;
-        _windowChanged += OnWindowChanged;
+        CloseSignal += OnCloseSignal;
+        WindowChanged += OnWindowChanged;
 
         TermInfo = TermInfoLoader.Load();
         InitConsole();
@@ -132,7 +131,7 @@ public partial class ExConsole : IDisposable
 
     private void OnWindowChanged(object? sender, EventArgs e)
     {
-        _consoleDriver.Write(TerminalSeq.ControlSeq.WindowManipulation("18")); // Report the size of the text area in characters.
+        _consoleDriver?.Write(TerminalSeq.ControlSeq.WindowManipulation("18")); // Report the size of the text area in characters.
     }
 
     private void OnCloseSignal(object? sender, EventArgs e)
@@ -143,36 +142,47 @@ public partial class ExConsole : IDisposable
 
     private void InitConsole()
     {
-        Send(TermInfo.Init1string);
-        Send(TermInfo.Init2string);
-        Send(TermInfo.ClearMargins);
+        if (TermInfo == null)
+            return;
+        
+        Write(TermInfo.Init1string);
+        Write(TermInfo.Init2string);
+        Write(TermInfo.ClearMargins);
         if (TermInfo.InitFile is not null)
         {
-            Send(File.ReadAllText(TermInfo.InitFile));
+            Write(File.ReadAllText(TermInfo.InitFile));
         }
-        Send(TermInfo.Init3string);
+        Write(TermInfo.Init3string);
         
-        Send(TermInfo.ExitAmMode);  // Auto Margin
+        Write(TermInfo.ExitAmMode);  // Auto Margin
+        Flush();
     }
 
     public void Dispose()
     {
-        _closeSignal -= OnCloseSignal;
-        _windowChanged -= OnWindowChanged;
+        GC.SuppressFinalize(this);
+        
+        CloseSignal -= CloseSignal;
+        WindowChanged -= WindowChanged;
 
         NormalScreen();
 
-        Send(TermInfo.ExitAttributeMode);
-        Send(TermInfo.CursorNormal);
-        
-        Send(TermInfo.Reset1string);
-        Send(TermInfo.Reset2string);
-        if (TermInfo.ResetFile is not null)
+        if (TermInfo != null)
         {
-            Send(File.ReadAllText(TermInfo.ResetFile));
+            Write(TermInfo.ExitAttributeMode);
+            Write(TermInfo.CursorNormal);
+
+            Write(TermInfo.Reset1string);
+            Write(TermInfo.Reset2string);
+            if (TermInfo.ResetFile is not null)
+            {
+                Write(File.ReadAllText(TermInfo.ResetFile));
+            }
+
+            Write(TermInfo.Reset3string);
+            Flush();
         }
-        Send(TermInfo.Reset3string);
-        
+
         _exitEvent.Dispose();
     }
 
@@ -210,9 +220,11 @@ public partial class ExConsole : IDisposable
 
     private void ConsoleCancelEventHandler(object? sender, ConsoleCancelEventArgs e)
     {
-        e.Cancel = false;
+        e.Cancel = true;
         if (_stopOnControlC)
-            Stop();
+        {
+            // Stop();
+        }
     }
 
     private void MonitorInput()
@@ -252,9 +264,6 @@ public partial class ExConsole : IDisposable
         // Leave
         try
         {
-            //Terminal.Mouse.TrackingStop();
-            //Terminal.Mouse.HighlightDisable();
-
             // only want to restore normal screen if entered Alt screen mode
             NormalScreen();
             Special.SoftReset();
@@ -415,6 +424,7 @@ public partial class ExConsole : IDisposable
     private TaskCompletionSource<ConsoleKeyInfo?>? tcsKeyAvailable;
     private TaskCompletionSource<string?>? tcsSequenceAvailable;
     
+    /*
     public void Send(string? value)
     {
         if (value is null)
@@ -432,13 +442,29 @@ public partial class ExConsole : IDisposable
             Trace.TraceInformation(sb.ToString());
         #endif
 
-        Console.Write(value);
+        Console.Out.Write(value);
+    }
+    */
+
+    public virtual void Write(string? value)
+    {
+        if (value is null)
+            return;
+
+        Console.Out.Write(value);
+    }
+
+    public virtual void Flush()
+    {
+        Console.Out.Flush();
     }
     
+    public virtual void WriteLine(string? value) => Console.Out.WriteLine(value);
+
     public Task<string?> Post(string value, TimeSpan? timeout = null)
     {
         tcsSequenceAvailable = new TaskCompletionSource<string?>();
-        Console.Write(value);
+        Console.Out.Write(value);
 
         return TaskHelpers.TaskWithTimeoutException(
             tcsSequenceAvailable.Task,
@@ -572,17 +598,40 @@ public partial class ExConsole : IDisposable
 
     private void PushPointerEvent(PointerEvent pointerEvent)
     {
-        if (_pointerEvents.Count == 0)
+        if (_pointerEvents.IsEmpty)
             _firstMouseTime = pointerEvent.TimeStamp;
         _pointerEvents.Enqueue(pointerEvent);
 
         var diff = pointerEvent.TimeStamp - _firstMouseTime;
-        if (diff > MaxClick && pointerEvent.PointerEventType == PointerEventType.Released)
+        if (diff > MaxClick && 
+            pointerEvent.PointerEventType == PointerEventType.Released)
+            ParseMouseEvents();
+        else if (pointerEvent.PointerEventType == PointerEventType.Released &&
+                 MouseEventsDoubleClick())
             ParseMouseEvents();
     }
 
-    // Attempt to locate any click/double clicks
-    // Called after MaxClick ms, or button released after MaxClick ms
+    /// <summary>
+    ///     Specific check if double clicked. No need to wait for full MaxClick
+    /// </summary>
+    private bool MouseEventsDoubleClick()
+    {
+        var pointerEvents = _pointerEvents.ToArray();
+
+        for (int btn = 1; btn <= 3; btn++)
+        {
+            var count = pointerEvents.Count(
+                pe => pe.PointerEventType == PointerEventType.Released && pe.ButtonId == btn);
+            if (count > 1)
+                return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    ///     Attempt to locate any click/double clicks
+    ///     Called after MaxClick ms, or button released after MaxClick ms
+    /// </summary>
     private void ParseMouseEvents()
     {
         if (_pointerEvents.IsEmpty)

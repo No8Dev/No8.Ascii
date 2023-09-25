@@ -1,6 +1,10 @@
 ﻿
 # Arrange Elements
 
+## Overview
+
+This code has taken heady inspiration from YogaLayout.com
+
 ### step 1
 **Calculate values for remainder of algorithm**
 

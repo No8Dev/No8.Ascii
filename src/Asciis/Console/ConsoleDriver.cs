@@ -154,6 +154,5 @@ public abstract class ConsoleDriver
 
     protected virtual void RaiseTerminalResized(Size size) => 
         TerminalResized?.Invoke(this, size);
-
 }
 

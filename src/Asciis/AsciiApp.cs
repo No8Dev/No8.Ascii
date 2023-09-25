@@ -51,7 +51,12 @@ public class AsciiApp : IApp
         InitConfig(args);
 
         ConsoleDriver = ConsoleDriver.Create(Services);
-        ExCon = ExConsole.Create(options => { options.ConsoleDriver = ConsoleDriver; });
+        ExCon = ExConsole.Create(options => 
+        { 
+            options.ConsoleDriver = ConsoleDriver;
+            options.StartFullScreen = true;
+            options.StopOnControlC = true;
+        });
         
         InitServices();
         System.Console.OutputEncoding = Encoding.UTF8;
@@ -232,6 +237,11 @@ public class AsciiApp : IApp
     /// </returns>
     public Task StartAsync(CancellationToken cancellationToken = default)
     {
+        // Force arrange for first update
+        Canvas.Resize(ConsoleDriver.Cols, ConsoleDriver.Rows);
+        foreach (var window in _windows.ToArray())
+            ElementArrange.Calculate(window, ConsoleDriver.Cols, ConsoleDriver.Rows);
+
         return Task.Run(Start, cancellationToken);
     }
 
@@ -240,10 +250,20 @@ public class AsciiApp : IApp
     /// </summary>
     private void Start()
     {
+        ExCon.Run();
+        
         _active = true;
         _screenTick = DateTime.Now;
         while (_active)
+        {
             OneIteration();
+
+            if (!ExCon.Alive)
+                break;
+        }
+
+        //ExCon.Stop();
+        //ExCon.Screen.ScreenNormal();
     }
 
     /// <summary>
@@ -298,6 +318,8 @@ public class AsciiApp : IApp
         {
             window.OnUpdate(elapsedSeconds);
 
+            if (!_active) break;
+
             if (window.NeedsLayout || NeedsLayout)
             {
                 ElementArrange.Calculate(window, ConsoleDriver.Cols, ConsoleDriver.Rows);
@@ -306,6 +328,7 @@ public class AsciiApp : IApp
                 window.NeedsPainting = true;
                 Canvas.Clear();
             }
+           
             if (window.NeedsPainting || NeedsLayout || NeedsPainting)
             {
                 window.OnDraw(Canvas, window.Layout.Bounds);
@@ -320,7 +343,7 @@ public class AsciiApp : IApp
         NeedsPainting = false;
         NeedsLayout   = false;
 
-        if (_invalidateConsole)
+        if (_invalidateConsole && _active)
         {
             _invalidateConsole = false;
             ConsoleDriver.WriteConsole(Canvas);

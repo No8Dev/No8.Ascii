@@ -12,6 +12,8 @@ public class ConsoleDriverGeneric : ConsoleDriver
     public ConsoleDriverGeneric()
     {
         Clipboard = new ClipboardWindows();
+        Rows = System.Console.WindowHeight;
+        Cols = System.Console.WindowWidth;
     }
 
     public override Encoding InputEncoding
@@ -34,11 +36,7 @@ public class ConsoleDriverGeneric : ConsoleDriver
     {
         if (string.IsNullOrEmpty(str))
             return;
-        
-        //lock (_outLock)
-        {
-            System.Console.Write(str);
-        }
+        System.Console.Out.Write(str);
     }
 
     public override void WriteConsole(Canvas canvas)

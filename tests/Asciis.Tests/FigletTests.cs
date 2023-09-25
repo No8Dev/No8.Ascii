@@ -433,7 +433,7 @@ _/    _/    _/  _/    _/  _/_/      _/    _/      _/    _/  _/    _/  _/_/_/_/  
             sb.AppendWithCRLF(Figlet.Render(fontName, fontName, SmushMode.Kern));
         }
 
-        System.Console.Write(sb.ToString());
+        System.Console.Out.Write(sb.ToString());
         Assert.True(true);
     }
 

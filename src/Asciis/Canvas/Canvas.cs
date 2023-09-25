@@ -224,6 +224,9 @@ public class Canvas
 
     private bool IsLine(Rune rune)
     {
+        if (rune == DefaultChar)
+            return false;
+        
         return LineDrawSet.DoubleLine.Contains(rune) ||
                LineDrawSet.SingleLine.Contains(rune) ||
                LineDrawSet.RoundLine.Contains(rune) ||
@@ -636,6 +639,9 @@ public class Canvas
         var oldGlyph = this[y, x];
         var oldCh = oldGlyph.Chr;
 
+        if (oldCh == ch)
+            return ch;
+        
         if (IsLine(oldCh))
         {
             if (lineSet == LineSet.Single && LineDrawSet.SingleLine.Contains(oldCh))

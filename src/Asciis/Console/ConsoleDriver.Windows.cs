@@ -531,10 +531,12 @@ public sealed class ConsoleDriverWindows : ConsoleDriver
         if (string.IsNullOrEmpty(str))
             return;
 
-        lock (System.Console.Out)
-        {
-            Kernel32.WriteConsole(OutputHandle, str, (uint)str.Length, out var written, IntPtr.Zero);
-        }
+        System.Console.Out.Write(str);
+        
+        // lock (System.Console.Out)
+        // {
+        //     Kernel32.WriteConsole(OutputHandle, str, (uint)str.Length, out var written, IntPtr.Zero);
+        // }
     }
 
     public override void WriteConsole(Canvas canvas)
@@ -618,7 +620,7 @@ public sealed class ConsoleDriverWindows : ConsoleDriver
                 }
             }
         }
-        Write(sb.ToString());
+        System.Console.Out.Write(sb.ToString());
         Debug.WriteLine($"ConsoleChanged( {count} )");
 
 #endif

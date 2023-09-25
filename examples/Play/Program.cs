@@ -17,7 +17,7 @@ var runningTask = exCon.Run();
 // do
 // {
      exCon.Screen.Clear();
-     Console.WriteLine(Figlet.Render("Play"));
+     exCon.Write(Figlet.Render("Play"));
 //
 //
 //     var key = await con.ReadKey(TimeSpan.FromSeconds(10));
@@ -54,7 +54,7 @@ async void OnConOnKeyAvailable(object? sender, ConsoleKeyInfo key)
     
         case '1':
             exCon.FullScreen();
-            exCon.Send(Figlet.Render("Play"));
+            exCon.Write(Figlet.Render("Play"));
             break;
         case '!':
             exCon.NormalScreen();
@@ -68,43 +68,43 @@ async void OnConOnKeyAvailable(object? sender, ConsoleKeyInfo key)
             break;
         
         case '3':
-            exCon.Send(TerminalSeq.ControlSeq.SelectLocatorEvents(1,3));
-            exCon.Send(TerminalSeq.ControlSeq.EnableLocatorReporting(1, 2));
+            exCon.Write(TerminalSeq.ControlSeq.SelectLocatorEvents(1,3));
+            exCon.Write(TerminalSeq.ControlSeq.EnableLocatorReporting(1, 2));
             break;
         case '#':
-            exCon.Send(TerminalSeq.ControlSeq.EnableLocatorReporting(0, 0));
-            exCon.Send(TerminalSeq.ControlSeq.SelectLocatorEvents(0));
+            exCon.Write(TerminalSeq.ControlSeq.EnableLocatorReporting(0, 0));
+            exCon.Write(TerminalSeq.ControlSeq.SelectLocatorEvents(0));
             break;
         
         case '4':
-            exCon.Send(TerminalSeq.Device.RequestTermInfoString("u8"));
+            exCon.Write(TerminalSeq.Device.RequestTermInfoString("u8"));
             break;
         case '$':
-            exCon.Send(TerminalSeq.Device.RequestTermInfoStringRaw("u8"));
+            exCon.Write(TerminalSeq.Device.RequestTermInfoStringRaw("u8"));
             break;
         case '5':
-            exCon.Send(TerminalSeq.ControlSeq.DeviceStatusReport(5));
+            exCon.Write(TerminalSeq.ControlSeq.DeviceStatusReport(5));
             break;
         case '%':
-            exCon.Send(TerminalSeq.ControlSeq.DeviceStatusReport(6));
+            exCon.Write(TerminalSeq.ControlSeq.DeviceStatusReport(6));
             break;
         case '6':
-            exCon.Send(TerminalSeq.ControlSeq.DeviceStatusReportDec(6));    // Cursor position
+            exCon.Write(TerminalSeq.ControlSeq.DeviceStatusReportDec(6));    // Cursor position
             break;
         case '^':
             break;
         case '7':
-            exCon.Send(TerminalSeq.ControlSeq.EnableLocatorReporting(1, 2));
+            exCon.Write(TerminalSeq.ControlSeq.EnableLocatorReporting(1, 2));
             break;
         case '&':
             break;
         case '8':
-            exCon.Send(TerminalSeq.ControlSeq.DeviceStatusReportDec(53));    // Locator status
+            exCon.Write(TerminalSeq.ControlSeq.DeviceStatusReportDec(53));    // Locator status
             break;
         case '*':
             break;
         case '9':
-            exCon.Send(TerminalSeq.ControlSeq.RequestTerminalParameters(""));
+            exCon.Write(TerminalSeq.ControlSeq.RequestTerminalParameters(""));
             break;
         case '(':
             break;
@@ -119,17 +119,17 @@ async void OnConOnKeyAvailable(object? sender, ConsoleKeyInfo key)
         
         
         case 'c':
-            exCon.Send(TerminalSeq.ControlSeq.DeviceStatusReport(6)); // Cursor position
+            exCon.Write(TerminalSeq.ControlSeq.DeviceStatusReport(6)); // Cursor position
             break;
         case 'd':
-            exCon.Send("\x1b[1;2'z");
+            exCon.Write("\x1b[1;2'z");
             break;
         
         case 'f':
-            exCon.Send(TerminalSeq.ControlSeq.PrivateModeSetDec(1004)); // Send FocusIn/FocusOut events, xterm.
+            exCon.Write(TerminalSeq.ControlSeq.PrivateModeSetDec(1004)); // Send FocusIn/FocusOut events, xterm.
             break;
         case 'F':
-            exCon.Send(TerminalSeq.ControlSeq.PrivateResetDec(1004)); // Stop FocusIn/FocusOut events, xterm.
+            exCon.Write(TerminalSeq.ControlSeq.PrivateResetDec(1004)); // Stop FocusIn/FocusOut events, xterm.
             break;
         
         case 'h':
@@ -144,20 +144,20 @@ async void OnConOnKeyAvailable(object? sender, ConsoleKeyInfo key)
             break;
         
         case 'm':
-            exCon.Send(TerminalSeq.ControlSeq.PrivateModeSetDec(1003)); // Use All Motion Mouse Tracking, xterm. See the section Any-event tracking.
+            exCon.Write(TerminalSeq.ControlSeq.PrivateModeSetDec(1003)); // Use All Motion Mouse Tracking, xterm. See the section Any-event tracking.
             break;
         case 'M':
-            exCon.Send(TerminalSeq.ControlSeq.PrivateResetDec(1003)); // Stop All Motion Mouse Tracking, xterm. See the section Any-event tracking.
+            exCon.Write(TerminalSeq.ControlSeq.PrivateResetDec(1003)); // Stop All Motion Mouse Tracking, xterm. See the section Any-event tracking.
             break;
         
         case 'q':
             exCon.Stop();
             break;
         case 'r':
-            exCon.Send(TerminalSeq.ControlSeq.SoftTerminalReset);
+            exCon.Write(TerminalSeq.ControlSeq.SoftTerminalReset);
             break;
         case 's':
-            exCon.Send(TerminalSeq.ControlSeq.ClearScreen);
+            exCon.Write(TerminalSeq.ControlSeq.ClearScreen);
             break;
         case 't':
             //var aa = await exCon.Post(TerminalSeq.ControlSeq.WindowManipulation("11")); // Report xterm window state. 2 = minimized
@@ -171,13 +171,13 @@ async void OnConOnKeyAvailable(object? sender, ConsoleKeyInfo key)
             //var ai = await exCon.Post(TerminalSeq.ControlSeq.WindowManipulation("19")); // Report the size of the screen in characters.
             break;
         case 'w':
-            exCon.Send("\x1b[?3h");   // 132 columns
+            exCon.Write("\x1b[?3h");   // 132 columns
             break;
         case 'x':
-            exCon.Send("\x1b[?3l");   // 80 columns
+            exCon.Write("\x1b[?3l");   // 80 columns
             break;
         default:
-            Console.WriteLine($"Unknown command: {ch}");
+            exCon.Write($"Unknown command: {ch}");
             break;
     }
 }
@@ -196,10 +196,10 @@ void OnConOnSequenceAvailable(object? sender, string s)
 
 void ShowHighlight(int top, int left, int bottom, int right)
 {
-    exCon.Send(TerminalSeq.Cursor.Set(top, left)); Console.Write("+");
-    exCon.Send(TerminalSeq.Cursor.Set(bottom, left)); Console.Write("+");
-    exCon.Send(TerminalSeq.Cursor.Set(top, right)); Console.Write("+");
-    exCon.Send(TerminalSeq.Cursor.Set(bottom, right)); Console.Write("+");
+    exCon.Write(TerminalSeq.Cursor.Set(top, left)); exCon.Write("+");
+    exCon.Write(TerminalSeq.Cursor.Set(bottom, left)); exCon.Write("+");
+    exCon.Write(TerminalSeq.Cursor.Set(top, right)); exCon.Write("+");
+    exCon.Write(TerminalSeq.Cursor.Set(bottom, right)); exCon.Write("+");
 }
 
 // MenuItem[] menu =
